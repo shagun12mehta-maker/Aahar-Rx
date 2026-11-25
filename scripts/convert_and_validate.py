@@ -126,8 +126,16 @@ def validate_and_convert(csv_path: str, json_out_path: str):
 
 if __name__ == "__main__":
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    default_csv = os.path.join(current_dir, "clinical_rules.csv")
-    default_json = os.path.join(current_dir, "verified_rules.json")
+    repo_root = os.path.abspath(os.path.join(current_dir, ".."))
+    
+    # Check data/ directory first, fallback to current dir
+    candidate_csv = os.path.join(repo_root, "data", "clinical_rules.csv")
+    if os.path.exists(candidate_csv):
+        default_csv = candidate_csv
+        default_json = os.path.join(repo_root, "data", "verified_rules.json")
+    else:
+        default_csv = os.path.join(current_dir, "clinical_rules.csv")
+        default_json = os.path.join(current_dir, "verified_rules.json")
 
     success = validate_and_convert(default_csv, default_json)
     if not success:
