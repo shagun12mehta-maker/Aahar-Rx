@@ -1,0 +1,405 @@
+[
+  {
+    "rule_id": "RULE-THY-001",
+    "drug_class": "Thyroid Hormone Replacements",
+    "active_salts": [
+      "Levothyroxine Sodium"
+    ],
+    "interfering_nutrients": [
+      "Calcium",
+      "Tannins",
+      "Phytates",
+      "Soy Isoflavones"
+    ],
+    "culprit_indian_foods": [
+      "Morning Masala Chai with Milk",
+      "Dahi / Curd",
+      "Cow/Buffalo Milk",
+      "Soya Vadi"
+    ],
+    "severity": "HIGH",
+    "interaction_type": "Chelation & Mucosal Binding",
+    "safe_time_gap_hours": {
+      "before_food_hours": 1.0,
+      "after_food_hours": 4.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 38.0,
+      "t_max_delay_hours": 1.5
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Morning Masala Chai / Milk",
+        "substitute": "Lukewarm water with lemon (defer chai by 60 mins)",
+        "dietary_rationale": "Leaves acidic gastric environment uninhibited for proper dissolution"
+      }
+    ],
+    "citations": [
+      {
+        "source": "OpenFDA",
+        "reference_id": "Drug Label Levothyroxine NDA 021116"
+      },
+      {
+        "source": "ICMR-NIN",
+        "reference_id": "IFCT 2017 Table D"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "rule_id": "RULE-IRO-002",
+    "drug_class": "Iron Supplements (Hematinics)",
+    "active_salts": [
+      "Ferrous Ascorbate",
+      "Ferrous Sulphate",
+      "Ferrous Fumarate"
+    ],
+    "interfering_nutrients": [
+      "Tannins",
+      "Polyphenols",
+      "Phytic Acid",
+      "Calcium"
+    ],
+    "culprit_indian_foods": [
+      "Masala Chai",
+      "Filter Coffee",
+      "Palak Paneer",
+      "Bran Atta Roti"
+    ],
+    "severity": "HIGH",
+    "interaction_type": "Precipitation & Insoluble Complexation",
+    "safe_time_gap_hours": {
+      "before_food_hours": 1.0,
+      "after_food_hours": 2.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 62.0,
+      "t_max_delay_hours": 2.0
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Post-meal Chai or Filter Coffee",
+        "substitute": "Freshly squeezed Nimbu Pani or Amla Juice",
+        "dietary_rationale": "Ascorbic acid reduces Fe3+ to soluble Fe2+ boosting uptake 3x"
+      }
+    ],
+    "citations": [
+      {
+        "source": "ICMR-NIN",
+        "reference_id": "IFCT 2017 Section 3"
+      },
+      {
+        "source": "DrugBank",
+        "reference_id": "DB01592"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "rule_id": "RULE-ANT-003",
+    "drug_class": "Fluoroquinolone Antibiotics",
+    "active_salts": [
+      "Ciprofloxacin",
+      "Levofloxacin",
+      "Ofloxacin",
+      "Norfloxacin"
+    ],
+    "interfering_nutrients": [
+      "Calcium",
+      "Magnesium",
+      "Aluminium cations"
+    ],
+    "culprit_indian_foods": [
+      "Doodh (Milk)",
+      "Chaas / Buttermilk",
+      "Dahi",
+      "Paneer"
+    ],
+    "severity": "HIGH",
+    "interaction_type": "Divalent & Trivalent Cation Chelation",
+    "safe_time_gap_hours": {
+      "before_food_hours": 2.0,
+      "after_food_hours": 4.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 52.0,
+      "t_max_delay_hours": 2.5
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Chaas / Lassi taken with lunch",
+        "substitute": "Jaljeera or Coconut water or clear Veg Shorba",
+        "dietary_rationale": "Avoids high chelation-prone Ca2+ ions while keeping patient hydrated"
+      }
+    ],
+    "citations": [
+      {
+        "source": "OpenFDA",
+        "reference_id": "Ciprofloxacin NDA 019537"
+      },
+      {
+        "source": "AAC",
+        "reference_id": "DOI: 10.1128/AAC.36.4.846"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "rule_id": "RULE-BLD-004",
+    "drug_class": "Vitamin K Antagonists (Anticoagulants)",
+    "active_salts": [
+      "Warfarin Sodium",
+      "Acenocoumarol"
+    ],
+    "interfering_nutrients": [
+      "Phylloquinone (Vitamin K1)"
+    ],
+    "culprit_indian_foods": [
+      "Sarson ka Saag",
+      "Palak Paneer",
+      "Methi Thepla",
+      "Green Chutney"
+    ],
+    "severity": "HIGH",
+    "interaction_type": "Pharmacodynamic Antagonism",
+    "safe_time_gap_hours": {
+      "before_food_hours": 0.0,
+      "after_food_hours": 0.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 10.0,
+      "t_max_delay_hours": 0.0
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Heavy Sarson ka Saag / Methi Bhaji",
+        "substitute": "Lauki (Bottle Gourd) or Bhindi sabzi",
+        "dietary_rationale": "Low Vitamin K content prevents INR drop and thrombosis"
+      }
+    ],
+    "citations": [
+      {
+        "source": "ICMR-NIN",
+        "reference_id": "IFCT 2017 Table A"
+      },
+      {
+        "source": "AHA",
+        "reference_id": "Guidelines Circulation 2018"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "rule_id": "RULE-HTN-005",
+    "drug_class": "Calcium Channel Blockers",
+    "active_salts": [
+      "Amlodipine",
+      "Nifedipine",
+      "Felodipine"
+    ],
+    "interfering_nutrients": [
+      "Furanocoumarins",
+      "Flavonoids (Naringin)"
+    ],
+    "culprit_indian_foods": [
+      "Mosambi (Sweet Lime) Juice",
+      "Chakotra (Pomelo)"
+    ],
+    "severity": "MODERATE",
+    "interaction_type": "Intestinal CYP3A4 Inhibition",
+    "safe_time_gap_hours": {
+      "before_food_hours": 4.0,
+      "after_food_hours": 12.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": -45.0,
+      "t_max_delay_hours": 0.5
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Chakotra / Large glass of Mosambi Juice",
+        "substitute": "Tender Coconut Water or Fresh Apple slices",
+        "dietary_rationale": "Avoids intestinal CYP3A4 enzyme inhibition ensuring predictable blood pressure"
+      }
+    ],
+    "citations": [
+      {
+        "source": "OpenFDA",
+        "reference_id": "Amlodipine NDA 019787"
+      },
+      {
+        "source": "CMAJ",
+        "reference_id": "DOI: 10.1503/cmaj.120951"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "rule_id": "RULE-DIA-006",
+    "drug_class": "Biguanides (Anti-Diabetic)",
+    "active_salts": [
+      "Metformin Hydrochloride"
+    ],
+    "interfering_nutrients": [
+      "Simple Sugars",
+      "Ethanol / Alcohol"
+    ],
+    "culprit_indian_foods": [
+      "Gulab Jamun",
+      "Sweetened Chai",
+      "Maida Naan",
+      "Alcoholic drinks"
+    ],
+    "severity": "MODERATE",
+    "interaction_type": "GI Irritation & Metabolic Disruption",
+    "safe_time_gap_hours": {
+      "before_food_hours": 0.0,
+      "after_food_hours": 0.1
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 12.0,
+      "t_max_delay_hours": 0.5
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Taking tablet on empty stomach or with sweet tea",
+        "substitute": "Take mid-meal with high-fiber Indian thali (Dal + Sabzi + Roti)",
+        "dietary_rationale": "Food buffers GI tract; fiber stabilizes postprandial glucose surges"
+      }
+    ],
+    "citations": [
+      {
+        "source": "ADA",
+        "reference_id": "Standards of Care Diabetes 2024"
+      },
+      {
+        "source": "OpenFDA",
+        "reference_id": "NDA 020357"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "rule_id": "RULE-HYP-007",
+    "drug_class": "ACE Inhibitors & ARBs",
+    "active_salts": [
+      "Telmisartan",
+      "Losartan",
+      "Enalapril",
+      "Ramipril"
+    ],
+    "interfering_nutrients": [
+      "Potassium (K+)"
+    ],
+    "culprit_indian_foods": [
+      "Sendha Namak (Low Sodium Salt)",
+      "Coconut Water",
+      "Bananas"
+    ],
+    "severity": "MODERATE",
+    "interaction_type": "Pharmacodynamic Synergistic Hyperkalemia",
+    "safe_time_gap_hours": {
+      "before_food_hours": 2.0,
+      "after_food_hours": 2.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 5.0,
+      "t_max_delay_hours": 0.0
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Sendha Namak (KCl substitutes) & Daily 2+ Coconut waters",
+        "substitute": "Standard iodized salt in moderation (<5g/day) + plain Spiced Chaas",
+        "dietary_rationale": "Prevents lethal potassium spikes above 5.5 mEq/L"
+      }
+    ],
+    "citations": [
+      {
+        "source": "ICMR-NIN",
+        "reference_id": "IFCT 2017 Table G"
+      },
+      {
+        "source": "Indian",
+        "reference_id": "Heart Journal 2021 Consensus"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "rule_id": "RULE-LIP-008",
+    "drug_class": "HMG-CoA Reductase Inhibitors (Statins)",
+    "active_salts": [
+      "Atorvastatin",
+      "Simvastatin",
+      "Rosuvastatin"
+    ],
+    "interfering_nutrients": [
+      "Furanocoumarins",
+      "Saturated Trans Fats"
+    ],
+    "culprit_indian_foods": [
+      "Pomelo juice",
+      "Deep-fried pakoras / Poori (Vanaspati)"
+    ],
+    "severity": "MODERATE",
+    "interaction_type": "Metabolic CYP3A4 Competition & Lipid Overload",
+    "safe_time_gap_hours": {
+      "before_food_hours": 2.0,
+      "after_food_hours": 4.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": -30.0,
+      "t_max_delay_hours": 1.0
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Concentrated citrus juice or deep-fried snacks",
+        "substitute": "Whole orange / Apple slices + Roasted Makhana",
+        "dietary_rationale": "Soluble fiber binds cholesterol without blocking hepatic clearance"
+      }
+    ],
+    "citations": [
+      {
+        "source": "OpenFDA",
+        "reference_id": "Lipitor NDA 020702"
+      },
+      {
+        "source": "Circulation",
+        "reference_id": "DOI: 10.1161/CIR.0000000000000618"
+      }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Clinical Dietitian / MD Reviewer",
+      "status": "APPROVED"
+    }
+  }
+]
