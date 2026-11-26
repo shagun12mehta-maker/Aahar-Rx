@@ -1,0 +1,485 @@
+"""Natural English, Hindi, and Marathi UI & clinical phrasing bundle for Member 3."""
+
+from __future__ import annotations
+
+import re
+from typing import Any
+
+SUPPORTED_LANGUAGES: tuple[str, ...] = ("en", "hi", "mr")
+
+_EMOJI_RE = re.compile(
+    "[\U0001F300-\U0001FAFF\u2600-\u27BF\uFE0F]",
+    flags=re.UNICODE,
+)
+
+# Natural, respectful, elderly-accessible clinical phrasing (zero exclamation marks, zero emojis, sentence case).
+UI_TRANSLATIONS: dict[str, dict[str, Any]] = {
+    "en": {
+        "meta": {"code": "en", "label": "English", "native_label": "English", "speech_lang": "en-IN"},
+        "brand": {
+            "name": "Aahar-Rx",
+            "tagline": "Food-drug timing and safe kitchen guidance",
+            "blind_notice": "Timing and dietary guidance only. Never skip, alter, or replace prescribed medicine doses without consulting your doctor or pharmacist.",
+            "dpdp_badge": "In-memory processing only",
+        },
+        "nav": {
+            "scan": "Scan",
+            "confirm": "Confirm",
+            "timetable": "Timetable",
+            "curve": "Absorption curve",
+            "qr_pass": "QR health pass",
+            "elderly_mode": "Large print",
+            "elderly_on": "Large print on",
+            "language": "Language",
+        },
+        "consent": {
+            "title": "Privacy notice before scanning (DPDP Act 2023)",
+            "body": "Medicine strips and meal photos are analyzed temporarily in memory for interaction timing. Raw images are never saved on disk or shared externally.",
+            "checkbox": "I understand and consent to temporary in-memory scan analysis",
+            "status_granted": "Consent recorded for this session",
+            "status_required": "Consent required before scanning",
+        },
+        "scan": {
+            "heading": "Scan medicine and meal",
+            "subheading": "Select or upload a medicine strip and meal photo, or search by brand name",
+            "strip_section": "Medicine strip or prescription lookup",
+            "meal_section": "Meal plate capture",
+            "upload_strip": "Upload strip photo",
+            "upload_meal": "Upload meal photo",
+            "search_placeholder": "Search brand or salt",
+            "preset_label": "Stage demo presets",
+            "dose_time_label": "Scheduled dose time",
+            "meal_slot_label": "Meal window",
+            "run_scan": "Review scanned items",
+            "live_bridge_hint": "Local Smart Scan bridge connected",
+            "client_mode_hint": "Offline PWA mode active",
+            "presets": {
+                "thyroid_chai": "Thyronorm 50 mcg + Morning Masala Chai",
+                "iron_palak": "Orofer-XT + Palak Paneer and Masala Chai",
+                "antibiotic_chaas": "Ciplox 500 mg + Chaas / Buttermilk",
+                "warfarin_saag": "Warf 5 mg + Sarson ka Saag",
+                "amlodipine_mosambi": "Amlong 5 mg + Sweet Lime (Mosambi) Juice",
+                "blur_retry": "Simulated Stage Lighting Blur (Retry UX)",
+            },
+        },
+        "confirm": {
+            "heading": "Confirm medicine and foods",
+            "subheading": "AI detections require your confirmation before clinical rules are checked",
+            "quality_pass": "Image clarity check passed",
+            "quality_retry": "Retake requested",
+            "retry_guidance": "Photo looks blurry under low light. Hold the camera 15-20 cm away, steady your hand, and tap to focus before retaking, or use manual search.",
+            "retry_action": "Back to Scan",
+            "med_card_title": "Resolved active medicine",
+            "med_strength": "Strength",
+            "med_class": "Therapeutic class",
+            "meal_card_title": "Detected dishes on plate",
+            "milk_toggle": "Contains dairy milk",
+            "milk_on": "Milk included (calcium + tannins active)",
+            "milk_off": "Black tea only (no milk calcium)",
+            "add_dish": "Add another Indian food",
+            "add_button": "Add dish",
+            "confirm_cta": "Confirm and build timetable",
+            "confirmed_badge": "Confirmed by patient",
+            "pending_badge": "Awaiting confirmation",
+        },
+        "timetable": {
+            "heading": "Safe time-gap timetable",
+            "subheading": "Personal timing schedule and Ghar-Ki-Rasoi kitchen swaps from verified rules",
+            "summary_conflicts": "Detected interactions",
+            "summary_safe_gap": "Required food gap",
+            "summary_impact": "Absorption shift",
+            "dose_at": "Dose scheduled",
+            "avoid_until": "Avoid conflicting items until",
+            "safe_window": "Safe for milk chai or restricted food",
+            "mechanism_label": "Why this happens",
+            "ifct_label": "ICMR-NIN IFCT 2017 evidence",
+            "swaps_label": "Ghar-Ki-Rasoi kitchen swaps",
+            "swap_culprit": "Avoid at dose time",
+            "swap_use": "Safe alternative",
+            "voice_section": "Elderly voice reminder",
+            "play_voice": "Play voice reminder",
+            "pause_voice": "Pause audio",
+            "script_label": "Spoken guidance script",
+            "before_food": "h before meal",
+            "after_food": "h after meal",
+            "open_curve": "Inspect absorption curve",
+            "no_conflict": "No direct rule conflict matched for this selection",
+        },
+        "curve": {
+            "heading": "Drug absorption curve",
+            "subheading": "12-hour pharmacokinetic comparison from Member 2 clinical rule parameters",
+            "legend_normal": "With safe time gap (100% baseline)",
+            "legend_interfered": "Taken with conflicting meal",
+            "legend_threshold": "Minimum effective level (70%)",
+            "legend_ceiling": "Upper safety limit (115%)",
+            "metric_drop": "Bioavailability change",
+            "metric_tmax": "Peak time shift (Tmax)",
+            "metric_gap": "Safe pre / post gap",
+            "metric_severity": "Clinical severity",
+            "axis_x": "Hours after taking dose",
+            "axis_y": "Active blood availability (%)",
+            "elevation_note": "CYP3A4 inhibition slows drug breakdown and raises blood concentration above normal levels.",
+            "drop_note": "Binding or chelation blocks intestinal uptake and lowers active drug reaching the bloodstream.",
+            "listen_walkthrough": "Listen to curve explanation",
+        },
+        "qr": {
+            "heading": "1-Click QR health pass",
+            "subheading": "Offline-scannable schedule card for family caregivers, pharmacists, and doctors",
+            "generate_note": "Generated locally on device. Contains timing guidance only and zero photos.",
+            "pass_id": "Pass reference",
+            "active_salts": "Medications",
+            "timing_rule": "Safe meal window",
+            "recommended_swaps": "Approved swaps",
+            "download_svg": "Download QR pass (SVG)",
+            "print_pass": "Print health pass",
+            "speak_pass": "Read health pass aloud",
+            "toggle_json": "Inspect QR JSON payload",
+            "dpdp_footer": "Zero raw images stored (DPDP Act 2023 compliant)",
+        },
+        "meal_slots": {
+            "early_morning_empty_stomach": "Early morning (empty stomach)",
+            "breakfast": "Breakfast",
+            "mid_morning": "Mid-morning",
+            "lunch": "Lunch",
+            "evening_chai_snack": "Evening chai / snack",
+            "dinner": "Dinner",
+            "bedtime": "Bedtime",
+        },
+        "severity": {
+            "HIGH": "High priority",
+            "MODERATE": "Moderate caution",
+            "LOW": "Low risk",
+        },
+    },
+    "hi": {
+        "meta": {"code": "hi", "label": "Hindi", "native_label": "हिन्दी", "speech_lang": "hi-IN"},
+        "brand": {
+            "name": "आहार-Rx",
+            "tagline": "दवा और भोजन के सही समय की सुरक्षित जानकारी",
+            "blind_notice": "यह ऐप केवल दवा और भोजन के सही समय की जानकारी देता है। अपने डॉक्टर या फ़ार्मासिस्ट की सलाह के बिना दवा की खुराक न बदलें और न ही बंद करें।",
+            "dpdp_badge": "तस्वीरें सुरक्षित नहीं रखी जातीं",
+        },
+        "nav": {
+            "scan": "स्कैन करें",
+            "confirm": "पुष्टि करें",
+            "timetable": "समय सारणी",
+            "curve": "दवा असर ग्राफ़",
+            "qr_pass": "QR हेल्थ पास",
+            "elderly_mode": "बड़े अक्षर",
+            "elderly_on": "बड़े अक्षर चालू",
+            "language": "भाषा",
+        },
+        "consent": {
+            "title": "स्कैन करने से पहले गोपनीयता अनुमति (DPDP Act 2023)",
+            "body": "दवा के पत्ते और भोजन की तस्वीर की जांच केवल अस्थायी रूप से मेमोरी में की जाती है। आपकी कोई भी फोटो फ़ोन या सर्वर पर सेव नहीं की जाती।",
+            "checkbox": "मैं केवल अस्थायी जांच के लिए अपनी सहमति देता / देती हूँ",
+            "status_granted": "इस सत्र के लिए सहमति प्राप्त",
+            "status_required": "स्कैन के लिए सहमति आवश्यक है",
+        },
+        "scan": {
+            "heading": "दवा और भोजन की जांच",
+            "subheading": "दवा का पत्ता या भोजन चुनें, अपलोड करें, अथवा नाम से खोजें",
+            "strip_section": "दवा का पत्ता या नाम खोजें",
+            "meal_section": "भोजन की थाली चुनें",
+            "upload_strip": "दवा की फोटो चुनें",
+            "upload_meal": "भोजन की फोटो चुनें",
+            "search_placeholder": "दवा या सॉल्ट का नाम लिखें",
+            "preset_label": "मरीज़ के उदाहरण चुनें",
+            "dose_time_label": "दवा लेने का समय",
+            "meal_slot_label": "भोजन का समय",
+            "run_scan": "दवा और भोजन की जांच करें",
+            "live_bridge_hint": "लोकल स्मार्ट स्कैन जुड़ा है",
+            "client_mode_hint": "ऑफ़लाइन ऐप मोड सक्रिय",
+            "presets": {
+                "thyroid_chai": "थायरोनॉर्म 50 mcg + सुबह की दूध वाली चाय",
+                "iron_palak": "ओरोफ़र-XT (आयरन) + पालक पनीर और चाय",
+                "antibiotic_chaas": "सिप्लॉक्स 500 mg + छाछ / दही",
+                "warfarin_saag": "वारफ़ 5 mg + सरसों का साग",
+                "amlodipine_mosambi": "एमलॉन्ग 5 mg + मौसंबी का जूस",
+                "blur_retry": "धुंधली फोटो का परीक्षण (दोबारा फोटो निर्देश)",
+            },
+        },
+        "confirm": {
+            "heading": "दवा और भोजन की पुष्टि करें",
+            "subheading": "समय सारणी बनाने से पहले कृपया सूची की जांच और पुष्टि करें",
+            "quality_pass": "फोटो स्पष्ट और पढ़ने योग्य है",
+            "quality_retry": "कृपया साफ फोटो दोबारा लें",
+            "retry_guidance": "कम रोशनी के कारण फोटो धुंधली आई है। कैमरा 15 से 20 सेमी दूर स्थिर रखकर दोबारा फोटो लें या ऊपर से दवा का नाम चुनें।",
+            "retry_action": "वापस स्कैन पर जाएं",
+            "med_card_title": "पहचानी गई दवा",
+            "med_strength": "मात्रा",
+            "med_class": "दवा वर्ग",
+            "meal_card_title": "थाली में पहचाने गए खाद्य पदार्थ",
+            "milk_toggle": "चाय में दूध शामिल है",
+            "milk_on": "दूध वाली चाय (कैल्शियम और टैनिन सक्रिय)",
+            "milk_off": "काली चाय (दूध का कैल्शियम नहीं)",
+            "add_dish": "थाली में अन्य भारतीय भोजन जोड़ें",
+            "add_button": "जोड़ें",
+            "confirm_cta": "पुष्टि करें और समय सारणी देखें",
+            "confirmed_badge": "मरीज़ द्वारा पुष्ट",
+            "pending_badge": "पुष्टि शेष है",
+        },
+        "timetable": {
+            "heading": "दवा और भोजन की सुरक्षित समय सारणी",
+            "subheading": "प्रमाणित नियमों पर आधारित समय अंतराल और घर की रसोई के आसान विकल्प",
+            "summary_conflicts": "मिली हुई सावधानियाँ",
+            "summary_safe_gap": "ज़रूरी समय अंतराल",
+            "summary_impact": "दवा के असर में बदलाव",
+            "dose_at": "दवा का समय",
+            "avoid_until": "इस समय तक परहेज़ रखें",
+            "safe_window": "चाय या मुख्य भोजन का सुरक्षित समय",
+            "mechanism_label": "वैज्ञानिक कारण",
+            "ifct_label": "ICMR-NIN IFCT 2017 पोषण प्रमाण",
+            "swaps_label": "घर की रसोई के सुरक्षित विकल्प",
+            "swap_culprit": "दवा के पास न लें",
+            "swap_use": "बेहतर घरेलू विकल्प",
+            "voice_section": "बोलकर याद दिलाने वाली आवाज़",
+            "play_voice": "आवाज़ में सुनें",
+            "pause_voice": "आवाज़ रोकें",
+            "script_label": "सरल भाषा संदेश",
+            "before_food": "घंटे भोजन से पहले",
+            "after_food": "घंटे भोजन के बाद",
+            "open_curve": "दवा असर ग्राफ़ देखें",
+            "no_conflict": "इस चयन के लिए कोई बड़ा भोजन-दवा टकराव नहीं पाया गया",
+        },
+        "curve": {
+            "heading": "दवा अवशोषण ग्राफ़",
+            "subheading": "सही समय अंतराल बनाम गलत समय पर भोजन के साथ दवा के असर की 12 घंटे की तुलना",
+            "legend_normal": "सही अंतराल के साथ (100% पूरा असर)",
+            "legend_interfered": "टकराव वाले भोजन के साथ",
+            "legend_threshold": "न्यूनतम ज़रूरी स्तर (70%)",
+            "legend_ceiling": "ऊपरी सुरक्षा सीमा (115%)",
+            "metric_drop": "अवशोषण में अंतर",
+            "metric_tmax": "अधिकतम असर समय में देरी (Tmax)",
+            "metric_gap": "भोजन से पहले / बाद का अंतर",
+            "metric_severity": "सावधानी स्तर",
+            "axis_x": "दवा लेने के बाद के घंटे",
+            "axis_y": "रक्त में दवा का प्रभावी स्तर (%)",
+            "elevation_note": "यह भोजन दवा को पचाने वाले एंजाइम को धीमा करके दवा का स्तर सामान्य से अधिक बढ़ा सकता है।",
+            "drop_note": "भोजन के खनिज या रसायन दवा से जुड़कर आंतों में उसके सोखने की क्षमता कम कर देते हैं।",
+            "listen_walkthrough": "ग्राफ़ की व्याख्या सुनें",
+        },
+        "qr": {
+            "heading": "1-क्लिक QR हेल्थ पास",
+            "subheading": "परिवार, डॉक्टर या केमिस्ट को तुरंत दिखाने के लिए बिना इंटरनेट काम करने वाला कार्ड",
+            "generate_note": "यह पास सीधे आपके फ़ोन में बनता है और इसमें कोई फोटो सेव नहीं होती।",
+            "pass_id": "पास क्रमांक",
+            "active_salts": "दवाइयाँ",
+            "timing_rule": "सुरक्षित भोजन समय",
+            "recommended_swaps": "सुझाए गए घरेलू विकल्प",
+            "download_svg": "QR कार्ड डाउनलोड करें",
+            "print_pass": "हेल्थ पास प्रिंट करें",
+            "speak_pass": "पास की जानकारी सुनें",
+            "toggle_json": "QR डेटा विवरण देखें",
+            "dpdp_footer": "कोई भी फोटो संग्रहीत नहीं (DPDP Act 2023 सुरक्षित)",
+        },
+        "meal_slots": {
+            "early_morning_empty_stomach": "सुबह खाली पेट",
+            "breakfast": "सुबह का नाश्ता",
+            "mid_morning": "सुबह और दोपहर के बीच",
+            "lunch": "दोपहर का भोजन",
+            "evening_chai_snack": "शाम की चाय",
+            "dinner": "रात का भोजन",
+            "bedtime": "सोने से पहले",
+        },
+        "severity": {
+            "HIGH": "उच्च सावधानी",
+            "MODERATE": "मध्यम सावधानी",
+            "LOW": "कम जोखिम",
+        },
+    },
+    "mr": {
+        "meta": {"code": "mr", "label": "Marathi", "native_label": "मराठी", "speech_lang": "mr-IN"},
+        "brand": {
+            "name": "आहार-Rx",
+            "tagline": "औषध आणि जेवणाच्या योग्य वेळेचे सुरक्षित मार्गदर्शन",
+            "blind_notice": "हे अ‍ॅप केवळ औषध आणि आहाराच्या वेळेबाबत मार्गदर्शन करते. तुमच्या डॉक्टरांच्या किंवा फार्मासिस्टच्या सल्ल्याशिवाय औषधाची मात्रा बदलू नका किंवा बंद करू नका.",
+            "dpdp_badge": "कोणतेही फोटो साठवले जात नाहीत",
+        },
+        "nav": {
+            "scan": "स्कॅन करा",
+            "confirm": "खात्री करा",
+            "timetable": "वेळापत्रक",
+            "curve": "औषध शोषण आलेख",
+            "qr_pass": "QR हेल्थ पास",
+            "elderly_mode": "मोठे अक्षर",
+            "elderly_on": "मोठे अक्षर सुरू",
+            "language": "भाषा",
+        },
+        "consent": {
+            "title": "स्कॅन करण्यापूर्वी गोपनीयता संमती (DPDP Act 2023)",
+            "body": "औषधाचे पाकीट आणि जेवणाचा फोटो फक्त तात्पुरता मेमरीमध्ये तपासला जातो. कोणतेही फोटो फोनवर किंवा सर्व्हरवर साठवले जात नाहीत.",
+            "checkbox": "तात्पुरत्या तपासणीसाठी माझी संमती आहे",
+            "status_granted": "या सत्रासाठी संमती नोंदवली आहे",
+            "status_required": "स्कॅनसाठी संमती आवश्यक आहे",
+        },
+        "scan": {
+            "heading": "औषध आणि आहार तपासणी",
+            "subheading": "औषधाचे पाकीट किंवा जेवण निवडा, अपलोड करा किंवा नावाने शोधा",
+            "strip_section": "औषधाचे पाकीट किंवा नाव शोधा",
+            "meal_section": "जेवणाचे ताट निवडा",
+            "upload_strip": "औषधाचा फोटो अपलोड करा",
+            "upload_meal": "जेवणाचा फोटो अपलोड करा",
+            "search_placeholder": "औषधाचे नाव लिहा",
+            "preset_label": "नमुना रुग्ण निवडा",
+            "dose_time_label": "औषध घेण्याची वेळ",
+            "meal_slot_label": "जेवणाची वेळ",
+            "run_scan": "स्कॅन केलेली माहिती पहा",
+            "live_bridge_hint": "स्थानिक स्मार्ट स्कॅन जोडलेले आहे",
+            "client_mode_hint": "ऑफलाइन PWA मोड सक्रिय",
+            "presets": {
+                "thyroid_chai": "थायरॉनॉर्म 50 mcg + सकाळचा दुधाचा चहा",
+                "iron_palak": "ओरोफर-XT + पालक पनीर आणि चहा",
+                "antibiotic_chaas": "सिप्लॉक्स 500 mg + ताक / दही",
+                "warfarin_saag": "वारफ 5 mg + मोहरीचे साग",
+                "amlodipine_mosambi": "अ‍ॅमलॉन्ग 5 mg + मोसंबीचा रस",
+                "blur_retry": "अस्पष्ट फोटो चाचणी (पुन्हा फोटो सूचना)",
+            },
+        },
+        "confirm": {
+            "heading": "औषध आणि पदार्थांची खात्री करा",
+            "subheading": "पुढील वेळापत्रक तयार करण्यापूर्वी कृपया यादी तपासून खात्री करा",
+            "quality_pass": "फोटो स्पष्ट आणि वाचण्यायोग्य आहे",
+            "quality_retry": "कृपया पुन्हा स्पष्ट फोटो घ्या",
+            "retry_guidance": "कमी प्रकाशामुळे फोटो अंधूक आला आहे. कॅमेरा 15 ते 20 सेमी अंतरावर स्थिर धरून पुन्हा फोटो घ्या किंवा हाताने औषध निवडा.",
+            "retry_action": "स्कॅनकडे परत जा",
+            "med_card_title": "ओळखलेले औषध",
+            "med_strength": "क्षमता",
+            "med_class": "औषध गट",
+            "meal_card_title": "ताटातील ओळखलेले पदार्थ",
+            "milk_toggle": "चहामध्ये दूध आहे",
+            "milk_on": "दुधाचा चहा (कॅल्शियम आणि टॅनिन सक्रिय)",
+            "milk_off": "काळा चहा (दुधाचे कॅल्शियम नाही)",
+            "add_dish": "आणखी भारतीय पदार्थ जोडा",
+            "add_button": "जोडा",
+            "confirm_cta": "खात्री करा आणि वेळापत्रक पहा",
+            "confirmed_badge": "रुग्णाने खात्री केली",
+            "pending_badge": "खात्री करणे बाकी",
+        },
+        "timetable": {
+            "heading": "सुरक्षित वेळेचे वेळापत्रक",
+            "subheading": "तपासलेल्या नियमांनुसार जेवणाचे अंतर आणि घरच्या घरी सोपे पर्याय",
+            "summary_conflicts": "आढळलेले परिणाम",
+            "summary_safe_gap": "आवश्यक वेळेचे अंतर",
+            "summary_impact": "औषध शोषणातील बदल",
+            "dose_at": "औषधाची वेळ",
+            "avoid_until": "या वेळेपर्यंत टाळा",
+            "safe_window": "चहा किंवा जेवणाची सुरक्षित वेळ",
+            "mechanism_label": "शास्त्रीय कारण",
+            "ifct_label": "ICMR-NIN IFCT 2017 पुरावा",
+            "swaps_label": "घरची रसोई सुरक्षित पर्याय",
+            "swap_culprit": "औषधासोबत टाळा",
+            "swap_use": "सुरक्षित पर्याय",
+            "voice_section": "ज्येष्ठ नागरिकांसाठी आवाज सूचना",
+            "play_voice": "आवाज ऐका",
+            "pause_voice": "थांबवा",
+            "script_label": "ऐकण्यासाठी संदेश",
+            "before_food": "तास जेवणाआधी",
+            "after_food": "तास जेवणानंतर",
+            "open_curve": "औषध शोषण आलेख पहा",
+            "no_conflict": "निवडलेल्या औषध व पदार्थांमध्ये मोठा अडथळा आढळला नाही",
+        },
+        "curve": {
+            "heading": "औषध शोषण आलेख",
+            "subheading": "योग्य अंतरासह आणि अडथळ्याच्या जेवणासह 12 तासांच्या औषध परिणामाची तुलना",
+            "legend_normal": "योग्य अंतरासह (100% पूर्ण परिणाम)",
+            "legend_interfered": "अडथळ्याच्या जेवणासोबत",
+            "legend_threshold": "किमान आवश्यक पातळी (70%)",
+            "legend_ceiling": "वरची सुरक्षित मर्यादा (115%)",
+            "metric_drop": "शोषणातील बदल",
+            "metric_tmax": "उच्चांक वेळेतील विलंब (Tmax)",
+            "metric_gap": "जेवणाआधी / नंतरचे अंतर",
+            "metric_severity": "दक्षता पातळी",
+            "axis_x": "औषध घेतल्यानंतरचे तास",
+            "axis_y": "रक्तातील सक्रिय औषध पातळी (%)",
+            "elevation_note": "या अन्नघटकामुळे औषध पचवणारे एंजाइम मंदावतात आणि रक्तातील प्रमाण सुरक्षित मर्यादेबाहेर वाढू शकते.",
+            "drop_note": "या अन्नातील खनिजे किंवा घटक औषधाशी बांधले जातात आणि आतड्यातून शोषण कमी करतात.",
+            "listen_walkthrough": "आलेखाचे स्पष्टीकरण ऐका",
+        },
+        "qr": {
+            "heading": "1-क्लिक QR हेल्थ पास",
+            "subheading": "कुटुंब, डॉक्टर किंवा फार्मासिस्टला ऑफलाइन दाखवण्यासाठी सुटसुटीत कार्ड",
+            "generate_note": "हा पास तुमच्याच उपकरणावर तयार होतो आणि त्यात कोणतेही फोटो नसतात.",
+            "pass_id": "पास क्रमांक",
+            "active_salts": "औषधे",
+            "timing_rule": "सुरक्षित जेवण वेळ",
+            "recommended_swaps": "सुचवलेले पर्याय",
+            "download_svg": "QR पास डाउनलोड करा",
+            "print_pass": "हेल्थ पास प्रिंट करा",
+            "speak_pass": "हेल्थ पास वाचून ऐका",
+            "toggle_json": "QR माहिती पहा",
+            "dpdp_footer": "कोणताही फोटो साठवलेला नाही (DPDP Act 2023 सुरक्षित)",
+        },
+        "meal_slots": {
+            "early_morning_empty_stomach": "सकाळी उपाशी पोटी",
+            "breakfast": "सकाळचा नाश्ता",
+            "mid_morning": "सकाळ ते दुपार दरम्यान",
+            "lunch": "दुपारचे जेवण",
+            "evening_chai_snack": "संध्याकाळचा चहा",
+            "dinner": "रात्रीचे जेवण",
+            "bedtime": "झोपण्यापूर्वी",
+        },
+        "severity": {
+            "HIGH": "उच्च दक्षता",
+            "MODERATE": "मध्यम दक्षता",
+            "LOW": "कमी धोका",
+        },
+    },
+}
+
+
+def _collect_leaf_paths(node: Any, prefix: str = "") -> dict[str, str]:
+    out: dict[str, str] = {}
+    if isinstance(node, dict):
+        for key, value in node.items():
+            next_prefix = f"{prefix}.{key}" if prefix else key
+            out.update(_collect_leaf_paths(value, next_prefix))
+    else:
+        out[prefix] = str(node)
+    return out
+
+
+def validate_translation_bundle(bundle: dict[str, dict[str, Any]] | None = None) -> list[str]:
+    """Verify EN/HI/MR parity, non-empty strings, zero emojis, zero exclamation marks."""
+    data = bundle or UI_TRANSLATIONS
+    errors: list[str] = []
+
+    for lang in SUPPORTED_LANGUAGES:
+        if lang not in data:
+            errors.append(f"Missing language pack: {lang}")
+
+    if errors:
+        return errors
+
+    base_leaves = _collect_leaf_paths(data["en"])
+    for lang in SUPPORTED_LANGUAGES:
+        lang_leaves = _collect_leaf_paths(data[lang])
+        missing = sorted(set(base_leaves.keys()) - set(lang_leaves.keys()))
+        extra = sorted(set(lang_leaves.keys()) - set(base_leaves.keys()))
+        if missing:
+            errors.append(f"{lang} missing keys: {missing}")
+        if extra:
+            errors.append(f"{lang} extra keys: {extra}")
+
+        for path, text in lang_leaves.items():
+            if not text.strip():
+                errors.append(f"{lang}:{path} is empty")
+            if "!" in text:
+                errors.append(f"{lang}:{path} contains exclamation mark (forbidden by unslop)")
+            if _EMOJI_RE.search(text):
+                errors.append(f"{lang}:{path} contains emoji (forbidden by unslop)")
+
+        if lang in ("hi", "mr"):
+            has_devanagari = any(re.search(r"[\u0900-\u097F]", val) for val in lang_leaves.values())
+            if not has_devanagari:
+                errors.append(f"{lang} lacks Devanagari script strings")
+
+    return errors
+
+
+def get_ui_translations() -> dict[str, dict[str, Any]]:
+    """Return validated translation dictionary for frontend export."""
+    errs = validate_translation_bundle(UI_TRANSLATIONS)
+    if errs:
+        raise ValueError(f"Invalid UI translation bundle: {errs}")
+    return UI_TRANSLATIONS

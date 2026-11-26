@@ -312,7 +312,7 @@ class MealVisionService:
             _add("palak_spinach", min(0.76, 0.58 + green_leafy_ratio), "1 katori")
         if turmeric_dal_ratio > 0.03:
             _add("dal_lentils", min(0.76, 0.60 + turmeric_dal_ratio), "1 katori")
-        if chai_brown_ratio > 0.14 and meal_slot in ("early_morning_empty_stomach", "breakfast", "evening_chai_snack"):
+        if chai_brown_ratio > 0.11 and meal_slot in ("early_morning_empty_stomach", "breakfast", "evening_chai_snack"):
             _add("chai_with_milk", 0.72, "1 cup")
         if creamy_white_ratio > 0.14:
             if meal_slot in ("lunch", "dinner"):

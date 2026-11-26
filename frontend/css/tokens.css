@@ -1,0 +1,96 @@
+/*
+ * Aahar-Rx Design Tokens — derived following heydamir/unslop (Damir Sokolovsky, CC BY 4.0)
+ * World: Warm archival apothecary paper, botanical ink, and tactile clinic cards.
+ */
+
+:root {
+  /* Warm Apothecary Paper neutral ramp */
+  --bg-page: #f7f4ee;
+  --bg-rail: #f1ece3;
+  --bg-card: #fdfbf7;
+  --bg-raised: #efe9df;
+  --bg-hover: #eae2d5;
+
+  /* Hairlines and quiet borders */
+  --border-hairline: rgba(31, 27, 22, 0.1);
+  --border-strong: rgba(31, 27, 22, 0.2);
+
+  /* Three deliberate text roles (contrast >= 4.5:1 against --bg-card and --bg-page) */
+  --text-primary: #1f1b16;
+  --text-secondary: #534a40;
+  --text-muted: #6c6358;
+
+  /* Single botanical-clinical accent (contrast 7.2:1 with white text) */
+  --accent: #166534;
+  --accent-hover: #14532d;
+  --accent-tint: rgba(22, 101, 52, 0.08);
+  --accent-border: rgba(22, 101, 52, 0.24);
+
+  /* Semantic meaning only (clinical conflict alerts & verified safe state) */
+  --semantic-safe: #166534;
+  --semantic-safe-bg: rgba(22, 101, 52, 0.08);
+  --semantic-high: #b42318;
+  --semantic-high-bg: rgba(180, 35, 24, 0.07);
+  --semantic-high-border: rgba(180, 35, 24, 0.24);
+  --semantic-mod: #9a4708;
+  --semantic-mod-bg: rgba(154, 71, 8, 0.08);
+  --semantic-mod-border: rgba(154, 71, 8, 0.24);
+
+  /* Strict 4px spacing scale */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+
+  /* Nested radius math: inner = outer - padding */
+  --radius-keycap: 4px;
+  --radius-control: 8px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+
+  /* Type families */
+  --font-sans: "Instrument Sans", "Noto Sans Devanagari", "Nirmala UI", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+
+  /* Base type scale (weights strictly 400, 500, 600) */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-sub: 17px;
+  --text-title: 28px;
+  --text-figure: 28px;
+  --control-height: 40px;
+  --nav-row-height: 36px;
+
+  /* Restraint-first light shadows */
+  --shadow-subtle: 0 1px 2px rgba(31, 27, 22, 0.05);
+  --shadow-card: 0 4px 16px rgba(31, 27, 22, 0.05);
+
+  /* Single motion curve */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-med: 220ms;
+}
+
+/* Elderly High-Legibility Mode (Day 5 Accessibility Audit requirement) */
+.elderly-mode {
+  --text-primary: #14110e;
+  --text-secondary: #3b342c;
+  --text-muted: #4f463d;
+  --border-hairline: rgba(20, 17, 14, 0.18);
+  --border-strong: rgba(20, 17, 14, 0.34);
+  --text-xs: 14px;
+  --text-sm: 16px;
+  --text-base: 18px;
+  --text-sub: 20px;
+  --text-title: 32px;
+  --text-figure: 32px;
+  --control-height: 48px;
+  --nav-row-height: 48px;
+}

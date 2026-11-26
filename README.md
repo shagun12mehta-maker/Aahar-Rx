@@ -25,24 +25,33 @@ Aahar-Rx/
 │   ├── indian_brand_to_salt.json    # Indian brand-to-salt lookup directory (Member 1)
 │   └── indian_food_taxonomy.json    # IFCT-aligned Indian food & interferent taxonomy (Member 1)
 ├── docs/
-│   ├── doctor_review_packet.md      # Clinical review summary & physician sign-off (Member 2)
-│   ├── pitch_slides_and_defense.md  # Clinical methodology & defense notes (Member 2)
-│   └── member1_pitch_slides.md      # Smart Scan pitch slides & stage demo checklist (Member 1)
+│   ├── doctor_review_packet.md                # Clinical review summary & physician sign-off (Member 2)
+│   ├── pitch_slides_and_defense.md            # Clinical methodology & defense notes (Member 2)
+│   ├── member1_pitch_slides.md                # Smart Scan pitch slides & stage demo checklist (Member 1)
+│   ├── member3_unslop_audit_and_direction.md  # Unslop 9-pass UI direction & craft audit (Member 3)
+│   └── member3_accessibility_and_pitch_slides.md # Wireframes, elderly audit & UI slides (Member 3)
+├── frontend/                                  # React 18 PWA + Chart.js 4 + ISO QR + EN/HI/MR UI & MP3 voice (Member 3)
 ├── reports/
 │   ├── smart_scan_accuracy_report.md
 │   ├── benchmark_results.json
 │   ├── before_after_strip_recovery.png
-│   └── meal_confirmation_flow_visual.png
+│   ├── meal_confirmation_flow_visual.png
+│   └── screenshots/                           # Headless Chromium verified desktop & mobile PWA renders (Member 3)
 ├── schemas/
-│   └── salt_food_schema.json        # Shared Draft 2020-12 contract (Member 1 -> Member 2/4)
+│   └── salt_food_schema.json                  # Shared Draft 2020-12 contract (Member 1 -> Member 2/4)
 ├── scripts/
-│   ├── convert_and_validate.py      # CSV to JSON schema validator & converter (Member 2)
-│   ├── run_clinical_scenarios.py    # Clinical scenario validator (Member 2)
-│   ├── test_conflict_engine.py      # Reference conflict & timetable prototype (Member 2)
-│   ├── run_benchmarks_and_assets.py # Day 1-6 OCR/Scan benchmark & visual generator (Member 1)
-│   └── demo_rehearsal.py            # Day 7 Smart Scan live demo rehearsal runner (Member 1)
-├── src/aahar_scan/                  # AI & Smart Scan Python package (Member 1)
-└── tests/                           # Automated CV, OCR, Vision, Confirmation & Member 2 tests
+│   ├── convert_and_validate.py                # CSV to JSON schema validator & converter (Member 2)
+│   ├── run_clinical_scenarios.py              # Clinical scenario validator (Member 2)
+│   ├── test_conflict_engine.py                # Reference conflict & timetable prototype (Member 2)
+│   ├── run_benchmarks_and_assets.py           # Day 1-6 OCR/Scan benchmark & visual generator (Member 1)
+│   ├── demo_rehearsal.py                      # Day 7 Smart Scan live demo rehearsal runner (Member 1)
+│   ├── generate_member3_assets.py             # Sync EN/HI/MR translations, PK curves & Edge TTS MP3 audio (Member 3)
+│   ├── serve_member3_pwa.py                   # Offline-first React PWA preview server + local scan bridge (Member 3)
+│   └── demo_rehearsal_member3.py              # Day 7 UI, Absorption Curve, Voice & QR rehearsal runner (Member 3)
+├── src/
+│   ├── aahar_scan/                            # AI & Smart Scan Python package (Member 1)
+│   └── aahar_ux/                              # Localization (EN/HI/MR), Bateman PK curves & voice scripts (Member 3)
+└── tests/                                     # Automated CV, OCR, Vision, UX, Contrast, Localization & Contract tests
 ```
 
 ---
@@ -52,7 +61,7 @@ Aahar-Rx/
 | Module | Path | Responsibility |
 | --- | --- | --- |
 | **Shared Schema** | [salt_food_schema.json](schemas/salt_food_schema.json) | Draft 2020-12 JSON Schema for Member 1 → Member 2/4 handoff (`ConfirmedScanBundle`) |
-| **Brand-to-Salt Directory** | [indian_brand_to_salt.json](data/indian_brand_to_salt.json) | 48 Indian brands across 11 drug classes, OCR noise aliases, strengths & regional brands |
+| **Brand-to-Salt Directory** | [indian_brand_to_salt.json](data/indian_brand_to_salt.json) | 53 Indian brands across 11 drug classes, OCR noise aliases, strengths & regional brands |
 | **Indian Food Taxonomy** | [indian_food_taxonomy.json](data/indian_food_taxonomy.json) | ICMR-NIN IFCT-aligned dishes mapped to interacting nutrients & Member 2 culprit labels |
 | **OpenCV Quality & Recovery** | [preprocessing.py](src/aahar_scan/preprocessing.py) | Blur/glare/light/contrast checks with retry tips + glare suppression, curved-foil flattening, CLAHE & rotation recovery |
 | **Multi-Engine Strip OCR** | [ocr_engines.py](src/aahar_scan/ocr_engines.py) | `RapidOcrEngine` (PaddleOCR PP-OCRv4 ONNX in-memory), `WindowsNativeOcrEngine`, and optional `TesseractOcrEngine` |
@@ -70,6 +79,29 @@ $env:GEMINI_API_KEY="your-api-key"
 python -m pytest
 python scripts/run_benchmarks_and_assets.py
 python scripts/demo_rehearsal.py
+```
+
+---
+
+## App, UX & Language Architecture (Member 3 Deliverables)
+
+Built as an installable React 18 PWA styled via the **unslop** nine-pass design system (`Warm Apothecary Paper` palette, `#166534` botanical accent, zero gradients/blurs/emojis, tabular numerals, one-tap **Elderly Large Print** `18px` mode) with full **English / Hindi (`हिन्दी`) / Marathi (`मराठी`)** UI and voice reminders.
+
+| Module | Path | Responsibility |
+| --- | --- | --- |
+| **5-Screen React 18 PWA** | [frontend/index.html](frontend/index.html), [Screens.js](frontend/js/components/Screens.js) | Interactive `Scan`, `Confirm`, `Timetable`, `Absorption curve`, and `1-Click QR health pass` views (works offline without Node build) |
+| **Design Tokens & Accessibility** | [tokens.css](frontend/css/tokens.css), [app.css](frontend/css/app.css) | Strict `4px` spacing grid, `.elderly-mode` (`>= 48px` targets, `18px` body), mobile bottom bar & print stylesheet |
+| **Pharmacokinetic Curves** | [pharmacokinetics.py](src/aahar_ux/pharmacokinetics.py), [AbsorptionChart.js](frontend/js/components/AbsorptionChart.js) | Chart.js 4 12-hour oral bioavailability comparison & CYP3A4 elevation warnings calibrated to `verified_rules.json` |
+| **Trilingual Localization & Voice** | [localization.py](src/aahar_ux/localization.py), [voice_generator.py](src/aahar_ux/voice_generator.py) | Complete `en` / `hi` / `mr` UI bundle + 24 synthesized Indian neural MP3 clips (`en-IN`, `hi-IN`, `mr-IN`) |
+| **1-Click QR Health Pass** | [Screens.js](frontend/js/components/Screens.js), [clinicalEngine.js](frontend/js/clinicalEngine.js) | Compact offline ISO 18004 SVG QR encoder (DPDP-safe, zero raw photos) with SVG download & print support |
+
+### Quickstart (Member 3 PWA & Voice)
+
+```powershell
+python scripts/generate_member3_assets.py --skip-tts
+python scripts/demo_rehearsal_member3.py
+python scripts/serve_member3_pwa.py --port 8030
+# Open http://127.0.0.1:8030/ in your browser
 ```
 
 ---

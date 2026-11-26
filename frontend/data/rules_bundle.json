@@ -1,0 +1,2784 @@
+{
+  "rules": [
+    {
+      "rule_id": "RULE-THY-001",
+      "drug_class": "Thyroid Hormone Replacements",
+      "active_salts": [
+        "Levothyroxine Sodium"
+      ],
+      "interfering_nutrients": [
+        "Calcium",
+        "Tannins",
+        "Phytates",
+        "Soy Isoflavones"
+      ],
+      "culprit_indian_foods": [
+        "Morning Masala Chai with Milk",
+        "Dahi / Curd",
+        "Cow/Buffalo Milk",
+        "Soya Vadi / Soya Chunks",
+        "Walnuts"
+      ],
+      "severity": "HIGH",
+      "interaction_type": "Chelation & Mucosal Binding",
+      "biochemical_mechanism": "Divalent calcium ions and polyphenolic tannins bind levothyroxine in the gut lumen into insoluble chelates, decreasing intestinal mucosal absorption and dropping bioavailability by 35-45%.",
+      "ifct_evidence": [
+        {
+          "food": "Buffalo Milk",
+          "ifct_code": "D002",
+          "primary_nutrient": "Calcium",
+          "value": "210 mg / 100g",
+          "clinical_note": "Extremely high calcium density binds levothyroxine in the duodenal lumen."
+        },
+        {
+          "food": "Cow Milk",
+          "ifct_code": "D001",
+          "primary_nutrient": "Calcium",
+          "value": "118 mg / 100g",
+          "clinical_note": "A standard 150ml tea contains ~100mg calcium, adequate to trigger significant chelation."
+        },
+        {
+          "food": "Masala Chai (Brewed)",
+          "ifct_code": "Sec 3 Beverages",
+          "primary_nutrient": "Total Polyphenols / Tannins",
+          "value": "105 mg GAE / 100ml",
+          "clinical_note": "Polyphenols adsorb thyroxine molecules, delaying mucosal contact."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 1.0,
+        "after_food_hours": 4.0
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": 38.0,
+        "t_max_delay_hours": 1.5
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Morning Masala Chai / Milk",
+          "substitute": "Lukewarm water with lemon (defer chai by 60 minutes)",
+          "dietary_rationale": "Leaves the acidic gastric environment uninhibited for proper dissolution and duodenal absorption."
+        },
+        {
+          "culprit": "Soya bean / Soya nuggets sabzi",
+          "substitute": "Besan chilla or Moong dal curry",
+          "dietary_rationale": "Soy isoflavones inhibit thyroid peroxidase and compete for intestinal absorption."
+        }
+      ],
+      "citations": [
+        {
+          "source": "OpenFDA Drug Label",
+          "reference_id": "Levothyroxine Sodium NDA 021116"
+        },
+        {
+          "source": "ICMR-NIN IFCT 2017",
+          "reference_id": "Table D: Milk and Milk Products (Calcium mg/100g)"
+        },
+        {
+          "source": "Thyroid Journal",
+          "reference_id": "DOI: 10.1089/thy.2007.0308"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Clinical Endocrinologist & Dietitian",
+        "status": "APPROVED"
+      }
+    },
+    {
+      "rule_id": "RULE-IRO-002",
+      "drug_class": "Iron Supplements (Hematinics)",
+      "active_salts": [
+        "Ferrous Ascorbate",
+        "Ferrous Sulphate",
+        "Ferrous Fumarate",
+        "Carbonyl Iron"
+      ],
+      "interfering_nutrients": [
+        "Tannins",
+        "Polyphenols",
+        "Phytic Acid",
+        "Calcium"
+      ],
+      "culprit_indian_foods": [
+        "Masala Chai",
+        "Filter Coffee",
+        "Palak Paneer",
+        "Bran-rich Atta Roti",
+        "Whole pulses (Rajma/Chana)"
+      ],
+      "severity": "HIGH",
+      "interaction_type": "Precipitation & Insoluble Complexation",
+      "biochemical_mechanism": "Tannins in tea and coffee form insoluble iron-tannate complexes that cannot be transported across the duodenal mucosa via the DMT-1 transporter, dropping iron bioavailability by up to 60-70%.",
+      "ifct_evidence": [
+        {
+          "food": "Masala Chai (Brewed)",
+          "ifct_code": "Sec 3 Beverages",
+          "primary_nutrient": "Tannins / Polyphenols",
+          "value": "105 mg GAE / 100ml",
+          "clinical_note": "A single cup of tea reduces non-heme iron absorption by up to 60-70%."
+        },
+        {
+          "food": "Palak (Raw Spinach)",
+          "ifct_code": "Table A Greens",
+          "primary_nutrient": "Total Oxalates",
+          "value": "658 mg / 100g",
+          "clinical_note": "High oxalate concentration renders iron insoluble and unabsorbable."
+        },
+        {
+          "food": "Wheat Bran Atta",
+          "ifct_code": "Table B Cereals",
+          "primary_nutrient": "Phytic Acid",
+          "value": "840 mg / 100g",
+          "clinical_note": "Phytate hexaphosphate ring binds polyvalent iron cations tightly."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 1.0,
+        "after_food_hours": 2.0
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": 62.0,
+        "t_max_delay_hours": 2.0
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Post-meal Chai or Filter Coffee",
+          "substitute": "Freshly squeezed Nimbu Pani (Lemonade) or Amla Juice",
+          "dietary_rationale": "Ascorbic acid (Vitamin C: 39mg/100g in lemon, 600mg/100g in Amla) reduces Fe3+ to soluble Fe2+, boosting uptake up to 3-fold."
+        },
+        {
+          "culprit": "Palak Paneer (Calcium + Iron + Oxalates)",
+          "substitute": "Palak Corn / Palak Aloo seasoned with lemon",
+          "dietary_rationale": "Eliminating dairy paneer removes calcium competition while lemon juice breaks oxalate binding."
+        }
+      ],
+      "citations": [
+        {
+          "source": "ICMR-NIN IFCT 2017",
+          "reference_id": "Section 3: Polyphenols and Tannins in Indian Beverages"
+        },
+        {
+          "source": "American Journal of Clinical Nutrition",
+          "reference_id": "Hurrell et al., DOI: 10.1093/ajcn/69.5.950"
+        },
+        {
+          "source": "DrugBank",
+          "reference_id": "DB01592 (Ferrous Sulfate food interactions)"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Consultant Physician & Hematologist",
+        "status": "APPROVED"
+      }
+    },
+    {
+      "rule_id": "RULE-ANT-003",
+      "drug_class": "Fluoroquinolone Antibiotics",
+      "active_salts": [
+        "Ciprofloxacin",
+        "Levofloxacin",
+        "Ofloxacin",
+        "Norfloxacin"
+      ],
+      "interfering_nutrients": [
+        "Calcium",
+        "Magnesium",
+        "Aluminium cations"
+      ],
+      "culprit_indian_foods": [
+        "Doodh (Milk)",
+        "Chaas / Buttermilk",
+        "Dahi (Curd)",
+        "Paneer",
+        "Calcium-fortified Fruit Juices"
+      ],
+      "severity": "HIGH",
+      "interaction_type": "Divalent & Trivalent Cation Chelation",
+      "biochemical_mechanism": "The 4-keto and 3-carboxyl groups of fluoroquinolones chelate with polyvalent cations (Ca2+, Mg2+) in dairy products to create insoluble chelates, reducing antibiotic peak plasma levels by up to 50%.",
+      "ifct_evidence": [
+        {
+          "food": "Paneer",
+          "ifct_code": "D009",
+          "primary_nutrient": "Calcium",
+          "value": "480 mg / 100g",
+          "clinical_note": "Extremely dense calcium matrix forms immediate inert chelates with fluoroquinolone rings."
+        },
+        {
+          "food": "Chaas / Buttermilk",
+          "ifct_code": "D004",
+          "primary_nutrient": "Calcium & Magnesium",
+          "value": "95 mg Ca & 14 mg Mg / 100ml",
+          "clinical_note": "Even light dairy beverages cause clinically significant reduction in fluoroquinolone Cmax."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 2.0,
+        "after_food_hours": 4.0
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": 52.0,
+        "t_max_delay_hours": 2.5
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Chaas / Lassi taken with lunch",
+          "substitute": "Jaljeera or Coconut water or clear Veg Shorba",
+          "dietary_rationale": "Maintains hydration and digestion without delivering high chelation-prone Ca2+ ions."
+        }
+      ],
+      "citations": [
+        {
+          "source": "OpenFDA Drug Label",
+          "reference_id": "Ciprofloxacin Oral Suspension NDA 019537"
+        },
+        {
+          "source": "Antimicrobial Agents and Chemotherapy",
+          "reference_id": "Nix et al., DOI: 10.1128/AAC.36.4.846"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Consultant Microbiologist & MD Pharmacology",
+        "status": "APPROVED"
+      }
+    },
+    {
+      "rule_id": "RULE-BLD-004",
+      "drug_class": "Vitamin K Antagonists (Anticoagulants)",
+      "active_salts": [
+        "Warfarin Sodium",
+        "Acenocoumarol"
+      ],
+      "interfering_nutrients": [
+        "Phylloquinone (Vitamin K1)"
+      ],
+      "culprit_indian_foods": [
+        "Sarson ka Saag",
+        "Palak Paneer",
+        "Methi Thepla / Methi Bhaji",
+        "Green Coriander & Mint Chutney",
+        "Broccoli"
+      ],
+      "severity": "HIGH",
+      "interaction_type": "Pharmacodynamic Antagonism",
+      "biochemical_mechanism": "High dietary Vitamin K overcomes competitive inhibition of vitamin K epoxide reductase (VKORC1), driving synthesis of clotting factors II, VII, IX, and X, plummeting INR and increasing thrombotic risk.",
+      "ifct_evidence": [
+        {
+          "food": "Palak (Spinach)",
+          "ifct_code": "Table A Greens",
+          "primary_nutrient": "Phylloquinone (Vitamin K1)",
+          "value": "483.0 mcg / 100g",
+          "clinical_note": "One average bowl of cooked palak exceeds daily Vitamin K threshold by over 600%."
+        },
+        {
+          "food": "Sarson ka Saag (Mustard Greens)",
+          "ifct_code": "Table A Greens",
+          "primary_nutrient": "Phylloquinone (Vitamin K1)",
+          "value": "380.0 mcg / 100g",
+          "clinical_note": "Frequent winter consumption precipitously collapses INR into sub-therapeutic ranges."
+        },
+        {
+          "food": "Lauki (Safe Substitute)",
+          "ifct_code": "Table C Vegetables",
+          "primary_nutrient": "Phylloquinone (Vitamin K1)",
+          "value": "2.5 mcg / 100g",
+          "clinical_note": "Minimal Vitamin K content makes it an ideal INR-stable green vegetable."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 0.0,
+        "after_food_hours": 0.0
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": 10.0,
+        "t_max_delay_hours": 0.0
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Heavy Sarson ka Saag / Methi Bhaji",
+          "substitute": "Lauki (Bottle Gourd), Torai (Ridge Gourd), or Bhindi sabzi",
+          "dietary_rationale": "Provides fiber and satiety with low Vitamin K content, maintaining a steady INR profile."
+        }
+      ],
+      "citations": [
+        {
+          "source": "ICMR-NIN IFCT 2017",
+          "reference_id": "Table A: Green Leafy Vegetables (Phylloquinone mcg/100g)"
+        },
+        {
+          "source": "American Heart Association Guidelines",
+          "reference_id": "Circulation. 2018;138:e674–e744"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Consultant Cardiologist",
+        "status": "APPROVED"
+      }
+    },
+    {
+      "rule_id": "RULE-HTN-005",
+      "drug_class": "Calcium Channel Blockers (Dihydropyridines)",
+      "active_salts": [
+        "Amlodipine",
+        "Nifedipine",
+        "Felodipine"
+      ],
+      "interfering_nutrients": [
+        "Furanocoumarins",
+        "Flavonoids (Naringin)"
+      ],
+      "culprit_indian_foods": [
+        "Mosambi (Sweet Lime) Juice in large volume",
+        "Chakotra (Grapefruit / Pomelo)"
+      ],
+      "severity": "MODERATE",
+      "interaction_type": "Intestinal Cytochrome P450 (CYP3A4) Inhibition",
+      "biochemical_mechanism": "Furanocoumarins irreversibly inhibit intestinal epithelial CYP3A4, reducing first-pass drug clearance and leading to dangerously high serum concentrations, flushing, peripheral edema, and hypotension.",
+      "ifct_evidence": [
+        {
+          "food": "Chakotra / Pomelo",
+          "ifct_code": "Table F Fruits",
+          "primary_nutrient": "6',7'-dihydroxybergamottin",
+          "value": "35-45 mg / kg",
+          "clinical_note": "Suicide inhibition of intestinal enterocyte CYP3A4 lasting up to 72 hours."
+        },
+        {
+          "food": "Mosambi Juice",
+          "ifct_code": "Table F Citrus",
+          "primary_nutrient": "Naringin & Flavonoid glycosides",
+          "value": "15-25 mg / 100ml",
+          "clinical_note": "Can elevate Amlodipine AUC by 30-40% when consumed in volumes exceeding 250ml."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 4.0,
+        "after_food_hours": 12.0
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": -45.0,
+        "t_max_delay_hours": 0.5
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Chakotra / Large glass of Mosambi Juice",
+          "substitute": "Tender Coconut Water or Fresh Pomegranate / Apple slices",
+          "dietary_rationale": "Avoids intestinal CYP3A4 enzyme inhibition, ensuring predictable anti-hypertensive control."
+        }
+      ],
+      "citations": [
+        {
+          "source": "OpenFDA Drug Label",
+          "reference_id": "Amlodipine Besylate NDA 019787"
+        },
+        {
+          "source": "Canadian Medical Association Journal",
+          "reference_id": "Bailey et al., CMAJ 2013. DOI: 10.1503/cmaj.120951"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Consultant Physician & Cardiologist",
+        "status": "APPROVED"
+      }
+    },
+    {
+      "rule_id": "RULE-DIA-006",
+      "drug_class": "Biguanides (Anti-Diabetic)",
+      "active_salts": [
+        "Metformin Hydrochloride"
+      ],
+      "interfering_nutrients": [
+        "Simple Sugars / High Glycemic Load",
+        "Ethanol / Alcohol"
+      ],
+      "culprit_indian_foods": [
+        "Gulab Jamun / Jalebi",
+        "Sweetened Chai / Sherbet",
+        "Maida Naan / Bhatura",
+        "Alcoholic beverages"
+      ],
+      "severity": "MODERATE",
+      "interaction_type": "GI Irritation & Metabolic Disruption",
+      "biochemical_mechanism": "Taking Metformin on an empty stomach triggers severe nausea, cramping, and osmotic diarrhea. High ethanol concurrently increases hepatic NADH/NAD+ ratio, accentuating lactic acidosis risk.",
+      "ifct_evidence": [
+        {
+          "food": "Gulab Jamun / Jalebi",
+          "ifct_code": "Table I Sweets",
+          "primary_nutrient": "Simple Carbohydrates",
+          "value": "68.2 g / 100g (GI > 78)",
+          "clinical_note": "Overwhelms Metformin's hepatic gluconeogenesis suppression, creating sharp glucose spikes."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 0.0,
+        "after_food_hours": 0.1
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": 12.0,
+        "t_max_delay_hours": 0.5
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Taking tablet with empty stomach or just sweet tea",
+          "substitute": "Take in the middle of or immediately after a high-fiber Indian thali (Dal + Sabzi + Roti)",
+          "dietary_rationale": "Food acts as a mechanical buffer reducing GI distress while low-glycemic fiber stabilizes postprandial glucose peaks."
+        }
+      ],
+      "citations": [
+        {
+          "source": "ADA Standards of Medical Care in Diabetes",
+          "reference_id": "Diabetes Care 2024;47(Suppl. 1)"
+        },
+        {
+          "source": "OpenFDA Drug Label",
+          "reference_id": "Glucophage (Metformin HCl) NDA 020357"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Diabetologist & Clinical Nutritionist",
+        "status": "APPROVED"
+      }
+    },
+    {
+      "rule_id": "RULE-HYP-007",
+      "drug_class": "ACE Inhibitors & ARBs (Antihypertensives)",
+      "active_salts": [
+        "Telmisartan",
+        "Losartan",
+        "Enalapril",
+        "Ramipril"
+      ],
+      "interfering_nutrients": [
+        "Potassium (K+)"
+      ],
+      "culprit_indian_foods": [
+        "Sendha Namak (Rock Salt / Low Sodium Salt)",
+        "Tender Coconut Water (multiple glasses)",
+        "Bananas",
+        "Jackfruit / Kathal"
+      ],
+      "severity": "MODERATE",
+      "interaction_type": "Pharmacodynamic Synergistic Hyperkalemia",
+      "biochemical_mechanism": "Inhibition of the renin-angiotensin-aldosterone axis reduces urinary potassium excretion. Co-consumption of potassium-rich salt substitutes or excessive coconut water can provoke life-threatening cardiac arrhythmias.",
+      "ifct_evidence": [
+        {
+          "food": "Sendha Namak (Low Sodium KCl substitutes)",
+          "ifct_code": "Salt Directory",
+          "primary_nutrient": "Potassium (K+)",
+          "value": "12,500 mg / 100g",
+          "clinical_note": "Potassium chloride salt replacements trigger rapid hyperkalemia in patients on RAAS blockers."
+        },
+        {
+          "food": "Tender Coconut Water",
+          "ifct_code": "Table G Beverages",
+          "primary_nutrient": "Potassium (K+)",
+          "value": "250 mg / 100ml",
+          "clinical_note": "Drinking two fresh coconuts provides ~1250 mg potassium, elevating cardiac arrhythmia risk."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 2.0,
+        "after_food_hours": 2.0
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": 5.0,
+        "t_max_delay_hours": 0.0
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Sendha Namak (Low-Sodium KCl substitutes) & Daily 2+ Coconut waters",
+          "substitute": "Standard iodized salt in strict moderation (less than 5g/day) + Spiced Chaas (without added salt)",
+          "dietary_rationale": "Prevents serum potassium spikes above 5.5 mEq/L while maintaining dietary compliance."
+        }
+      ],
+      "citations": [
+        {
+          "source": "ICMR-NIN IFCT 2017",
+          "reference_id": "Table G: Potassium Content in Indian Fruits and Beverages"
+        },
+        {
+          "source": "Indian Heart Journal",
+          "reference_id": "IHJ-2021-Hypertension-Management-Consensus"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Consultant Nephrologist & Cardiologist",
+        "status": "APPROVED"
+      }
+    },
+    {
+      "rule_id": "RULE-LIP-008",
+      "drug_class": "HMG-CoA Reductase Inhibitors (Statins)",
+      "active_salts": [
+        "Atorvastatin",
+        "Simvastatin",
+        "Rosuvastatin"
+      ],
+      "interfering_nutrients": [
+        "Furanocoumarins",
+        "Saturated Fats"
+      ],
+      "culprit_indian_foods": [
+        "Pomelo / Concentrated Citrus Juice",
+        "Deep-fried pakoras / Poori (High Re-heated Vanaspati)"
+      ],
+      "severity": "MODERATE",
+      "interaction_type": "Metabolic CYP3A4 Competition & Lipid Overload",
+      "biochemical_mechanism": "Simvastatin and Atorvastatin undergo extensive CYP3A4 hepatic clearance. Furanocoumarins inhibit CYP3A4, causing 3-5x serum accumulation and escalating rhabdomyolysis and myopathy risk.",
+      "ifct_evidence": [
+        {
+          "food": "Pomelo / Concentrated Citrus Juice",
+          "ifct_code": "Table F Citrus",
+          "primary_nutrient": "Furanocoumarins",
+          "value": "Bergapten ~30 mg/kg",
+          "clinical_note": "Significant CYP3A4 inhibition raises statin plasma concentration."
+        },
+        {
+          "food": "Vanaspati / Reheated deep-fried snacks",
+          "ifct_code": "Table H Fats & Oils",
+          "primary_nutrient": "Trans & Saturated Fats",
+          "value": "> 35% of total lipid profile",
+          "clinical_note": "Acute saturated fat surges impair endothelial LDL receptor upregulation."
+        }
+      ],
+      "safe_time_gap_hours": {
+        "before_food_hours": 2.0,
+        "after_food_hours": 4.0
+      },
+      "absorption_impact": {
+        "bioavailability_drop_pct": -30.0,
+        "t_max_delay_hours": 1.0
+      },
+      "ghar_ki_rasoi_swaps": [
+        {
+          "culprit": "Concentrated citrus juice or deep-fried dinner snacks",
+          "substitute": "Whole sweet orange / Apple slices + Roasted Makhana or Chana",
+          "dietary_rationale": "Soluble dietary fiber binds excess dietary cholesterol without interfering with CYP3A4 hepatic pathways."
+        }
+      ],
+      "citations": [
+        {
+          "source": "OpenFDA Drug Label",
+          "reference_id": "Lipitor (Atorvastatin Calcium) NDA 020702"
+        },
+        {
+          "source": "Circulation",
+          "reference_id": "Statin Safety and Drug Interactions, DOI: 10.1161/CIR.0000000000000618"
+        }
+      ],
+      "clinical_sign_off": {
+        "reviewed": true,
+        "reviewer_role": "Consultant Cardiologist & Lipidologist",
+        "status": "APPROVED"
+      }
+    }
+  ],
+  "brands": [
+    {
+      "brand_id": "thyronorm",
+      "brand_name": "Thyronorm",
+      "brand_aliases": [
+        "THYRONORM",
+        "THYR0NORM",
+        "THYRON0RM",
+        "THYRONORM 50",
+        "THYRONORM 25",
+        "THYRONORM 100"
+      ],
+      "active_salts": [
+        "Levothyroxine Sodium"
+      ],
+      "salt_aliases": [
+        "LEVOTHYROXINE",
+        "LEVOTHYROXINE SODIUM",
+        "L-THYROXINE",
+        "THYROXINE SODIUM"
+      ],
+      "drug_class": "thyroid",
+      "common_strengths": [
+        "12.5 mcg",
+        "25 mcg",
+        "50 mcg",
+        "75 mcg",
+        "100 mcg",
+        "125 mcg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "iron",
+        "high_fiber",
+        "tannins_polyphenols",
+        "caffeine",
+        "soy_isoflavones"
+      ]
+    },
+    {
+      "brand_id": "eltroxin",
+      "brand_name": "Eltroxin",
+      "brand_aliases": [
+        "ELTROXIN",
+        "ELTR0XIN",
+        "ELTROX1N",
+        "ELTROXIN 50",
+        "ELTROXIN 100"
+      ],
+      "active_salts": [
+        "Levothyroxine Sodium"
+      ],
+      "salt_aliases": [
+        "LEVOTHYROXINE",
+        "LEVOTHYROXINE SODIUM"
+      ],
+      "drug_class": "thyroid",
+      "common_strengths": [
+        "25 mcg",
+        "50 mcg",
+        "100 mcg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "iron",
+        "high_fiber",
+        "tannins_polyphenols",
+        "caffeine",
+        "soy_isoflavones"
+      ]
+    },
+    {
+      "brand_id": "thyrox",
+      "brand_name": "Thyrox",
+      "brand_aliases": [
+        "THYROX",
+        "THYR0X",
+        "THYROX 50",
+        "THYROX 75"
+      ],
+      "active_salts": [
+        "Levothyroxine Sodium"
+      ],
+      "salt_aliases": [
+        "LEVOTHYROXINE",
+        "LEVOTHYROXINE SODIUM"
+      ],
+      "drug_class": "thyroid",
+      "common_strengths": [
+        "25 mcg",
+        "50 mcg",
+        "75 mcg",
+        "100 mcg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "iron",
+        "high_fiber",
+        "tannins_polyphenols",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "thyroup",
+      "brand_name": "Thyroup",
+      "brand_aliases": [
+        "THYROUP",
+        "THYR0UP",
+        "THYROUP 50",
+        "THYROUP 25"
+      ],
+      "active_salts": [
+        "Levothyroxine Sodium"
+      ],
+      "salt_aliases": [
+        "LEVOTHYROXINE",
+        "LEVOTHYROXINE SODIUM"
+      ],
+      "drug_class": "thyroid",
+      "common_strengths": [
+        "25 mcg",
+        "50 mcg",
+        "100 mcg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "calcium",
+        "iron",
+        "high_fiber",
+        "tannins_polyphenols",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "lethyrox",
+      "brand_name": "Lethyrox",
+      "brand_aliases": [
+        "LETHYROX",
+        "LETHYR0X",
+        "LETHYROX 50"
+      ],
+      "active_salts": [
+        "Levothyroxine Sodium"
+      ],
+      "salt_aliases": [
+        "LEVOTHYROXINE",
+        "LEVOTHYROXINE SODIUM"
+      ],
+      "drug_class": "thyroid",
+      "common_strengths": [
+        "25 mcg",
+        "50 mcg",
+        "100 mcg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "calcium",
+        "iron",
+        "high_fiber",
+        "tannins_polyphenols",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "glycomet",
+      "brand_name": "Glycomet",
+      "brand_aliases": [
+        "GLYCOMET",
+        "GLYC0MET",
+        "GLYCOMET 500",
+        "GLYCOMET SR",
+        "GLYCOMET 500 SR",
+        "GLYCOMET GP"
+      ],
+      "active_salts": [
+        "Metformin Hydrochloride"
+      ],
+      "salt_aliases": [
+        "METFORMIN",
+        "METFORMIN HCL",
+        "METFORMIN HYDROCHLORIDE"
+      ],
+      "drug_class": "diabetes",
+      "common_strengths": [
+        "500 mg",
+        "850 mg",
+        "1000 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "simple_sugars",
+        "high_fiber",
+        "high_fat"
+      ]
+    },
+    {
+      "brand_id": "obimet",
+      "brand_name": "Obimet",
+      "brand_aliases": [
+        "OBIMET",
+        "0BIMET",
+        "OBIMET SR",
+        "OBIMET 500"
+      ],
+      "active_salts": [
+        "Metformin Hydrochloride"
+      ],
+      "salt_aliases": [
+        "METFORMIN",
+        "METFORMIN HYDROCHLORIDE"
+      ],
+      "drug_class": "diabetes",
+      "common_strengths": [
+        "500 mg",
+        "850 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "simple_sugars",
+        "high_fiber",
+        "high_fat"
+      ]
+    },
+    {
+      "brand_id": "cetapin",
+      "brand_name": "Cetapin",
+      "brand_aliases": [
+        "CETAPIN",
+        "CETAPIN XR",
+        "CETAPIN 500"
+      ],
+      "active_salts": [
+        "Metformin Hydrochloride"
+      ],
+      "salt_aliases": [
+        "METFORMIN",
+        "METFORMIN HYDROCHLORIDE"
+      ],
+      "drug_class": "diabetes",
+      "common_strengths": [
+        "500 mg",
+        "1000 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "simple_sugars",
+        "high_fiber"
+      ]
+    },
+    {
+      "brand_id": "amaryl",
+      "brand_name": "Amaryl",
+      "brand_aliases": [
+        "AMARYL",
+        "AMARYL 1",
+        "AMARYL 2",
+        "AMARYL M"
+      ],
+      "active_salts": [
+        "Glimepiride"
+      ],
+      "salt_aliases": [
+        "GLIMEPIRIDE"
+      ],
+      "drug_class": "diabetes",
+      "common_strengths": [
+        "1 mg",
+        "2 mg",
+        "4 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "high_fiber"
+      ]
+    },
+    {
+      "brand_id": "glimestar",
+      "brand_name": "Glimestar",
+      "brand_aliases": [
+        "GLIMESTAR",
+        "GLIMESTAR M1",
+        "GLIMESTAR M2",
+        "GL1MESTAR"
+      ],
+      "active_salts": [
+        "Glimepiride",
+        "Metformin Hydrochloride"
+      ],
+      "salt_aliases": [
+        "GLIMEPIRIDE",
+        "METFORMIN"
+      ],
+      "drug_class": "diabetes",
+      "common_strengths": [
+        "1 mg + 500 mg",
+        "2 mg + 500 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "simple_sugars",
+        "high_fiber"
+      ]
+    },
+    {
+      "brand_id": "januvia",
+      "brand_name": "Januvia",
+      "brand_aliases": [
+        "JANUVIA",
+        "JANUVIA 100",
+        "JANUVIA 50"
+      ],
+      "active_salts": [
+        "Sitagliptin"
+      ],
+      "salt_aliases": [
+        "SITAGLIPTIN",
+        "SITAGLIPTIN PHOSPHATE"
+      ],
+      "drug_class": "diabetes",
+      "common_strengths": [
+        "50 mg",
+        "100 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": []
+    },
+    {
+      "brand_id": "amlong",
+      "brand_name": "Amlong",
+      "brand_aliases": [
+        "AMLONG",
+        "AML0NG",
+        "AMLONG 5",
+        "AMLONG 2.5"
+      ],
+      "active_salts": [
+        "Amlodipine Besylate"
+      ],
+      "salt_aliases": [
+        "AMLODIPINE",
+        "AMLODIPINE BESILATE",
+        "AMLODIPINE BESYLATE"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "2.5 mg",
+        "5 mg",
+        "10 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "grapefruit_furanocoumarins"
+      ]
+    },
+    {
+      "brand_id": "stamlo",
+      "brand_name": "Stamlo",
+      "brand_aliases": [
+        "STAMLO",
+        "STAML0",
+        "STAMLO 5",
+        "STAMLO BETA"
+      ],
+      "active_salts": [
+        "Amlodipine Besylate"
+      ],
+      "salt_aliases": [
+        "AMLODIPINE"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "2.5 mg",
+        "5 mg",
+        "10 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "grapefruit_furanocoumarins"
+      ]
+    },
+    {
+      "brand_id": "nicardia",
+      "brand_name": "Nicardia",
+      "brand_aliases": [
+        "NICARDIA",
+        "NICARDIA RETARD",
+        "NICARDIA 10",
+        "NICARDIA 20"
+      ],
+      "active_salts": [
+        "Nifedipine"
+      ],
+      "salt_aliases": [
+        "NIFEDIPINE"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "10 mg",
+        "20 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "grapefruit_furanocoumarins"
+      ]
+    },
+    {
+      "brand_id": "plendil",
+      "brand_name": "Plendil",
+      "brand_aliases": [
+        "PLENDIL",
+        "FELODIPINE",
+        "PLENDIL 5"
+      ],
+      "active_salts": [
+        "Felodipine"
+      ],
+      "salt_aliases": [
+        "FELODIPINE"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "5 mg",
+        "10 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "grapefruit_furanocoumarins"
+      ]
+    },
+    {
+      "brand_id": "telma",
+      "brand_name": "Telma",
+      "brand_aliases": [
+        "TELMA",
+        "TELMA 40",
+        "TELMA 20",
+        "TELMA H",
+        "TELMA AM"
+      ],
+      "active_salts": [
+        "Telmisartan"
+      ],
+      "salt_aliases": [
+        "TELMISARTAN"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "20 mg",
+        "40 mg",
+        "80 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "potassium"
+      ]
+    },
+    {
+      "brand_id": "telmikind",
+      "brand_name": "Telmikind",
+      "brand_aliases": [
+        "TELMIKIND",
+        "TELMIK1ND",
+        "TELMIKIND 40",
+        "TELMIKIND H"
+      ],
+      "active_salts": [
+        "Telmisartan"
+      ],
+      "salt_aliases": [
+        "TELMISARTAN"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "20 mg",
+        "40 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "potassium"
+      ]
+    },
+    {
+      "brand_id": "cardace",
+      "brand_name": "Cardace",
+      "brand_aliases": [
+        "CARDACE",
+        "CARDACE 2.5",
+        "CARDACE 5",
+        "RAMIPRIL"
+      ],
+      "active_salts": [
+        "Ramipril"
+      ],
+      "salt_aliases": [
+        "RAMIPRIL"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "2.5 mg",
+        "5 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "potassium"
+      ]
+    },
+    {
+      "brand_id": "aten",
+      "brand_name": "Aten",
+      "brand_aliases": [
+        "ATEN",
+        "ATEN 50",
+        "ATEN 25",
+        "ATEN-50"
+      ],
+      "active_salts": [
+        "Atenolol"
+      ],
+      "salt_aliases": [
+        "ATENOLOL"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "25 mg",
+        "50 mg",
+        "100 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "envas",
+      "brand_name": "Envas",
+      "brand_aliases": [
+        "ENVAS",
+        "ENVAS 5",
+        "ENVAS 2.5"
+      ],
+      "active_salts": [
+        "Enalapril Maleate"
+      ],
+      "salt_aliases": [
+        "ENALAPRIL",
+        "ENALAPRIL MALEATE"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "2.5 mg",
+        "5 mg",
+        "10 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "potassium"
+      ]
+    },
+    {
+      "brand_id": "losar",
+      "brand_name": "Losar",
+      "brand_aliases": [
+        "LOSAR",
+        "L0SAR",
+        "LOSAR 50",
+        "LOSAR 25",
+        "LOSAR H"
+      ],
+      "active_salts": [
+        "Losartan Potassium"
+      ],
+      "salt_aliases": [
+        "LOSARTAN",
+        "LOSARTAN POTASSIUM"
+      ],
+      "drug_class": "blood_pressure",
+      "common_strengths": [
+        "25 mg",
+        "50 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "potassium"
+      ]
+    },
+    {
+      "brand_id": "orofer_xt",
+      "brand_name": "Orofer XT",
+      "brand_aliases": [
+        "OROFER XT",
+        "0ROFER XT",
+        "OROFER-XT",
+        "OROFER"
+      ],
+      "active_salts": [
+        "Ferrous Ascorbate",
+        "Folic Acid"
+      ],
+      "salt_aliases": [
+        "FERROUS ASCORBATE",
+        "IRON FOLIC ACID",
+        "ELEMENTAL IRON",
+        "FERROUS SULFATE"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "100 mg + 1.5 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "tannins_polyphenols",
+        "oxalates",
+        "phytates",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "autrin",
+      "brand_name": "Autrin",
+      "brand_aliases": [
+        "AUTRIN",
+        "AUTR1N",
+        "AUTRIN CAPSULES"
+      ],
+      "active_salts": [
+        "Ferrous Fumarate",
+        "Folic Acid",
+        "Cyanocobalamin"
+      ],
+      "salt_aliases": [
+        "FERROUS FUMARATE",
+        "IRON",
+        "FOLIC ACID",
+        "VITAMIN B12"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "300 mg + 1.5 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "tannins_polyphenols",
+        "oxalates",
+        "phytates"
+      ]
+    },
+    {
+      "brand_id": "livogen",
+      "brand_name": "Livogen",
+      "brand_aliases": [
+        "LIVOGEN",
+        "LIV0GEN",
+        "LIVOGEN Z",
+        "LIVOGEN CAPTABS"
+      ],
+      "active_salts": [
+        "Ferrous Fumarate",
+        "Folic Acid"
+      ],
+      "salt_aliases": [
+        "FERROUS FUMARATE",
+        "IRON",
+        "FOLIC ACID"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "152 mg + 1.5 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "tannins_polyphenols",
+        "oxalates",
+        "phytates"
+      ]
+    },
+    {
+      "brand_id": "fefol",
+      "brand_name": "Fefol",
+      "brand_aliases": [
+        "FEFOL",
+        "FEF0L",
+        "FEFOL Z",
+        "FEFOL SPANSULE"
+      ],
+      "active_salts": [
+        "Ferrous Sulphate",
+        "Folic Acid"
+      ],
+      "salt_aliases": [
+        "FERROUS SULFATE",
+        "FERROUS SULPHATE",
+        "FOLIC ACID"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "150 mg + 0.5 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "tannins_polyphenols",
+        "oxalates",
+        "phytates"
+      ]
+    },
+    {
+      "brand_id": "hb_plus_carbonyl",
+      "brand_name": "Hb-Plus",
+      "brand_aliases": [
+        "HB-PLUS",
+        "HB PLUS",
+        "CARBONYL IRON",
+        "FEFOL Z CARBONYL"
+      ],
+      "active_salts": [
+        "Carbonyl Iron",
+        "Folic Acid"
+      ],
+      "salt_aliases": [
+        "CARBONYL IRON",
+        "ELEMENTAL IRON",
+        "FOLIC ACID"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "100 mg + 1.5 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "calcium",
+        "tannins_polyphenols",
+        "oxalates",
+        "phytates"
+      ]
+    },
+    {
+      "brand_id": "ferro_xt_regional",
+      "brand_name": "Ferro-XT",
+      "brand_aliases": [
+        "FERRO-XT",
+        "FERRO XT",
+        "FERR0 XT",
+        "FERO XT"
+      ],
+      "active_salts": [
+        "Ferrous Ascorbate",
+        "Folic Acid"
+      ],
+      "salt_aliases": [
+        "FERROUS ASCORBATE",
+        "FOLIC ACID"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "100 mg + 1.5 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "calcium",
+        "tannins_polyphenols",
+        "oxalates",
+        "phytates"
+      ]
+    },
+    {
+      "brand_id": "shelcal",
+      "brand_name": "Shelcal",
+      "brand_aliases": [
+        "SHELCAL",
+        "SHELCAL 500",
+        "SHELCAL-500",
+        "SHELCAL XT",
+        "SHELCAL HD"
+      ],
+      "active_salts": [
+        "Calcium Carbonate",
+        "Cholecalciferol (Vitamin D3)"
+      ],
+      "salt_aliases": [
+        "CALCIUM CARBONATE",
+        "ELEMENTAL CALCIUM",
+        "VITAMIN D3",
+        "CHOLECALCIFEROL"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "500 mg + 250 IU",
+        "500 mg + 500 IU"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "oxalates",
+        "phytates",
+        "iron",
+        "high_fiber"
+      ]
+    },
+    {
+      "brand_id": "cipcal",
+      "brand_name": "Cipcal",
+      "brand_aliases": [
+        "CIPCAL",
+        "CIPCAL 500",
+        "C1PCAL 500",
+        "CIPCAL D3"
+      ],
+      "active_salts": [
+        "Calcium Carbonate",
+        "Cholecalciferol (Vitamin D3)"
+      ],
+      "salt_aliases": [
+        "CALCIUM CARBONATE",
+        "VITAMIN D3"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "500 mg + 250 IU"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "oxalates",
+        "phytates",
+        "iron"
+      ]
+    },
+    {
+      "brand_id": "gemcal",
+      "brand_name": "Gemcal",
+      "brand_aliases": [
+        "GEMCAL",
+        "GEMCAL D3",
+        "GEMCAL XT"
+      ],
+      "active_salts": [
+        "Calcium Carbonate",
+        "Calcitriol",
+        "Zinc"
+      ],
+      "salt_aliases": [
+        "CALCIUM CARBONATE",
+        "CALCITRIOL"
+      ],
+      "drug_class": "anaemia_supplement",
+      "common_strengths": [
+        "500 mg + 0.25 mcg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "oxalates",
+        "phytates",
+        "iron"
+      ]
+    },
+    {
+      "brand_id": "ciplox",
+      "brand_name": "Ciplox",
+      "brand_aliases": [
+        "CIPLOX",
+        "C1PLOX",
+        "CIPLOX 500",
+        "CIPLOX-500",
+        "CIPLOX 250"
+      ],
+      "active_salts": [
+        "Ciprofloxacin"
+      ],
+      "salt_aliases": [
+        "CIPROFLOXACIN",
+        "CIPROFLOXACIN HYDROCHLORIDE",
+        "CIPROFLOXACIN HCL"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "250 mg",
+        "500 mg",
+        "750 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "iron",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "cifran",
+      "brand_name": "Cifran",
+      "brand_aliases": [
+        "CIFRAN",
+        "C1FRAN",
+        "CIFRAN 500",
+        "CIFRAN OD"
+      ],
+      "active_salts": [
+        "Ciprofloxacin"
+      ],
+      "salt_aliases": [
+        "CIPROFLOXACIN"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "500 mg",
+        "1000 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "iron",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "zanocin",
+      "brand_name": "Zanocin",
+      "brand_aliases": [
+        "ZANOCIN",
+        "ZANOCIN 200",
+        "OFLOX",
+        "OFLOX 200"
+      ],
+      "active_salts": [
+        "Ofloxacin"
+      ],
+      "salt_aliases": [
+        "OFLOXACIN"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "200 mg",
+        "400 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium"
+      ]
+    },
+    {
+      "brand_id": "norflox",
+      "brand_name": "Norflox",
+      "brand_aliases": [
+        "NORFLOX",
+        "NORFLOX 400",
+        "NORFLOX TZ"
+      ],
+      "active_salts": [
+        "Norfloxacin"
+      ],
+      "salt_aliases": [
+        "NORFLOXACIN"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "400 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium"
+      ]
+    },
+    {
+      "brand_id": "azithral",
+      "brand_name": "Azithral",
+      "brand_aliases": [
+        "AZITHRAL",
+        "AZITHRAL 500",
+        "AZ1THRAL",
+        "AZITHRAL-500"
+      ],
+      "active_salts": [
+        "Azithromycin"
+      ],
+      "salt_aliases": [
+        "AZITHROMYCIN",
+        "AZITHROMYCIN DIHYDRATE"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "250 mg",
+        "500 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "high_fat"
+      ]
+    },
+    {
+      "brand_id": "azee",
+      "brand_name": "Azee",
+      "brand_aliases": [
+        "AZEE",
+        "AZEE 500",
+        "AZEE 250"
+      ],
+      "active_salts": [
+        "Azithromycin"
+      ],
+      "salt_aliases": [
+        "AZITHROMYCIN"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "250 mg",
+        "500 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "high_fat"
+      ]
+    },
+    {
+      "brand_id": "doxy_1",
+      "brand_name": "Doxy-1",
+      "brand_aliases": [
+        "DOXY-1",
+        "DOXY 1",
+        "D0XY-1",
+        "DOXY-1 L-DR FORTE",
+        "DOXT-SL"
+      ],
+      "active_salts": [
+        "Doxycycline"
+      ],
+      "salt_aliases": [
+        "DOXYCYCLINE",
+        "DOXYCYCLINE HYCLATE"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "100 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "iron"
+      ]
+    },
+    {
+      "brand_id": "augmentin",
+      "brand_name": "Augmentin",
+      "brand_aliases": [
+        "AUGMENTIN",
+        "AUGMENTIN 625",
+        "AUGMENTIN 625 DUO",
+        "AUGMENT1N"
+      ],
+      "active_salts": [
+        "Amoxicillin",
+        "Clavulanic Acid"
+      ],
+      "salt_aliases": [
+        "AMOXICILLIN",
+        "CLAVULANIC ACID",
+        "CO-AMOXICLAV"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "500 mg + 125 mg",
+        "625 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": []
+    },
+    {
+      "brand_id": "moxikind_cv",
+      "brand_name": "Moxikind-CV",
+      "brand_aliases": [
+        "MOXIKIND-CV",
+        "MOXIKIND CV",
+        "M0XIKIND CV 625"
+      ],
+      "active_salts": [
+        "Amoxicillin",
+        "Clavulanic Acid"
+      ],
+      "salt_aliases": [
+        "AMOXICILLIN",
+        "CLAVULANIC ACID"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "625 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": []
+    },
+    {
+      "brand_id": "levomac",
+      "brand_name": "Levomac",
+      "brand_aliases": [
+        "LEVOMAC",
+        "LEV0MAC",
+        "LEVOMAC 500",
+        "GLEVO 500"
+      ],
+      "active_salts": [
+        "Levofloxacin"
+      ],
+      "salt_aliases": [
+        "LEVOFLOXACIN",
+        "LEVOFLOXACIN HEMIHYDRATE"
+      ],
+      "drug_class": "antibiotic",
+      "common_strengths": [
+        "500 mg",
+        "750 mg"
+      ],
+      "is_regional_brand": true,
+      "key_food_interferents": [
+        "calcium",
+        "iron"
+      ]
+    },
+    {
+      "brand_id": "warf",
+      "brand_name": "Warf",
+      "brand_aliases": [
+        "WARF",
+        "WARF 5",
+        "WARF 2",
+        "WARF-5",
+        "UNIWARFIN"
+      ],
+      "active_salts": [
+        "Warfarin Sodium"
+      ],
+      "salt_aliases": [
+        "WARFARIN",
+        "WARFARIN SODIUM"
+      ],
+      "drug_class": "anticoagulant",
+      "common_strengths": [
+        "1 mg",
+        "2 mg",
+        "5 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "vitamin_k"
+      ]
+    },
+    {
+      "brand_id": "acitrom",
+      "brand_name": "Acitrom",
+      "brand_aliases": [
+        "ACITROM",
+        "AC1TROM",
+        "ACITROM 2",
+        "ACITROM 4"
+      ],
+      "active_salts": [
+        "Acenocoumarol"
+      ],
+      "salt_aliases": [
+        "ACENOCOUMAROL",
+        "NICOUMALONE"
+      ],
+      "drug_class": "anticoagulant",
+      "common_strengths": [
+        "1 mg",
+        "2 mg",
+        "4 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "vitamin_k"
+      ]
+    },
+    {
+      "brand_id": "atorva",
+      "brand_name": "Atorva",
+      "brand_aliases": [
+        "ATORVA",
+        "AT0RVA",
+        "ATORVA 10",
+        "ATORVA 20",
+        "TONACT",
+        "STORVAS"
+      ],
+      "active_salts": [
+        "Atorvastatin"
+      ],
+      "salt_aliases": [
+        "ATORVASTATIN",
+        "ATORVASTATIN CALCIUM"
+      ],
+      "drug_class": "statin",
+      "common_strengths": [
+        "10 mg",
+        "20 mg",
+        "40 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "grapefruit_furanocoumarins",
+        "high_fat"
+      ]
+    },
+    {
+      "brand_id": "simvotin",
+      "brand_name": "Simvotin",
+      "brand_aliases": [
+        "SIMVOTIN",
+        "SIMVOTIN 10",
+        "ZOCOR",
+        "SIMVASTATIN"
+      ],
+      "active_salts": [
+        "Simvastatin"
+      ],
+      "salt_aliases": [
+        "SIMVASTATIN"
+      ],
+      "drug_class": "statin",
+      "common_strengths": [
+        "10 mg",
+        "20 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "grapefruit_furanocoumarins",
+        "high_fat"
+      ]
+    },
+    {
+      "brand_id": "rosuvas",
+      "brand_name": "Rosuvas",
+      "brand_aliases": [
+        "ROSUVAS",
+        "R0SUVAS",
+        "ROSUVAS 10",
+        "ROZAVEL 10"
+      ],
+      "active_salts": [
+        "Rosuvastatin"
+      ],
+      "salt_aliases": [
+        "ROSUVASTATIN",
+        "ROSUVASTATIN CALCIUM"
+      ],
+      "drug_class": "statin",
+      "common_strengths": [
+        "5 mg",
+        "10 mg",
+        "20 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": []
+    },
+    {
+      "brand_id": "pan_40",
+      "brand_name": "Pan 40",
+      "brand_aliases": [
+        "PAN 40",
+        "PAN-40",
+        "PAN40",
+        "PANTOP",
+        "PANTOCID",
+        "PAN-D"
+      ],
+      "active_salts": [
+        "Pantoprazole Sodium"
+      ],
+      "salt_aliases": [
+        "PANTOPRAZOLE",
+        "PANTOPRAZOLE SODIUM"
+      ],
+      "drug_class": "gastric_ppi",
+      "common_strengths": [
+        "40 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "high_fat",
+        "caffeine"
+      ]
+    },
+    {
+      "brand_id": "omez",
+      "brand_name": "Omez",
+      "brand_aliases": [
+        "OMEZ",
+        "0MEZ",
+        "OMEZ 20",
+        "OMEZ-D"
+      ],
+      "active_salts": [
+        "Omeprazole"
+      ],
+      "salt_aliases": [
+        "OMEPRAZOLE"
+      ],
+      "drug_class": "gastric_ppi",
+      "common_strengths": [
+        "20 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "high_fat"
+      ]
+    },
+    {
+      "brand_id": "sucrafil",
+      "brand_name": "Sucrafil",
+      "brand_aliases": [
+        "SUCRAFIL",
+        "SUCRAF1L",
+        "SUCRAFIL O"
+      ],
+      "active_salts": [
+        "Sucralfate"
+      ],
+      "salt_aliases": [
+        "SUCRALFATE"
+      ],
+      "drug_class": "gastric_ppi",
+      "common_strengths": [
+        "1000 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "high_fiber"
+      ]
+    },
+    {
+      "brand_id": "lasix",
+      "brand_name": "Lasix",
+      "brand_aliases": [
+        "LASIX",
+        "LAS1X",
+        "LASIX 40"
+      ],
+      "active_salts": [
+        "Furosemide"
+      ],
+      "salt_aliases": [
+        "FUROSEMIDE",
+        "FRUSEMIDE"
+      ],
+      "drug_class": "diuretic",
+      "common_strengths": [
+        "40 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "potassium"
+      ]
+    },
+    {
+      "brand_id": "aldactone",
+      "brand_name": "Aldactone",
+      "brand_aliases": [
+        "ALDACTONE",
+        "ALDACT0NE",
+        "ALDACTONE 25",
+        "ALDACTONE 50"
+      ],
+      "active_salts": [
+        "Spironolactone"
+      ],
+      "salt_aliases": [
+        "SPIRONOLACTONE"
+      ],
+      "drug_class": "diuretic",
+      "common_strengths": [
+        "25 mg",
+        "50 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "potassium"
+      ]
+    },
+    {
+      "brand_id": "osteofos",
+      "brand_name": "Osteofos",
+      "brand_aliases": [
+        "OSTEOFOS",
+        "0STEOFOS",
+        "OSTEOFOS 70",
+        "OSTEOFOS 35"
+      ],
+      "active_salts": [
+        "Alendronate Sodium"
+      ],
+      "salt_aliases": [
+        "ALENDRONATE",
+        "ALENDRONATE SODIUM",
+        "ALENDRONIC ACID"
+      ],
+      "drug_class": "bone_health",
+      "common_strengths": [
+        "35 mg",
+        "70 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "calcium",
+        "caffeine",
+        "high_fiber"
+      ]
+    },
+    {
+      "brand_id": "dolo_650",
+      "brand_name": "Dolo 650",
+      "brand_aliases": [
+        "DOLO 650",
+        "DOLO-650",
+        "D0LO 650",
+        "CALPOL 650",
+        "CROCIN"
+      ],
+      "active_salts": [
+        "Paracetamol"
+      ],
+      "salt_aliases": [
+        "PARACETAMOL",
+        "ACETAMINOPHEN"
+      ],
+      "drug_class": "analgesic_nsaid",
+      "common_strengths": [
+        "500 mg",
+        "650 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": []
+    },
+    {
+      "brand_id": "brufen",
+      "brand_name": "Brufen",
+      "brand_aliases": [
+        "BRUFEN",
+        "BRUFEN 400",
+        "BRUFEN-400"
+      ],
+      "active_salts": [
+        "Ibuprofen"
+      ],
+      "salt_aliases": [
+        "IBUPROFEN"
+      ],
+      "drug_class": "analgesic_nsaid",
+      "common_strengths": [
+        "400 mg",
+        "600 mg"
+      ],
+      "is_regional_brand": false,
+      "key_food_interferents": [
+        "caffeine"
+      ]
+    }
+  ],
+  "foods": [
+    {
+      "canonical_food_id": "chai_with_milk",
+      "display_name": "Masala Chai / Milk Tea",
+      "hindi_name": "दूध वाली चाय",
+      "marathi_name": "दुधाचा चहा",
+      "category": "beverage_tea_coffee",
+      "interfering_nutrients": [
+        "tannins_polyphenols",
+        "calcium",
+        "caffeine"
+      ],
+      "contains_milk": true,
+      "member2_culprit_labels": [
+        "Morning Masala Chai with Milk",
+        "Masala Chai",
+        "Sweetened Chai / Sherbet"
+      ],
+      "ifct_basis": "Tea polyphenols/tannins (105 mg GAE/100ml) + cow/buffalo milk calcium",
+      "keywords": [
+        "chai",
+        "masala chai",
+        "milk tea",
+        "cutting chai",
+        "adarak chai",
+        "tea with milk",
+        "sweetened chai"
+      ],
+      "confirmation_question": "Does this chai contain dairy milk (increases calcium + tannin binding)?"
+    },
+    {
+      "canonical_food_id": "black_tea",
+      "display_name": "Black Tea / Kali Chai (No Milk)",
+      "hindi_name": "काली चाय",
+      "marathi_name": "काळा चहा",
+      "category": "beverage_tea_coffee",
+      "interfering_nutrients": [
+        "tannins_polyphenols",
+        "caffeine"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Black Tea (Tannins)"
+      ],
+      "ifct_basis": "High tannin/polyphenol content inhibits non-heme iron absorption",
+      "keywords": [
+        "black tea",
+        "kali chai",
+        "lemon tea",
+        "green tea",
+        "tea without milk"
+      ],
+      "confirmation_question": "Confirm this is black/herbal tea without dairy milk."
+    },
+    {
+      "canonical_food_id": "coffee_with_milk",
+      "display_name": "Filter Coffee / Milk Coffee",
+      "hindi_name": "कॉफ़ी (दूध के साथ)",
+      "marathi_name": "दुधाची कॉफी",
+      "category": "beverage_tea_coffee",
+      "interfering_nutrients": [
+        "caffeine",
+        "tannins_polyphenols",
+        "calcium"
+      ],
+      "contains_milk": true,
+      "member2_culprit_labels": [
+        "Filter Coffee"
+      ],
+      "ifct_basis": "Chlorogenic polyphenols + caffeine + milk calcium",
+      "keywords": [
+        "coffee",
+        "filter coffee",
+        "milk coffee",
+        "nescafe",
+        "bru"
+      ],
+      "confirmation_question": "Did your coffee include milk?"
+    },
+    {
+      "canonical_food_id": "cow_milk",
+      "display_name": "Milk (Cow / Buffalo / Toned)",
+      "hindi_name": "दूध",
+      "marathi_name": "दूध",
+      "category": "dairy",
+      "interfering_nutrients": [
+        "calcium"
+      ],
+      "contains_milk": true,
+      "member2_culprit_labels": [
+        "Cow/Buffalo Milk",
+        "Doodh (Milk)"
+      ],
+      "ifct_basis": "IFCT D001/D002: Cow milk 118 mg & Buffalo milk 210 mg Calcium per 100g",
+      "keywords": [
+        "milk",
+        "doodh",
+        "haldi doodh",
+        "turmeric milk",
+        "glass of milk",
+        "kesar milk"
+      ],
+      "confirmation_question": "Confirm glass of dairy milk (high calcium chelator)."
+    },
+    {
+      "canonical_food_id": "curd_dahi",
+      "display_name": "Curd / Dahi / Raita",
+      "hindi_name": "दही / रायता",
+      "marathi_name": "दही / कोशिंबीर",
+      "category": "dairy",
+      "interfering_nutrients": [
+        "calcium"
+      ],
+      "contains_milk": true,
+      "member2_culprit_labels": [
+        "Dahi / Curd",
+        "Dahi (Curd)"
+      ],
+      "ifct_basis": "IFCT dairy curd calcium ~149 mg per 100g",
+      "keywords": [
+        "curd",
+        "dahi",
+        "yogurt",
+        "raita",
+        "koshimbir with curd",
+        "kadhi"
+      ],
+      "confirmation_question": "Is curd/dahi or raita included in this thali?"
+    },
+    {
+      "canonical_food_id": "buttermilk_chaas",
+      "display_name": "Buttermilk / Chaas / Lassi",
+      "hindi_name": "छाछ / लस्सी",
+      "marathi_name": "ताक / लस्सी",
+      "category": "dairy",
+      "interfering_nutrients": [
+        "calcium"
+      ],
+      "contains_milk": true,
+      "member2_culprit_labels": [
+        "Chaas / Buttermilk"
+      ],
+      "ifct_basis": "IFCT D004: 95 mg Calcium & 14 mg Magnesium per 100ml",
+      "keywords": [
+        "chaas",
+        "taak",
+        "buttermilk",
+        "lassi",
+        "mattha"
+      ],
+      "confirmation_question": "Confirm buttermilk/chaas/lassi accompaniment."
+    },
+    {
+      "canonical_food_id": "paneer_dish",
+      "display_name": "Paneer Dish (Paneer Bhurji / Matar Paneer)",
+      "hindi_name": "पनीर की सब्ज़ी",
+      "marathi_name": "पनीर भाजी",
+      "category": "dairy",
+      "interfering_nutrients": [
+        "calcium",
+        "high_fat"
+      ],
+      "contains_milk": true,
+      "member2_culprit_labels": [
+        "Paneer"
+      ],
+      "ifct_basis": "IFCT D009 paneer high calcium (480 mg/100g) and dairy fat",
+      "keywords": [
+        "paneer",
+        "matar paneer",
+        "paneer butter masala",
+        "kadai paneer",
+        "paneer bhurji",
+        "shahi paneer"
+      ],
+      "confirmation_question": "Confirm dish contains paneer (concentrated calcium)."
+    },
+    {
+      "canonical_food_id": "palak_spinach",
+      "display_name": "Palak / Spinach Sabzi or Palak Paneer",
+      "hindi_name": "पालक सब्ज़ी / साग",
+      "marathi_name": "पालक भाजी",
+      "category": "leafy_vegetable",
+      "interfering_nutrients": [
+        "oxalates",
+        "vitamin_k",
+        "calcium",
+        "iron"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Palak Paneer"
+      ],
+      "ifct_basis": "IFCT Table A Greens: Palak Oxalates 658 mg/100g & Vitamin K1 483 mcg/100g",
+      "keywords": [
+        "palak",
+        "spinach",
+        "palak paneer",
+        "palak dal",
+        "green leafy"
+      ],
+      "confirmation_question": "Is the green leafy dish Palak (spinach — high oxalate & Vitamin K)?"
+    },
+    {
+      "canonical_food_id": "sarson_ka_saag",
+      "display_name": "Sarson ka Saag (Mustard Greens)",
+      "hindi_name": "सरसों का साग",
+      "marathi_name": "मोहरीची भाजी / साग",
+      "category": "leafy_vegetable",
+      "interfering_nutrients": [
+        "vitamin_k",
+        "oxalates",
+        "high_fiber"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Sarson ka Saag"
+      ],
+      "ifct_basis": "IFCT Table A Greens: Mustard Greens Vitamin K1 ~380 mcg/100g",
+      "keywords": [
+        "sarson",
+        "sarson ka saag",
+        "saag",
+        "mustard greens"
+      ],
+      "confirmation_question": "Confirm Sarson ka Saag (high Vitamin K1)."
+    },
+    {
+      "canonical_food_id": "methi_fenugreek",
+      "display_name": "Methi / Fenugreek Leaves Sabzi / Thepla",
+      "hindi_name": "मेथी की सब्ज़ी / थेपला",
+      "marathi_name": "मेथीची भाजी",
+      "category": "leafy_vegetable",
+      "interfering_nutrients": [
+        "vitamin_k",
+        "high_fiber",
+        "calcium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Methi Thepla / Methi Bhaji"
+      ],
+      "ifct_basis": "IFCT fenugreek leaves Vitamin K & soluble fiber",
+      "keywords": [
+        "methi",
+        "aloo methi",
+        "methi bhaji",
+        "methi thepla",
+        "fenugreek"
+      ],
+      "confirmation_question": "Is this leafy dish Methi (fenugreek leaves)?"
+    },
+    {
+      "canonical_food_id": "green_chutney_coriander_mint",
+      "display_name": "Green Coriander & Mint Chutney",
+      "hindi_name": "हरी धनिया-पुदीना चटनी",
+      "marathi_name": "कोथिंबीर-पुदिना चटणी",
+      "category": "leafy_vegetable",
+      "interfering_nutrients": [
+        "vitamin_k"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Green Coriander & Mint Chutney"
+      ],
+      "ifct_basis": "Raw coriander & mint leaves Vitamin K1 concentration",
+      "keywords": [
+        "green chutney",
+        "hari chutney",
+        "coriander chutney",
+        "mint chutney",
+        "dhaniya chutney"
+      ],
+      "confirmation_question": "Confirm green coriander/mint chutney."
+    },
+    {
+      "canonical_food_id": "amaranth_chaulai",
+      "display_name": "Chaulai / Amaranth / Bathua Saag",
+      "hindi_name": "चौलाई / बथुआ साग",
+      "marathi_name": "माठ / लाल माठ भाजी",
+      "category": "leafy_vegetable",
+      "interfering_nutrients": [
+        "oxalates",
+        "vitamin_k",
+        "calcium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Palak Paneer"
+      ],
+      "ifct_basis": "IFCT amaranth high oxalate & calcium (~330 mg/100g)",
+      "keywords": [
+        "chaulai",
+        "amaranth",
+        "bathua",
+        "maath",
+        "lal saag"
+      ],
+      "confirmation_question": "Confirm leafy variety (Chaulai/Amaranth/Bathua)."
+    },
+    {
+      "canonical_food_id": "cabbage_patta_gobhi",
+      "display_name": "Patta Gobhi / Cabbage / Broccoli",
+      "hindi_name": "पत्ता गोभी / ब्रोकोली",
+      "marathi_name": "कोबी / ब्रोकोली",
+      "category": "leafy_vegetable",
+      "interfering_nutrients": [
+        "vitamin_k",
+        "high_fiber"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Broccoli"
+      ],
+      "ifct_basis": "Cruciferous Vitamin K source",
+      "keywords": [
+        "cabbage",
+        "patta gobhi",
+        "kobi",
+        "broccoli",
+        "cauliflower",
+        "gobi"
+      ],
+      "confirmation_question": "Confirm cabbage/broccoli cruciferous vegetable in meal."
+    },
+    {
+      "canonical_food_id": "soya_vadi_chunks",
+      "display_name": "Soya Vadi / Soya Chunks / Tofu",
+      "hindi_name": "सोया बड़ी / सोया चंक्स",
+      "marathi_name": "सोयाबीन वडी",
+      "category": "legume_dal",
+      "interfering_nutrients": [
+        "soy_isoflavones",
+        "phytates",
+        "calcium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Soya Vadi / Soya Chunks"
+      ],
+      "ifct_basis": "Soy isoflavones & phytates inhibit mucosal levothyroxine absorption",
+      "keywords": [
+        "soya",
+        "soya vadi",
+        "soya chunks",
+        "soybean",
+        "nutrela",
+        "tofu"
+      ],
+      "confirmation_question": "Confirm soya chunks/soya vadi in dish."
+    },
+    {
+      "canonical_food_id": "walnuts",
+      "display_name": "Walnuts (Akhrot)",
+      "hindi_name": "अखरोट",
+      "marathi_name": "अक्रोड",
+      "category": "other",
+      "interfering_nutrients": [
+        "high_fiber",
+        "phytates"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Walnuts"
+      ],
+      "ifct_basis": "High dietary fiber & phytate interference with levothyroxine",
+      "keywords": [
+        "walnut",
+        "walnuts",
+        "akhrot",
+        "dry fruit"
+      ],
+      "confirmation_question": "Confirm walnuts/akhrot."
+    },
+    {
+      "canonical_food_id": "dal_lentils",
+      "display_name": "Dal (Toor / Moong / Masoor)",
+      "hindi_name": "दाल",
+      "marathi_name": "वरण / डाळ",
+      "category": "legume_dal",
+      "interfering_nutrients": [
+        "phytates",
+        "high_fiber",
+        "potassium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [],
+      "ifct_basis": "IFCT pulses phytate & fiber profile",
+      "keywords": [
+        "dal",
+        "toor dal",
+        "moong dal",
+        "dal tadka",
+        "dal fry",
+        "varan",
+        "sambar"
+      ],
+      "confirmation_question": "Confirm dal / sambar bowl."
+    },
+    {
+      "canonical_food_id": "rajma_chole",
+      "display_name": "Rajma / Chole / Whole Pulses",
+      "hindi_name": "राजमा / छोले",
+      "marathi_name": "राजमा / छोले",
+      "category": "legume_dal",
+      "interfering_nutrients": [
+        "phytates",
+        "high_fiber",
+        "potassium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Whole pulses (Rajma/Chana)"
+      ],
+      "ifct_basis": "IFCT legumes rich in phytic acid, fiber & potassium",
+      "keywords": [
+        "rajma",
+        "chole",
+        "chana",
+        "chana masala",
+        "kala chana",
+        "usal",
+        "whole pulses"
+      ],
+      "confirmation_question": "Confirm rajma/chole whole-pulse dish."
+    },
+    {
+      "canonical_food_id": "wheat_roti",
+      "display_name": "Whole Wheat Roti / Chapati / Bhakri",
+      "hindi_name": "रोटी / चपाती",
+      "marathi_name": "चपाती / भाकरी",
+      "category": "grain_cereal",
+      "interfering_nutrients": [
+        "phytates",
+        "high_fiber"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Bran-rich Atta Roti"
+      ],
+      "ifct_basis": "IFCT Table B Cereals: Wheat bran atta phytic acid 840 mg/100g",
+      "keywords": [
+        "roti",
+        "chapati",
+        "phulka",
+        "bhakri",
+        "paratha",
+        "jowar bhakri",
+        "atta roti"
+      ],
+      "confirmation_question": "Confirm roti/chapati/bhakri count."
+    },
+    {
+      "canonical_food_id": "maida_naan_bhatura",
+      "display_name": "Maida Naan / Bhatura / Refined Bread",
+      "hindi_name": "नान / भटूरा",
+      "marathi_name": "नान / भटूरा",
+      "category": "grain_cereal",
+      "interfering_nutrients": [
+        "simple_sugars",
+        "high_fat"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Maida Naan / Bhatura"
+      ],
+      "ifct_basis": "Refined flour high glycemic load",
+      "keywords": [
+        "naan",
+        "bhatura",
+        "maida",
+        "kulcha",
+        "white bread"
+      ],
+      "confirmation_question": "Confirm refined flour naan/bhatura."
+    },
+    {
+      "canonical_food_id": "steamed_rice",
+      "display_name": "Steamed Rice / Jeera Rice / Khichdi",
+      "hindi_name": "चावल / खिचड़ी",
+      "marathi_name": "भात / खिचडी",
+      "category": "grain_cereal",
+      "interfering_nutrients": [],
+      "contains_milk": false,
+      "member2_culprit_labels": [],
+      "ifct_basis": "Low-interferent carbohydrate staple",
+      "keywords": [
+        "rice",
+        "chawal",
+        "bhat",
+        "jeera rice",
+        "khichdi",
+        "pulao"
+      ],
+      "confirmation_question": "Confirm steamed rice / khichdi portion."
+    },
+    {
+      "canonical_food_id": "poha_upma",
+      "display_name": "Poha / Upma / Idli",
+      "hindi_name": "पोहा / उपमा / इडली",
+      "marathi_name": "पोहे / उपमा / इडली",
+      "category": "grain_cereal",
+      "interfering_nutrients": [],
+      "contains_milk": false,
+      "member2_culprit_labels": [],
+      "ifct_basis": "Light breakfast staple",
+      "keywords": [
+        "poha",
+        "pohe",
+        "kanda poha",
+        "upma",
+        "idli",
+        "dosa"
+      ],
+      "confirmation_question": "Confirm breakfast dish (poha/upma/idli)."
+    },
+    {
+      "canonical_food_id": "samosa_fried",
+      "display_name": "Deep-Fried Pakoras / Samosa / Poori",
+      "hindi_name": "समोसा / पकौड़ा / पूरी",
+      "marathi_name": "समोसा / भजी / पुरी",
+      "category": "high_fat_fried",
+      "interfering_nutrients": [
+        "high_fat"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Deep-fried pakoras / Poori (High Re-heated Vanaspati)"
+      ],
+      "ifct_basis": "IFCT Table H Fats & Oils: >35% saturated/trans lipid load",
+      "keywords": [
+        "samosa",
+        "pakora",
+        "pakoras",
+        "bhaji",
+        "vada",
+        "poori",
+        "puri",
+        "kachori"
+      ],
+      "confirmation_question": "Confirm deep-fried / high-fat item."
+    },
+    {
+      "canonical_food_id": "gulab_jamun_sweets",
+      "display_name": "Gulab Jamun / Jalebi / Indian Mithai",
+      "hindi_name": "गुलाब जामुन / जलेबी",
+      "marathi_name": "गुलाबजामुन / जिलेबी",
+      "category": "other",
+      "interfering_nutrients": [
+        "simple_sugars",
+        "high_fat"
+      ],
+      "contains_milk": true,
+      "member2_culprit_labels": [
+        "Gulab Jamun / Jalebi"
+      ],
+      "ifct_basis": "IFCT Table I Sweets: 68.2 g/100g simple carbohydrates (GI > 78)",
+      "keywords": [
+        "gulab jamun",
+        "jalebi",
+        "mithai",
+        "laddu",
+        "barfi",
+        "halwa",
+        "rasgulla"
+      ],
+      "confirmation_question": "Confirm Indian sweet/mithai (high glycemic load)."
+    },
+    {
+      "canonical_food_id": "banana",
+      "display_name": "Banana / Kela",
+      "hindi_name": "केला",
+      "marathi_name": "केळे",
+      "category": "citrus_fruit",
+      "interfering_nutrients": [
+        "potassium",
+        "high_fiber"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Bananas"
+      ],
+      "ifct_basis": "IFCT high potassium fruit (~362 mg/100g)",
+      "keywords": [
+        "banana",
+        "bananas",
+        "kela",
+        "kele"
+      ],
+      "confirmation_question": "Confirm banana (potassium-rich fruit)."
+    },
+    {
+      "canonical_food_id": "jackfruit_kathal",
+      "display_name": "Jackfruit / Kathal",
+      "hindi_name": "कटहल",
+      "marathi_name": "फणस",
+      "category": "citrus_fruit",
+      "interfering_nutrients": [
+        "potassium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Jackfruit / Kathal"
+      ],
+      "ifct_basis": "IFCT Table G Potassium source",
+      "keywords": [
+        "jackfruit",
+        "kathal",
+        "phanas"
+      ],
+      "confirmation_question": "Confirm jackfruit/kathal (high potassium)."
+    },
+    {
+      "canonical_food_id": "tender_coconut_water",
+      "display_name": "Tender Coconut Water (Nariyal Pani)",
+      "hindi_name": "नारियल पानी",
+      "marathi_name": "शहाळ्याचे पाणी",
+      "category": "beverage_tea_coffee",
+      "interfering_nutrients": [
+        "potassium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Tender Coconut Water (multiple glasses)"
+      ],
+      "ifct_basis": "IFCT Table G Beverages: 250 mg Potassium per 100ml",
+      "keywords": [
+        "coconut water",
+        "nariyal pani",
+        "tender coconut",
+        "shahale"
+      ],
+      "confirmation_question": "Confirm tender coconut water intake (high potassium)."
+    },
+    {
+      "canonical_food_id": "sendha_namak_rock_salt",
+      "display_name": "Sendha Namak / Low-Sodium Salt Substitute",
+      "hindi_name": "सेंधा नमक",
+      "marathi_name": "सैंधव मीठ",
+      "category": "other",
+      "interfering_nutrients": [
+        "potassium"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Sendha Namak (Rock Salt / Low Sodium Salt)"
+      ],
+      "ifct_basis": "Low-sodium KCl salt substitutes ~12,500 mg Potassium per 100g",
+      "keywords": [
+        "sendha namak",
+        "rock salt",
+        "low sodium salt",
+        "lona salt",
+        "saindhav"
+      ],
+      "confirmation_question": "Was Sendha Namak or a potassium-based low-sodium salt used?"
+    },
+    {
+      "canonical_food_id": "mosambi_sweet_lime_juice",
+      "display_name": "Mosambi (Sweet Lime) Juice",
+      "hindi_name": "मौसंबी का जूस",
+      "marathi_name": "मोसंबीचा रस",
+      "category": "citrus_fruit",
+      "interfering_nutrients": [
+        "grapefruit_furanocoumarins"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Mosambi (Sweet Lime) Juice in large volume",
+        "Calcium-fortified Fruit Juices"
+      ],
+      "ifct_basis": "IFCT Table F Citrus: Naringin & flavonoid glycosides (15-25 mg/100ml)",
+      "keywords": [
+        "mosambi",
+        "mosambi juice",
+        "sweet lime",
+        "citrus juice"
+      ],
+      "confirmation_question": "Confirm large glass (>250 ml) of mosambi/citrus juice."
+    },
+    {
+      "canonical_food_id": "citrus_amla_lemon",
+      "display_name": "Amla / Nimbu / Lemon Water (Vitamin C)",
+      "hindi_name": "आंवला / नींबू पानी",
+      "marathi_name": "आवळा / लिंबू पाणी",
+      "category": "citrus_fruit",
+      "interfering_nutrients": [],
+      "contains_milk": false,
+      "member2_culprit_labels": [],
+      "ifct_basis": "Ascorbic acid enhancer (39 mg/100g lemon, 600 mg/100g amla) for non-heme iron",
+      "keywords": [
+        "amla",
+        "lemon",
+        "nimbu",
+        "nimbu pani",
+        "orange",
+        "santra"
+      ],
+      "confirmation_question": "Confirm citrus/amla accompaniment."
+    },
+    {
+      "canonical_food_id": "grapefruit_chakotra",
+      "display_name": "Grapefruit / Chakotra / Pomelo",
+      "hindi_name": "चकोतरा",
+      "marathi_name": "पपनस / ग्रेपफ्रुट",
+      "category": "citrus_fruit",
+      "interfering_nutrients": [
+        "grapefruit_furanocoumarins"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [
+        "Chakotra (Grapefruit / Pomelo)",
+        "Pomelo / Concentrated Citrus Juice"
+      ],
+      "ifct_basis": "IFCT Table F Fruits: Furanocoumarins (Bergapten/DHB 30-45 mg/kg)",
+      "keywords": [
+        "grapefruit",
+        "chakotra",
+        "papanas",
+        "pomelo"
+      ],
+      "confirmation_question": "Confirm grapefruit/chakotra/pomelo (strong CYP3A4 medication interaction)."
+    },
+    {
+      "canonical_food_id": "pickle_achar",
+      "display_name": "Indian Pickle / Achar / Fermented",
+      "hindi_name": "अचार",
+      "marathi_name": "लोणचे",
+      "category": "fermented_food",
+      "interfering_nutrients": [
+        "tyramine"
+      ],
+      "contains_milk": false,
+      "member2_culprit_labels": [],
+      "ifct_basis": "Fermented/aged preparation",
+      "keywords": [
+        "achar",
+        "pickle",
+        "lonche",
+        "papad"
+      ],
+      "confirmation_question": "Confirm pickle/fermented side item."
+    }
+  ]
+}

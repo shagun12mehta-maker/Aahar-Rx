@@ -1,0 +1,17 @@
+{
+  "name": "Aahar-Rx Smart Care",
+  "short_name": "Aahar-Rx",
+  "description": "Indian food-drug interaction timing, absorption visualization, and multilingual QR health pass.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#166534",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23166534'/%3E%3Cpath d='M20 44c0-14 10-24 24-24 0 14-10 24-24 24z' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M20 44l14-14' stroke='%23ffffff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}
