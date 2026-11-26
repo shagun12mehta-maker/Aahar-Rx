@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aahar-rx.local/schemas/salt_food_schema.v1.json",
+  "title": "Aahar-Rx Shared Salt-and-Food Integration Schema (Member 1 -> Member 2/4)",
+  "description": "Shared JSON contract connecting Member 1 (AI & Smart Scan) outputs to Member 2 (Clinical Rules) and Member 4 (Backend Conflict & Timetable APIs), enforcing DPDP Act 2023 consent, mandatory meal confirmation, and clinical safety disclaimers.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "created_at_utc",
+    "consent",
+    "medications",
+    "confirmed_meal",
+    "safety_disclaimer",
+    "member2_lookup_keys"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "bundle_id": {
+      "type": "string",
+      "minLength": 4
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "preferred_language": {
+      "type": "string",
+      "enum": ["en", "hi", "mr"],
+      "default": "en"
+    },
+    "consent": {
+      "type": "object",
+      "required": [
+        "consented",
+        "purpose",
+        "timestamp_utc",
+        "retention_policy",
+        "raw_images_retained"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "consented": { "type": "boolean", "const": true },
+        "purpose": { "type": "string", "minLength": 5 },
+        "timestamp_utc": { "type": "string", "format": "date-time" },
+        "retention_policy": {
+          "type": "string",
+          "enum": ["ephemeral_in_memory", "session_only_no_raw_image"]
+        },
+        "raw_images_retained": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    },
+    "medications": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/resolvedMedication" }
+    },
+    "confirmed_meal": {
+      "type": "object",
+      "required": [
+        "session_id",
+        "confirmation_status",
+        "confirmed_by_user",
+        "meal_slot",
+        "items",
+        "aggregated_interfering_nutrients"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "session_id": { "type": "string", "minLength": 4 },
+        "confirmation_status": {
+          "type": "string",
+          "enum": ["confirmed", "modified_by_user"]
+        },
+        "confirmed_by_user": {
+          "type": "boolean",
+          "const": true
+        },
+        "meal_slot": {
+          "type": "string",
+          "enum": [
+            "early_morning_empty_stomach",
+            "breakfast",
+            "mid_morning",
+            "lunch",
+            "evening_chai_snack",
+            "dinner",
+            "bedtime"
+          ]
+        },
+        "scheduled_time_hhmm": {
+          "type": ["string", "null"],
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/confirmedFoodItem" }
+        },
+        "aggregated_interfering_nutrients": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "safety_disclaimer": {
+      "type": "string",
+      "minLength": 20
+    },
+    "member2_lookup_keys": {
+      "type": "object",
+      "required": [
+        "salt_names",
+        "drug_classes",
+        "food_ids",
+        "nutrient_flags",
+        "member2_food_labels"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "salt_names": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "drug_classes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "food_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "nutrient_flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "member2_food_labels": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "resolvedMedication": {
+      "type": "object",
+      "required": [
+        "brand_name",
+        "active_salts",
+        "drug_class",
+        "resolution_source",
+        "confidence",
+        "confirmed_by_user"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "brand_name": { "type": "string", "minLength": 1 },
+        "active_salts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 2 }
+        },
+        "strength_text": { "type": ["string", "null"] },
+        "drug_class": {
+          "type": "string",
+          "enum": [
+            "thyroid",
+            "diabetes",
+            "blood_pressure",
+            "anaemia_supplement",
+            "antibiotic",
+            "anticoagulant",
+            "statin",
+            "gastric_ppi",
+            "diuretic",
+            "bone_health",
+            "analgesic_nsaid",
+            "other"
+          ]
+        },
+        "resolution_source": {
+          "type": "string",
+          "enum": ["ocr_exact", "ocr_fuzzy", "salt_direct", "manual_fallback"]
+        },
+        "ocr_engine_used": { "type": ["string", "null"] },
+        "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "confirmed_by_user": { "type": "boolean" },
+        "intended_dose_time_hhmm": {
+          "type": ["string", "null"],
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+        }
+      }
+    },
+    "confirmedFoodItem": {
+      "type": "object",
+      "required": [
+        "canonical_food_id",
+        "display_name",
+        "category",
+        "interfering_nutrients",
+        "source",
+        "confidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "canonical_food_id": { "type": "string", "minLength": 2 },
+        "display_name": { "type": "string", "minLength": 1 },
+        "hindi_name": { "type": ["string", "null"] },
+        "marathi_name": { "type": ["string", "null"] },
+        "category": {
+          "type": "string",
+          "enum": [
+            "dairy",
+            "beverage_tea_coffee",
+            "leafy_vegetable",
+            "legume_dal",
+            "grain_cereal",
+            "citrus_fruit",
+            "fermented_food",
+            "high_fat_fried",
+            "supplement_fortified",
+            "other"
+          ]
+        },
+        "interfering_nutrients": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "calcium",
+              "iron",
+              "oxalates",
+              "tannins_polyphenols",
+              "vitamin_k",
+              "caffeine",
+              "high_fat",
+              "high_fiber",
+              "phytates",
+              "potassium",
+              "tyramine",
+              "grapefruit_furanocoumarins",
+              "simple_sugars",
+              "soy_isoflavones"
+            ]
+          }
+        },
+        "portion_hint": { "type": ["string", "null"] },
+        "contains_milk": { "type": ["boolean", "null"] },
+        "source": {
+          "type": "string",
+          "enum": ["vision_confirmed", "vision_edited", "user_added"]
+        },
+        "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+      }
+    }
+  }
+}

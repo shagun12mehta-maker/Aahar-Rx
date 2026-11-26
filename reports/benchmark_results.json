@@ -1,0 +1,607 @@
+{
+  "generated_at_utc": "2026-11-26T14:27:03.412820+00:00",
+  "safety_disclaimer": "Aahar-Rx provides timing and dietary guidance only. It never advises skipping, altering, or replacing prescribed medication dosages. Consult your doctor or pharmacist before making any change to your treatment plan.",
+  "day1_ocr_engine_comparison": {
+    "engines_tested": [
+      "rapidocr_paddle_ppocr",
+      "windows_media_ocr"
+    ],
+    "tesseract_installed_locally": false,
+    "windows_ocr_available": true,
+    "summary": {
+      "rapidocr_paddle_ppocr": {
+        "raw_accuracy_pct": 100.0,
+        "enhanced_accuracy_pct": 100.0,
+        "raw_salt_hits": 8,
+        "enhanced_salt_hits": 8,
+        "total_cases": 8,
+        "mean_raw_latency_ms": 850.6,
+        "mean_enhanced_latency_ms": 652.5,
+        "cases": {
+          "01_thyronorm_clean": {
+            "condition": "clean",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "THYRONORM50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
+            "enhanced_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
+            "raw_ms": 1393.12,
+            "enhanced_ms": 804.78
+          },
+          "02_glycomet_curved_foil": {
+            "condition": "curved_foil",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
+            "enhanced_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
+            "raw_ms": 789.39,
+            "enhanced_ms": 509.79
+          },
+          "03_shelcal_glare": {
+            "condition": "glare_hotspot",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | FilmCoatedTablets",
+            "enhanced_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets",
+            "raw_ms": 864.12,
+            "enhanced_ms": 555.36
+          },
+          "04_ciplox_low_contrast": {
+            "condition": "low_contrast_foil",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets",
+            "enhanced_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets",
+            "raw_ms": 682.16,
+            "enhanced_ms": 499.13
+          },
+          "05_orofer_dark_foil": {
+            "condition": "dark_metallic_foil",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "OROFERXT | Ferrous Ascorbate 1o0 mg + Folic Acid | Iron Supplement Strip",
+            "enhanced_text": "OROFERXT | Ferrous Ascorbate 1o0 mg + Folic Acid | Iron Supplement Strip",
+            "raw_ms": 874.66,
+            "enhanced_ms": 837.37
+          },
+          "06_warf_rotated_90": {
+            "condition": "rotated_90",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "Anticoagulant Tablets | Warfarin Sodium IP 5 mg | WARF 5",
+            "enhanced_text": "Anticoagulant Tablets | Warfarin Sodium IP 5 mg | WARF 5",
+            "raw_ms": 665.44,
+            "enhanced_ms": 447.51
+          },
+          "12_ferro_xt_regional_glare": {
+            "condition": "regional_glare",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | HaematinicTablets",
+            "enhanced_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets",
+            "raw_ms": 830.0,
+            "enhanced_ms": 844.62
+          },
+          "14_amlong_low_light_recoverable": {
+            "condition": "dim_stage_light",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "AMLONG5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
+            "enhanced_text": "AMLONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
+            "raw_ms": 706.14,
+            "enhanced_ms": 721.6
+          }
+        }
+      },
+      "windows_media_ocr": {
+        "raw_accuracy_pct": 87.5,
+        "enhanced_accuracy_pct": 87.5,
+        "raw_salt_hits": 7,
+        "enhanced_salt_hits": 7,
+        "total_cases": 8,
+        "mean_raw_latency_ms": 1008.8,
+        "mean_enhanced_latency_ms": 1090.5,
+        "cases": {
+          "01_thyronorm_clean": {
+            "condition": "clean",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
+            "enhanced_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
+            "raw_ms": 916.78,
+            "enhanced_ms": 1141.79
+          },
+          "02_glycomet_curved_foil": {
+            "condition": "curved_foil",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
+            "enhanced_text": "CD | GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
+            "raw_ms": 1024.56,
+            "enhanced_ms": 1146.86
+          },
+          "03_shelcal_glare": {
+            "condition": "glare_hotspot",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets",
+            "enhanced_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets | C)",
+            "raw_ms": 995.15,
+            "enhanced_ms": 1088.27
+          },
+          "04_ciplox_low_contrast": {
+            "condition": "low_contrast_foil",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets",
+            "enhanced_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets | C)",
+            "raw_ms": 1032.08,
+            "enhanced_ms": 1044.5
+          },
+          "05_orofer_dark_foil": {
+            "condition": "dark_metallic_foil",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "OROFER XT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip",
+            "enhanced_text": "C) | OROFER XT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip",
+            "raw_ms": 1055.98,
+            "enhanced_ms": 1119.42
+          },
+          "06_warf_rotated_90": {
+            "condition": "rotated_90",
+            "raw_hit": false,
+            "enhanced_hit": false,
+            "raw_text": "",
+            "enhanced_text": "",
+            "raw_ms": 981.39,
+            "enhanced_ms": 1038.92
+          },
+          "12_ferro_xt_regional_glare": {
+            "condition": "regional_glare",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets",
+            "enhanced_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets",
+            "raw_ms": 1085.47,
+            "enhanced_ms": 1091.58
+          },
+          "14_amlong_low_light_recoverable": {
+            "condition": "dim_stage_light",
+            "raw_hit": true,
+            "enhanced_hit": true,
+            "raw_text": "AMI-ONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
+            "enhanced_text": "AMLONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
+            "raw_ms": 979.23,
+            "enhanced_ms": 1052.8
+          }
+        }
+      }
+    }
+  },
+  "day4_full_strip_benchmark": {
+    "recoverable_total": 14,
+    "recoverable_passed": 14,
+    "recoverable_accuracy_pct": 100.0,
+    "regional_total": 2,
+    "regional_passed": 2,
+    "defect_total": 3,
+    "defect_rejected_correctly": 3,
+    "defect_rejection_accuracy_pct": 100.0,
+    "cases": [
+      {
+        "case_id": "01_thyronorm_clean",
+        "condition": "clean",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 679.7,
+        "glare_ratio": 0.0,
+        "mean_brightness": 232.98,
+        "expected_salt": "Levothyroxine Sodium",
+        "resolved_brand": "Thyronorm",
+        "resolved_salts": [
+          "Levothyroxine Sodium"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 653.53
+      },
+      {
+        "case_id": "02_glycomet_curved_foil",
+        "condition": "curved_foil",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 561.11,
+        "glare_ratio": 0.0,
+        "mean_brightness": 169.82,
+        "expected_salt": "Metformin Hydrochloride",
+        "resolved_brand": "Glycomet",
+        "resolved_salts": [
+          "Metformin Hydrochloride"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 642.62
+      },
+      {
+        "case_id": "03_shelcal_glare",
+        "condition": "glare_hotspot",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 511.55,
+        "glare_ratio": 0.2069,
+        "mean_brightness": 209.98,
+        "expected_salt": "Calcium Carbonate",
+        "resolved_brand": "Shelcal",
+        "resolved_salts": [
+          "Calcium Carbonate",
+          "Cholecalciferol (Vitamin D3)"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 712.71
+      },
+      {
+        "case_id": "04_ciplox_low_contrast",
+        "condition": "low_contrast_foil",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 89.63,
+        "glare_ratio": 0.0,
+        "mean_brightness": 167.98,
+        "expected_salt": "Ciprofloxacin",
+        "resolved_brand": "Ciplox",
+        "resolved_salts": [
+          "Ciprofloxacin"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 610.14
+      },
+      {
+        "case_id": "05_orofer_dark_foil",
+        "condition": "dark_metallic_foil",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 537.64,
+        "glare_ratio": 0.0,
+        "mean_brightness": 105.24,
+        "expected_salt": "Ferrous Ascorbate",
+        "resolved_brand": "Ferrous Ascorbate (Generic / Salt Match)",
+        "resolved_salts": [
+          "Ferrous Ascorbate",
+          "Folic Acid"
+        ],
+        "resolution_source": "salt_direct",
+        "confidence": 0.93,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 658.73
+      },
+      {
+        "case_id": "06_warf_rotated_90",
+        "condition": "rotated_90",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 75.99,
+        "glare_ratio": 0.0,
+        "mean_brightness": 236.4,
+        "expected_salt": "Warfarin Sodium",
+        "resolved_brand": "Warf",
+        "resolved_salts": [
+          "Warfarin Sodium"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 653.67
+      },
+      {
+        "case_id": "07_atorva_rotated_180",
+        "condition": "rotated_180",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 582.35,
+        "glare_ratio": 0.0,
+        "mean_brightness": 235.07,
+        "expected_salt": "Atorvastatin",
+        "resolved_brand": "Atorva",
+        "resolved_salts": [
+          "Atorvastatin"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 846.36
+      },
+      {
+        "case_id": "08_telma_clean",
+        "condition": "clean",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 504.01,
+        "glare_ratio": 0.0,
+        "mean_brightness": 236.21,
+        "expected_salt": "Telmisartan",
+        "resolved_brand": "Telma",
+        "resolved_salts": [
+          "Telmisartan"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 817.44
+      },
+      {
+        "case_id": "09_pan40_curved",
+        "condition": "curved_foil",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 458.31,
+        "glare_ratio": 0.0247,
+        "mean_brightness": 182.36,
+        "expected_salt": "Pantoprazole Sodium",
+        "resolved_brand": "Pan 40",
+        "resolved_salts": [
+          "Pantoprazole Sodium"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 903.22
+      },
+      {
+        "case_id": "10_augmentin_clean",
+        "condition": "clean",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 836.74,
+        "glare_ratio": 0.0,
+        "mean_brightness": 230.69,
+        "expected_salt": "Amoxicillin",
+        "resolved_brand": "Augmentin",
+        "resolved_salts": [
+          "Amoxicillin",
+          "Clavulanic Acid"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 1019.78
+      },
+      {
+        "case_id": "11_thyroup_regional",
+        "condition": "regional_brand_curved",
+        "is_regional": true,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 486.17,
+        "glare_ratio": 0.0071,
+        "mean_brightness": 183.67,
+        "expected_salt": "Levothyroxine Sodium",
+        "resolved_brand": "Thyroup",
+        "resolved_salts": [
+          "Levothyroxine Sodium"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 876.46
+      },
+      {
+        "case_id": "12_ferro_xt_regional_glare",
+        "condition": "regional_glare",
+        "is_regional": true,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 389.37,
+        "glare_ratio": 0.2247,
+        "mean_brightness": 220.71,
+        "expected_salt": "Ferrous Ascorbate",
+        "resolved_brand": "Ferro-XT",
+        "resolved_salts": [
+          "Ferrous Ascorbate",
+          "Folic Acid"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 631.18
+      },
+      {
+        "case_id": "13_lasix_generic_salt",
+        "condition": "back_of_strip_salt",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [],
+        "blur_score": 919.79,
+        "glare_ratio": 0.0,
+        "mean_brightness": 230.02,
+        "expected_salt": "Furosemide",
+        "resolved_brand": "Furosemide (Generic / Salt Match)",
+        "resolved_salts": [
+          "Furosemide"
+        ],
+        "resolution_source": "salt_direct",
+        "confidence": 0.93,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 1131.93
+      },
+      {
+        "case_id": "14_amlong_low_light_recoverable",
+        "condition": "dim_stage_light",
+        "is_regional": false,
+        "should_pass_quality": true,
+        "retry_required": false,
+        "quality_issues": [
+          "low_contrast"
+        ],
+        "blur_score": 66.24,
+        "glare_ratio": 0.0,
+        "mean_brightness": 79.03,
+        "expected_salt": "Amlodipine Besylate",
+        "resolved_brand": "Amlong",
+        "resolved_salts": [
+          "Amlodipine Besylate"
+        ],
+        "resolution_source": "ocr_exact",
+        "confidence": 0.97,
+        "salt_matched": true,
+        "attempts_count": 1,
+        "total_ms": 672.71
+      },
+      {
+        "case_id": "15_fail_severe_blur",
+        "condition": "severe_blur_reject",
+        "is_regional": false,
+        "should_pass_quality": false,
+        "retry_required": true,
+        "quality_issues": [
+          "motion_or_focus_blur"
+        ],
+        "blur_score": 1.02,
+        "glare_ratio": 0.0,
+        "mean_brightness": 233.21,
+        "expected_salt": "Levothyroxine Sodium",
+        "resolved_brand": null,
+        "resolved_salts": [],
+        "resolution_source": null,
+        "confidence": 0.0,
+        "salt_matched": false,
+        "attempts_count": 0,
+        "total_ms": 34.58
+      },
+      {
+        "case_id": "16_fail_severe_dark",
+        "condition": "severe_dark_reject",
+        "is_regional": false,
+        "should_pass_quality": false,
+        "retry_required": true,
+        "quality_issues": [
+          "motion_or_focus_blur",
+          "low_light",
+          "low_contrast"
+        ],
+        "blur_score": 5.09,
+        "glare_ratio": 0.0,
+        "mean_brightness": 20.11,
+        "expected_salt": "Metformin Hydrochloride",
+        "resolved_brand": null,
+        "resolved_salts": [],
+        "resolution_source": null,
+        "confidence": 0.0,
+        "salt_matched": false,
+        "attempts_count": 0,
+        "total_ms": 33.85
+      },
+      {
+        "case_id": "17_fail_severe_glare",
+        "condition": "severe_glare_reject",
+        "is_regional": false,
+        "should_pass_quality": false,
+        "retry_required": true,
+        "quality_issues": [
+          "motion_or_focus_blur",
+          "specular_glare",
+          "overexposed",
+          "low_contrast"
+        ],
+        "blur_score": 29.62,
+        "glare_ratio": 0.9584,
+        "mean_brightness": 254.4,
+        "expected_salt": "Ciprofloxacin",
+        "resolved_brand": null,
+        "resolved_salts": [],
+        "resolution_source": null,
+        "confidence": 0.0,
+        "salt_matched": false,
+        "attempts_count": 0,
+        "total_ms": 47.8
+      }
+    ]
+  },
+  "day5_meal_and_e2e_checks": {
+    "scenarios": [
+      {
+        "scenario": "Thyroid + Morning Chai with Milk",
+        "resolved_salts": [
+          "Levothyroxine Sodium"
+        ],
+        "nutrients_flagged": [
+          "caffeine",
+          "calcium",
+          "tannins_polyphenols"
+        ],
+        "matched_member2_rules": [
+          "RULE-THY-001"
+        ]
+      },
+      {
+        "scenario": "Warfarin (90deg rotated) + Indian Thali (Palak + Dal + Curd)",
+        "resolved_salts": [
+          "Warfarin Sodium"
+        ],
+        "nutrients_flagged": [
+          "calcium",
+          "high_fiber",
+          "iron",
+          "oxalates",
+          "phytates",
+          "potassium",
+          "vitamin_k"
+        ],
+        "matched_member2_rules": [
+          "RULE-BLD-004"
+        ]
+      },
+      {
+        "scenario": "Shaky / Blurred Meal Photo Retry",
+        "retry_required": true,
+        "retry_guidance": [
+          "Photo looks blurry. Hold the camera steady 15-20 cm away and tap the screen to focus before capturing."
+        ]
+      }
+    ]
+  },
+  "generated_visual_assets": [
+    "C:\\Aveshan\\reports\\before_after_strip_recovery.png",
+    "C:\\Aveshan\\reports\\meal_confirmation_flow_visual.png"
+  ]
+}

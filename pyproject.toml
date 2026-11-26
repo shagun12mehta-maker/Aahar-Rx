@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aahar-rx-smart-scan"
+version = "1.0.0"
+description = "Aahar-Rx Member 1 AI & Smart Scan module for medicine strip OCR, meal vision, and Member 2 rule handoff."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+testpaths = ["tests"]
+addopts = "-v"
