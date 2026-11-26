@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aahar-rx-backend"
+version = "1.0.0"
+description = "Aahar-Rx Member 4 Backend API, DPDP Act 2023 Safety Layer, Conflict Engine, and Timetable Generator."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "scripts"]
+testpaths = ["tests"]
+addopts = "-v"
