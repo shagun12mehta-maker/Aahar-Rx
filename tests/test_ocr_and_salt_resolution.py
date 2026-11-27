@@ -6,8 +6,42 @@ import pytest
 
 from aahar_scan.ocr_engines import RapidOcrEngine, SmartStripOcrPipeline, WindowsNativeOcrEngine
 from aahar_scan.preprocessing import decode_image_bytes
-from aahar_scan.salt_resolver import SaltResolver, extract_strength
+from aahar_scan.salt_resolver import (
+    SaltResolver,
+    extract_expiry_date,
+    extract_strength,
+    extract_tablet_count,
+)
 from fixtures.generate_test_assets import STRIP_SPECS, generate_strip_image_bytes
+
+
+def test_expiry_and_tablet_count_extraction_and_manual_fallback() -> None:
+    exp1, raw1 = extract_expiry_date("MFG 08/2024 EXP 08/2027 30 Tablets")
+    assert exp1 == "2027-08"
+    assert "EXP" in (raw1 or "")
+    assert extract_tablet_count("MFG 08/2024 EXP 08/2027 30 Tablets") == 30
+
+    exp2, _ = extract_expiry_date("THYRONORM 50 MCG EXP. NOV-26 1x15 Tabs")
+    assert exp2 == "2026-11"
+    assert extract_tablet_count("THYRONORM 50 MCG EXP. NOV-26 1x15 Tabs") == 15
+
+    # OCR digit confusion O/I in expiry and pack size, without misreading 500 mg strength as tablet count
+    exp3, _ = extract_expiry_date("CIPLOX 500 MG EXP 09/2O27 STRIP OF 1O")
+    assert exp3 == "2027-09"
+    assert extract_tablet_count("CIPLOX 500 MG EXP 09/2O27 STRIP OF 1O") == 10
+    assert extract_tablet_count("AUGMENTIN 500 MG + 125 MG") is None
+
+    # End-to-end strip OCR extraction for expiry & count + fallback flag when omitted
+    pipeline = SmartStripOcrPipeline(primary_engine=RapidOcrEngine())
+    thy_res = pipeline.scan_bytes(generate_strip_image_bytes("01_thyronorm_clean"), scan_id="exp_clean")
+    assert thy_res.resolved_medications[0].expiry_date == "2027-08"
+    assert thy_res.resolved_medications[0].tablet_count == 30
+    assert thy_res.resolved_medications[0].medicine_box_fallback_needed is False
+
+    lasix_res = pipeline.scan_bytes(generate_strip_image_bytes("13_lasix_generic_salt"), scan_id="exp_miss")
+    assert lasix_res.resolved_medications[0].expiry_date is None
+    assert lasix_res.resolved_medications[0].tablet_count is None
+    assert lasix_res.resolved_medications[0].medicine_box_fallback_needed is True
 
 
 def test_ocr_noise_normalization_and_strength_extraction() -> None:

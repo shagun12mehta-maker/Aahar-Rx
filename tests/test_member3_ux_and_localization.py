@@ -12,6 +12,7 @@ from aahar_ux import (
     SUPPORTED_LANGUAGES,
     UI_TRANSLATIONS,
     build_all_pharmacokinetic_profiles,
+    build_ux_alert_voice_scripts,
     build_voice_scripts_for_rules,
     validate_translation_bundle,
 )
@@ -92,6 +93,16 @@ def test_trilingual_voice_scripts_and_synthesized_mp3_files() -> None:
             assert mp3_path.exists(), f"Missing audio asset: {mp3_path}"
             assert mp3_path.stat().st_size > 10_000, f"Audio asset too small: {mp3_path}"
 
+    ux_alerts = build_ux_alert_voice_scripts()
+    assert set(ux_alerts.keys()) == {"ALERT-HIGH-RISK", "ALERT-REFILL"}
+    for aid, entry in ux_alerts.items():
+        for lang in SUPPORTED_LANGUAGES:
+            meta = entry["languages"][lang]
+            assert "!" not in meta["text"]
+            assert not _EMOJI_RE.search(meta["text"])
+            clip = FRONTEND / meta["audio_rel_path"]
+            assert clip.exists() and clip.stat().st_size > 10_000, f"Missing alert MP3 {aid}/{lang}"
+
 
 def test_unslop_design_discipline_and_wcag_contrast() -> None:
     tokens_css = (FRONTEND / "css" / "tokens.css").read_text(encoding="utf-8")
@@ -136,6 +147,9 @@ def test_member3_offline_vendor_and_pwa_assets_present() -> None:
         FRONTEND / "data" / "pk_profiles.json",
         FRONTEND / "data" / "rules_bundle.json",
         FRONTEND / "data" / "voice_scripts.json",
+        FRONTEND / "data" / "ux_voice_alerts.json",
+        FRONTEND / "js" / "components" / "ConsultDoctorModal.js",
+        FRONTEND / "js" / "components" / "MedicineBoxScreen.js",
     ]
     for fpath in required:
         assert fpath.exists() and fpath.stat().st_size > 100

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-26T14:27:03.412820+00:00",
+  "generated_at_utc": "2026-11-27T05:02:25.537522+00:00",
   "safety_disclaimer": "Aahar-Rx provides timing and dietary guidance only. It never advises skipping, altering, or replacing prescribed medication dosages. Consult your doctor or pharmacist before making any change to your treatment plan.",
   "day1_ocr_engine_comparison": {
     "engines_tested": [
@@ -15,80 +15,80 @@
         "raw_salt_hits": 8,
         "enhanced_salt_hits": 8,
         "total_cases": 8,
-        "mean_raw_latency_ms": 850.6,
-        "mean_enhanced_latency_ms": 652.5,
+        "mean_raw_latency_ms": 1084.3,
+        "mean_enhanced_latency_ms": 860.6,
         "cases": {
           "01_thyronorm_clean": {
             "condition": "clean",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "THYRONORM50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
-            "enhanced_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
-            "raw_ms": 1393.12,
-            "enhanced_ms": 804.78
+            "raw_text": "THYRONORM50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets | EXP08/2027|30Tablets",
+            "enhanced_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets | EXP08/2027|30Tablets",
+            "raw_ms": 1573.15,
+            "enhanced_ms": 624.94
           },
           "02_glycomet_curved_foil": {
             "condition": "curved_foil",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
-            "enhanced_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
-            "raw_ms": 789.39,
-            "enhanced_ms": 509.79
+            "raw_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip | EXP11/2027|1x15Tabs",
+            "enhanced_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip | EXP11/2027|1x15Tabs",
+            "raw_ms": 992.22,
+            "enhanced_ms": 993.93
           },
           "03_shelcal_glare": {
             "condition": "glare_hotspot",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | FilmCoatedTablets",
-            "enhanced_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets",
-            "raw_ms": 864.12,
-            "enhanced_ms": 555.36
+            "raw_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | FilmCoatedTablets | EXP05/2027|15Tablets",
+            "enhanced_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets | EXP05/2027|15Tablets",
+            "raw_ms": 1167.22,
+            "enhanced_ms": 1129.21
           },
           "04_ciplox_low_contrast": {
             "condition": "low_contrast_foil",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets",
-            "enhanced_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets",
-            "raw_ms": 682.16,
-            "enhanced_ms": 499.13
+            "raw_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets | EXP09/2027|10Tablets",
+            "enhanced_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets | EXP09/2027|10Tablets",
+            "raw_ms": 897.56,
+            "enhanced_ms": 913.36
           },
           "05_orofer_dark_foil": {
             "condition": "dark_metallic_foil",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "OROFERXT | Ferrous Ascorbate 1o0 mg + Folic Acid | Iron Supplement Strip",
-            "enhanced_text": "OROFERXT | Ferrous Ascorbate 1o0 mg + Folic Acid | Iron Supplement Strip",
-            "raw_ms": 874.66,
-            "enhanced_ms": 837.37
+            "raw_text": "OROFERXT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip | EXP02/2027|10Tablets",
+            "enhanced_text": "OROFERXT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip | EXP 02/2027 | 10 Tablets",
+            "raw_ms": 1106.39,
+            "enhanced_ms": 1047.25
           },
           "06_warf_rotated_90": {
             "condition": "rotated_90",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "Anticoagulant Tablets | Warfarin Sodium IP 5 mg | WARF 5",
-            "enhanced_text": "Anticoagulant Tablets | Warfarin Sodium IP 5 mg | WARF 5",
-            "raw_ms": 665.44,
-            "enhanced_ms": 447.51
+            "raw_text": "EXP10/2027|30Tablets | Anticoagulant Tablets | Warfarin Sodium IP 5 mg | WARF 5",
+            "enhanced_text": "EXP 10/2027 | 30 Tablets | Anticoagulant Tablets | Warfarin Sodium IP 5 mg | WARF 5",
+            "raw_ms": 839.11,
+            "enhanced_ms": 852.14
           },
           "12_ferro_xt_regional_glare": {
             "condition": "regional_glare",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | HaematinicTablets",
-            "enhanced_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets",
-            "raw_ms": 830.0,
-            "enhanced_ms": 844.62
+            "raw_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | HaematinicTablets | EXP03/2027|10Tabs",
+            "enhanced_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | HaematinicTablets | EXP03/2027|10Tabs",
+            "raw_ms": 1163.48,
+            "enhanced_ms": 721.75
           },
           "14_amlong_low_light_recoverable": {
             "condition": "dim_stage_light",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "AMLONG5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
-            "enhanced_text": "AMLONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
-            "raw_ms": 706.14,
-            "enhanced_ms": 721.6
+            "raw_text": "AMLONG5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker | EXP01/2028|15Tablets",
+            "enhanced_text": "AMLONG 5 | Amlodipine Besilate IP 5 mg | CalciumChannelBlocker | EXP01/2028|15Tablets",
+            "raw_ms": 935.55,
+            "enhanced_ms": 602.24
           }
         }
       },
@@ -98,53 +98,53 @@
         "raw_salt_hits": 7,
         "enhanced_salt_hits": 7,
         "total_cases": 8,
-        "mean_raw_latency_ms": 1008.8,
-        "mean_enhanced_latency_ms": 1090.5,
+        "mean_raw_latency_ms": 813.7,
+        "mean_enhanced_latency_ms": 825.7,
         "cases": {
           "01_thyronorm_clean": {
             "condition": "clean",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
-            "enhanced_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets",
-            "raw_ms": 916.78,
-            "enhanced_ms": 1141.79
+            "raw_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets | EXP 08/2027 | 30 Tablets",
+            "enhanced_text": "THYRONORM 50 | Levothyroxine Sodium IP 50 mcg | Rx Thyroid Hormone Tablets | EXP 08/2027 | 30 Tablets",
+            "raw_ms": 971.25,
+            "enhanced_ms": 920.19
           },
           "02_glycomet_curved_foil": {
             "condition": "curved_foil",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
-            "enhanced_text": "CD | GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip",
-            "raw_ms": 1024.56,
-            "enhanced_ms": 1146.86
+            "raw_text": "GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip | EXP 11/2027 | lxi5 Tabs",
+            "enhanced_text": "CD | GLYCOMET 500 SR | Metformin Hydrochloride IP 500 mg | Sustained Release Foil Strip | EXP 11/2027 | lxi5 Tabs",
+            "raw_ms": 969.51,
+            "enhanced_ms": 1016.72
           },
           "03_shelcal_glare": {
             "condition": "glare_hotspot",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets",
-            "enhanced_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets | C)",
-            "raw_ms": 995.15,
-            "enhanced_ms": 1088.27
+            "raw_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets | EXP 05/2027 | 15 Tablets",
+            "enhanced_text": "SHELCAL 500 | Calcium Carbonate + Vitamin D3 | Film Coated Tablets | EXP 05/2027 | 15 Tablets | C)",
+            "raw_ms": 761.9,
+            "enhanced_ms": 839.32
           },
           "04_ciplox_low_contrast": {
             "condition": "low_contrast_foil",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets",
-            "enhanced_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets | C)",
-            "raw_ms": 1032.08,
-            "enhanced_ms": 1044.5
+            "raw_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets | EXP 09/2027 | 10 Tablets",
+            "enhanced_text": "CIPLOX 500 | Ciprofloxacin IP 500 mg | Antibiotic Tablets | EXP 09/2027 | 10 Tablets | C)",
+            "raw_ms": 749.69,
+            "enhanced_ms": 841.1
           },
           "05_orofer_dark_foil": {
             "condition": "dark_metallic_foil",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "OROFER XT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip",
-            "enhanced_text": "C) | OROFER XT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip",
-            "raw_ms": 1055.98,
-            "enhanced_ms": 1119.42
+            "raw_text": "OROFER XT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip | EXP 0212027 | 10 Tablets",
+            "enhanced_text": "C) | OROFER XT | Ferrous Ascorbate 100 mg + Folic Acid | Iron Supplement Strip | EXP 0212027 | 10 Tablets",
+            "raw_ms": 757.39,
+            "enhanced_ms": 744.72
           },
           "06_warf_rotated_90": {
             "condition": "rotated_90",
@@ -152,26 +152,26 @@
             "enhanced_hit": false,
             "raw_text": "",
             "enhanced_text": "",
-            "raw_ms": 981.39,
-            "enhanced_ms": 1038.92
+            "raw_ms": 822.91,
+            "enhanced_ms": 749.37
           },
           "12_ferro_xt_regional_glare": {
             "condition": "regional_glare",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets",
-            "enhanced_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets",
-            "raw_ms": 1085.47,
-            "enhanced_ms": 1091.58
+            "raw_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets | EXP 03/2027 | 10 Tabs",
+            "enhanced_text": "FERRO-XT | Ferrous Ascorbate + Folic Acid | Haematinic Tablets | EXP 03/2027 | 10 Tabs",
+            "raw_ms": 755.42,
+            "enhanced_ms": 762.32
           },
           "14_amlong_low_light_recoverable": {
             "condition": "dim_stage_light",
             "raw_hit": true,
             "enhanced_hit": true,
-            "raw_text": "AMI-ONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
-            "enhanced_text": "AMLONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker",
-            "raw_ms": 979.23,
-            "enhanced_ms": 1052.8
+            "raw_text": "AMLONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker | EXP 01/2028 | 15 Tablets",
+            "enhanced_text": "AMLONG 5 | Amlodipine Besilate IP 5 mg | Calcium Channel Blocker | EXP 01/2028 | 15 Tablets",
+            "raw_ms": 721.49,
+            "enhanced_ms": 731.77
           }
         }
       }
@@ -194,19 +194,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 679.7,
+        "blur_score": 854.13,
         "glare_ratio": 0.0,
-        "mean_brightness": 232.98,
+        "mean_brightness": 232.11,
         "expected_salt": "Levothyroxine Sodium",
         "resolved_brand": "Thyronorm",
         "resolved_salts": [
           "Levothyroxine Sodium"
         ],
+        "expiry_date": "2027-08",
+        "tablet_count": 30,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 653.53
+        "total_ms": 783.01
       },
       {
         "case_id": "02_glycomet_curved_foil",
@@ -215,19 +217,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 561.11,
+        "blur_score": 686.14,
         "glare_ratio": 0.0,
-        "mean_brightness": 169.82,
+        "mean_brightness": 169.11,
         "expected_salt": "Metformin Hydrochloride",
         "resolved_brand": "Glycomet",
         "resolved_salts": [
           "Metformin Hydrochloride"
         ],
+        "expiry_date": "2027-11",
+        "tablet_count": 15,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 642.62
+        "total_ms": 814.63
       },
       {
         "case_id": "03_shelcal_glare",
@@ -236,20 +240,22 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 511.55,
-        "glare_ratio": 0.2069,
-        "mean_brightness": 209.98,
+        "blur_score": 647.06,
+        "glare_ratio": 0.2055,
+        "mean_brightness": 209.17,
         "expected_salt": "Calcium Carbonate",
         "resolved_brand": "Shelcal",
         "resolved_salts": [
           "Calcium Carbonate",
           "Cholecalciferol (Vitamin D3)"
         ],
+        "expiry_date": "2027-05",
+        "tablet_count": 15,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 712.71
+        "total_ms": 941.77
       },
       {
         "case_id": "04_ciplox_low_contrast",
@@ -258,19 +264,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 89.63,
+        "blur_score": 108.46,
         "glare_ratio": 0.0,
-        "mean_brightness": 167.98,
+        "mean_brightness": 167.69,
         "expected_salt": "Ciprofloxacin",
         "resolved_brand": "Ciplox",
         "resolved_salts": [
           "Ciprofloxacin"
         ],
+        "expiry_date": "2027-09",
+        "tablet_count": 10,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 610.14
+        "total_ms": 728.04
       },
       {
         "case_id": "05_orofer_dark_foil",
@@ -279,20 +287,22 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 537.64,
+        "blur_score": 679.42,
         "glare_ratio": 0.0,
-        "mean_brightness": 105.24,
+        "mean_brightness": 105.86,
         "expected_salt": "Ferrous Ascorbate",
         "resolved_brand": "Ferrous Ascorbate (Generic / Salt Match)",
         "resolved_salts": [
           "Ferrous Ascorbate",
           "Folic Acid"
         ],
+        "expiry_date": "2027-02",
+        "tablet_count": 10,
         "resolution_source": "salt_direct",
         "confidence": 0.93,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 658.73
+        "total_ms": 765.39
       },
       {
         "case_id": "06_warf_rotated_90",
@@ -301,19 +311,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 75.99,
+        "blur_score": 93.67,
         "glare_ratio": 0.0,
-        "mean_brightness": 236.4,
+        "mean_brightness": 235.54,
         "expected_salt": "Warfarin Sodium",
         "resolved_brand": "Warf",
         "resolved_salts": [
           "Warfarin Sodium"
         ],
+        "expiry_date": "2027-10",
+        "tablet_count": 30,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 653.67
+        "total_ms": 726.12
       },
       {
         "case_id": "07_atorva_rotated_180",
@@ -322,19 +334,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 582.35,
+        "blur_score": 712.68,
         "glare_ratio": 0.0,
-        "mean_brightness": 235.07,
+        "mean_brightness": 234.33,
         "expected_salt": "Atorvastatin",
         "resolved_brand": "Atorva",
         "resolved_salts": [
           "Atorvastatin"
         ],
+        "expiry_date": "2027-07",
+        "tablet_count": 15,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 846.36
+        "total_ms": 1049.34
       },
       {
         "case_id": "08_telma_clean",
@@ -343,19 +357,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 504.01,
+        "blur_score": 656.8,
         "glare_ratio": 0.0,
-        "mean_brightness": 236.21,
+        "mean_brightness": 235.37,
         "expected_salt": "Telmisartan",
         "resolved_brand": "Telma",
         "resolved_salts": [
           "Telmisartan"
         ],
+        "expiry_date": "2027-12",
+        "tablet_count": 15,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 817.44
+        "total_ms": 1048.98
       },
       {
         "case_id": "09_pan40_curved",
@@ -364,19 +380,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 458.31,
-        "glare_ratio": 0.0247,
-        "mean_brightness": 182.36,
+        "blur_score": 561.01,
+        "glare_ratio": 0.024,
+        "mean_brightness": 181.65,
         "expected_salt": "Pantoprazole Sodium",
         "resolved_brand": "Pan 40",
         "resolved_salts": [
           "Pantoprazole Sodium"
         ],
-        "resolution_source": "ocr_exact",
+        "expiry_date": "2027-04",
+        "tablet_count": 15,
+        "resolution_source": "ocr_fuzzy",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 903.22
+        "total_ms": 1135.6
       },
       {
         "case_id": "10_augmentin_clean",
@@ -385,20 +403,22 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 836.74,
+        "blur_score": 1013.68,
         "glare_ratio": 0.0,
-        "mean_brightness": 230.69,
+        "mean_brightness": 229.82,
         "expected_salt": "Amoxicillin",
         "resolved_brand": "Augmentin",
         "resolved_salts": [
           "Amoxicillin",
           "Clavulanic Acid"
         ],
+        "expiry_date": "2027-06",
+        "tablet_count": 10,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 1019.78
+        "total_ms": 1214.0
       },
       {
         "case_id": "11_thyroup_regional",
@@ -407,19 +427,21 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 486.17,
-        "glare_ratio": 0.0071,
-        "mean_brightness": 183.67,
+        "blur_score": 509.58,
+        "glare_ratio": 0.0047,
+        "mean_brightness": 183.66,
         "expected_salt": "Levothyroxine Sodium",
         "resolved_brand": "Thyroup",
         "resolved_salts": [
           "Levothyroxine Sodium"
         ],
+        "expiry_date": null,
+        "tablet_count": null,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 876.46
+        "total_ms": 999.12
       },
       {
         "case_id": "12_ferro_xt_regional_glare",
@@ -428,20 +450,22 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 389.37,
+        "blur_score": 494.76,
         "glare_ratio": 0.2247,
-        "mean_brightness": 220.71,
+        "mean_brightness": 220.07,
         "expected_salt": "Ferrous Ascorbate",
         "resolved_brand": "Ferro-XT",
         "resolved_salts": [
           "Ferrous Ascorbate",
           "Folic Acid"
         ],
+        "expiry_date": "2027-03",
+        "tablet_count": 10,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 631.18
+        "total_ms": 934.92
       },
       {
         "case_id": "13_lasix_generic_salt",
@@ -450,7 +474,7 @@
         "should_pass_quality": true,
         "retry_required": false,
         "quality_issues": [],
-        "blur_score": 919.79,
+        "blur_score": 941.89,
         "glare_ratio": 0.0,
         "mean_brightness": 230.02,
         "expected_salt": "Furosemide",
@@ -458,11 +482,13 @@
         "resolved_salts": [
           "Furosemide"
         ],
+        "expiry_date": null,
+        "tablet_count": null,
         "resolution_source": "salt_direct",
         "confidence": 0.93,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 1131.93
+        "total_ms": 1192.47
       },
       {
         "case_id": "14_amlong_low_light_recoverable",
@@ -473,19 +499,21 @@
         "quality_issues": [
           "low_contrast"
         ],
-        "blur_score": 66.24,
+        "blur_score": 82.98,
         "glare_ratio": 0.0,
-        "mean_brightness": 79.03,
+        "mean_brightness": 78.74,
         "expected_salt": "Amlodipine Besylate",
         "resolved_brand": "Amlong",
         "resolved_salts": [
           "Amlodipine Besylate"
         ],
+        "expiry_date": "2028-01",
+        "tablet_count": 15,
         "resolution_source": "ocr_exact",
         "confidence": 0.97,
         "salt_matched": true,
         "attempts_count": 1,
-        "total_ms": 672.71
+        "total_ms": 734.22
       },
       {
         "case_id": "15_fail_severe_blur",
@@ -496,17 +524,19 @@
         "quality_issues": [
           "motion_or_focus_blur"
         ],
-        "blur_score": 1.02,
+        "blur_score": 1.05,
         "glare_ratio": 0.0,
         "mean_brightness": 233.21,
         "expected_salt": "Levothyroxine Sodium",
         "resolved_brand": null,
         "resolved_salts": [],
+        "expiry_date": null,
+        "tablet_count": null,
         "resolution_source": null,
         "confidence": 0.0,
         "salt_matched": false,
         "attempts_count": 0,
-        "total_ms": 34.58
+        "total_ms": 35.81
       },
       {
         "case_id": "16_fail_severe_dark",
@@ -519,17 +549,19 @@
           "low_light",
           "low_contrast"
         ],
-        "blur_score": 5.09,
+        "blur_score": 5.28,
         "glare_ratio": 0.0,
-        "mean_brightness": 20.11,
+        "mean_brightness": 20.12,
         "expected_salt": "Metformin Hydrochloride",
         "resolved_brand": null,
         "resolved_salts": [],
+        "expiry_date": null,
+        "tablet_count": null,
         "resolution_source": null,
         "confidence": 0.0,
         "salt_matched": false,
         "attempts_count": 0,
-        "total_ms": 33.85
+        "total_ms": 32.41
       },
       {
         "case_id": "17_fail_severe_glare",
@@ -543,17 +575,19 @@
           "overexposed",
           "low_contrast"
         ],
-        "blur_score": 29.62,
-        "glare_ratio": 0.9584,
+        "blur_score": 29.51,
+        "glare_ratio": 0.9588,
         "mean_brightness": 254.4,
         "expected_salt": "Ciprofloxacin",
         "resolved_brand": null,
         "resolved_salts": [],
+        "expiry_date": null,
+        "tablet_count": null,
         "resolution_source": null,
         "confidence": 0.0,
         "salt_matched": false,
         "attempts_count": 0,
-        "total_ms": 47.8
+        "total_ms": 45.31
       }
     ]
   },

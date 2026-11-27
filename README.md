@@ -65,7 +65,7 @@ Aahar-Rx/
 | **Indian Food Taxonomy** | [indian_food_taxonomy.json](data/indian_food_taxonomy.json) | ICMR-NIN IFCT-aligned dishes mapped to interacting nutrients & Member 2 culprit labels |
 | **OpenCV Quality & Recovery** | [preprocessing.py](src/aahar_scan/preprocessing.py) | Blur/glare/light/contrast checks with retry tips + glare suppression, curved-foil flattening, CLAHE & rotation recovery |
 | **Multi-Engine Strip OCR** | [ocr_engines.py](src/aahar_scan/ocr_engines.py) | `RapidOcrEngine` (PaddleOCR PP-OCRv4 ONNX in-memory), `WindowsNativeOcrEngine`, and optional `TesseractOcrEngine` |
-| **Salt Lookup & Fallback** | [salt_resolver.py](src/aahar_scan/salt_resolver.py) | Glued-token splitting, OCR digit/letter correction (`0↔O`, `1↔I`), fuzzy matching, and manual brand/salt search |
+| **Salt, Expiry & Count Extraction** | [salt_resolver.py](src/aahar_scan/salt_resolver.py) | Glued-token splitting, OCR digit/letter correction (`0↔O`, `1↔I`), same-pass **Expiry Date (`YYYY-MM`) & Tablet-Count** extraction + manual fallback |
 | **Meal Vision & Confirmation** | [meal_vision.py](src/aahar_scan/meal_vision.py) | `gemini-2.5-flash` structured JSON meal vision (with offline plate heuristic fallback) + mandatory `MealConfirmationManager` |
 | **Pipeline & Member 2 Handoff** | [pipeline.py](src/aahar_scan/pipeline.py), [member2_handoff.py](src/aahar_scan/member2_handoff.py) | Ephemeral DPDP pre-scan consent check + schema-validated bundle export tested against `verified_rules.json` |
 
@@ -89,11 +89,12 @@ Built as an installable React 18 PWA styled via the **unslop** nine-pass design 
 
 | Module | Path | Responsibility |
 | --- | --- | --- |
-| **5-Screen React 18 PWA** | [frontend/index.html](frontend/index.html), [Screens.js](frontend/js/components/Screens.js) | Interactive `Scan`, `Confirm`, `Timetable`, `Absorption curve`, and `1-Click QR health pass` views (works offline without Node build) |
-| **Design Tokens & Accessibility** | [tokens.css](frontend/css/tokens.css), [app.css](frontend/css/app.css) | Strict `4px` spacing grid, `.elderly-mode` (`>= 48px` targets, `18px` body), mobile bottom bar & print stylesheet |
+| **6-Screen React 18 PWA** | [frontend/index.html](frontend/index.html), [Screens.js](frontend/js/components/Screens.js), [MedicineBoxScreen.js](frontend/js/components/MedicineBoxScreen.js) | Interactive `Scan`, `Confirm` (with expiry/count manual fallback), `Timetable` (with **Auto-Alarms & Late-Breakfast Shift**), `Absorption curve`, `1-Click QR health pass`, and `Digital Medicine Box` |
+| **Consult Doctor Now (High-Risk)** | [ConsultDoctorModal.js](frontend/js/components/ConsultDoctorModal.js) | Auto-triggers on genuine `HIGH` clashes with **separate DPDP report-sharing consent**, live WebRTC demo frame, and pre-loaded **Doctor Clash Report View** |
+| **Design Tokens & Accessibility** | [tokens.css](frontend/css/tokens.css), [app.css](frontend/css/app.css) | Strict `4px` spacing grid, `.elderly-mode` (`>= 48px` targets, `18px` body), 6-tab mobile bar & print stylesheet |
 | **Pharmacokinetic Curves** | [pharmacokinetics.py](src/aahar_ux/pharmacokinetics.py), [AbsorptionChart.js](frontend/js/components/AbsorptionChart.js) | Chart.js 4 12-hour oral bioavailability comparison & CYP3A4 elevation warnings calibrated to `verified_rules.json` |
-| **Trilingual Localization & Voice** | [localization.py](src/aahar_ux/localization.py), [voice_generator.py](src/aahar_ux/voice_generator.py) | Complete `en` / `hi` / `mr` UI bundle + 24 synthesized Indian neural MP3 clips (`en-IN`, `hi-IN`, `mr-IN`) |
-| **1-Click QR Health Pass** | [Screens.js](frontend/js/components/Screens.js), [clinicalEngine.js](frontend/js/clinicalEngine.js) | Compact offline ISO 18004 SVG QR encoder (DPDP-safe, zero raw photos) with SVG download & print support |
+| **Trilingual Localization & Voice** | [localization.py](src/aahar_ux/localization.py), [voice_generator.py](src/aahar_ux/voice_generator.py) | Complete `en` / `hi` / `mr` UI bundle + `30` synthesized Indian neural MP3 clips (`8` rules + `ALERT-HIGH-RISK` + `ALERT-REFILL`) |
+| **1-Click QR Pass & Reorder Links** | [Screens.js](frontend/js/components/Screens.js), [clinicalEngine.js](frontend/js/clinicalEngine.js) | Compact offline ISO 18004 SVG QR encoder (DPDP-safe, zero raw photos) + 1mg & PharmEasy search deep links (`<= 3 days` refill alert) |
 
 ### Quickstart (Member 3 PWA & Voice)
 

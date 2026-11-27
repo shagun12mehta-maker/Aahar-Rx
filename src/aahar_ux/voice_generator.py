@@ -131,6 +131,57 @@ _RULE_VOICE_SCRIPTS: dict[str, dict[str, str]] = {
     },
 }
 
+_UX_ALERT_SCRIPTS: dict[str, dict[str, str]] = {
+    "ALERT-HIGH-RISK": {
+        "en": (
+            "Attention. A high priority food-drug interaction clash has been detected. "
+            "Please tap Consult Doctor Now to share your report with explicit consent. "
+            "Only your doctor can adjust a prescribed medicine dose."
+        ),
+        "hi": (
+            "कृपया ध्यान दें। दवा और भोजन के बीच उच्च सावधानी वाला टकराव मिला है। "
+            "सुरक्षित सलाह के लिए डॉक्टर से अभी बात करें बटन चुनें। दवा की मात्रा केवल डॉक्टर ही बदल सकते हैं।"
+        ),
+        "mr": (
+            "कृपया लक्ष द्या. औषध आणि अन्न यामध्ये उच्च दक्षतेचा अडथळा आढळला आहे. "
+            "योग्य सल्ल्यासाठी डॉक्टरांशी आत्ताच बोला हा पर्याय निवडा. औषधाची मात्रा फक्त डॉक्टरच बदलू शकतात."
+        ),
+    },
+    "ALERT-REFILL": {
+        "en": (
+            "Medicine refill reminder. One of your daily medicines in the Medicine Box has 3 days or fewer remaining. "
+            "Please reorder a fresh strip on time via 1mg or PharmEasy so your treatment continues smoothly."
+        ),
+        "hi": (
+            "दवा रिफ़िल सूचना। आपके दवा बॉक्स की एक नियमित दवा केवल 3 दिन या उससे कम बची है। "
+            "समय पर नई पट्टी मंगवाने के लिए 1mg या PharmEasy का विकल्प उपयोग करें।"
+        ),
+        "mr": (
+            "औषध साठा सूचना. तुमच्या औषध बॉक्समधील एक नियमित औषध 3 दिवस किंवा त्यापेक्षा कमी शिल्लक आहे. "
+            "वेळेवर नवीन पाकीट मागवण्यासाठी 1mg किंवा PharmEasy पर्याय वापरा."
+        ),
+    },
+}
+
+
+def build_ux_alert_voice_scripts() -> dict[str, dict[str, Any]]:
+    """Build EN/HI/MR elderly audio script metadata for Consult Doctor Now & Refill alerts."""
+    alerts: dict[str, dict[str, Any]] = {}
+    for aid, lang_texts in _UX_ALERT_SCRIPTS.items():
+        row: dict[str, Any] = {"rule_id": aid, "languages": {}}
+        for lang, profile in VOICE_PROFILES.items():
+            text = lang_texts[lang]
+            row["languages"][lang] = {
+                "text": text,
+                "voice_name": profile["voice"],
+                "locale": profile["locale"],
+                "rate": profile["rate"],
+                "audio_rel_path": f"audio/{lang}/{aid}.mp3",
+                "estimated_seconds": round(max(6.0, len(text.split()) / 2.1), 1),
+            }
+        alerts[aid] = row
+    return alerts
+
 
 def build_voice_scripts_for_rules(rules: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Build deterministic EN/HI/MR elderly voice script metadata keyed by rule_id."""
@@ -198,5 +249,7 @@ def synthesize_voice_assets(
 ) -> dict[str, Any]:
     """Synthesize elderly-friendly EN/HI/MR MP3 clips via edge-tts neural voices."""
     scripts = build_voice_scripts_for_rules(rules)
-    records = asyncio.run(_synthesize_all_async(scripts, output_root=output_root, overwrite=overwrite))
-    return {"scripts": scripts, "audio_files": records}
+    ux_alerts = build_ux_alert_voice_scripts()
+    combined = {**scripts, **ux_alerts}
+    records = asyncio.run(_synthesize_all_async(combined, output_root=output_root, overwrite=overwrite))
+    return {"scripts": scripts, "ux_alerts": ux_alerts, "audio_files": records}

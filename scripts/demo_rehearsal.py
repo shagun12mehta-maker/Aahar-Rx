@@ -33,15 +33,31 @@ def main() -> None:
     blur_res = pipeline.scan_medicine_strip(generate_strip_image_bytes("15_fail_severe_blur"), consent)
     print("Retry required:", blur_res.retry_required, "| Guidance:", blur_res.quality_report.retry_guidance)
 
-    print("\n=== [3/5] Glare Foil Recovery & Salt Resolution ===")
+    print("\n=== [3/5] Glare Foil Recovery, Salt, Expiry & Tablet-Count Resolution ===")
     glare_res = pipeline.scan_medicine_strip(generate_strip_image_bytes("03_shelcal_glare"), consent)
     top_med = glare_res.resolved_medications[0]
-    print("Resolved:", top_med.brand_name, "->", top_med.active_salts, "| Class:", top_med.drug_class)
+    print(
+        "Resolved:",
+        top_med.brand_name,
+        "->",
+        top_med.active_salts,
+        "| Class:",
+        top_med.drug_class,
+        "| EXP:",
+        top_med.expiry_date,
+        "| Count:",
+        top_med.tablet_count,
+    )
 
-    print("\n=== [4/5] Manual Brand/Salt Fallback Search ===")
+    print("\n=== [4/5] Manual Brand/Salt & Expiry Fallback Search ===")
     hits = pipeline.search_medicine_fallback("thyronorm", limit=2)
     print("Top fallback search hit:", hits[0].brand_name, "->", hits[0].active_salts)
-    thyroid_med = pipeline.select_manual_medicine("thyronorm", intended_dose_time_hhmm="07:00")
+    thyroid_med = pipeline.select_manual_medicine(
+        "thyronorm",
+        intended_dose_time_hhmm="07:00",
+        expiry_date="2027-08",
+        tablet_count=30,
+    )
 
     print("\n=== [5/5] Meal Vision + Mandatory Confirmation + Member 2 Compatibility ===")
     meal_scan = pipeline.scan_meal_photo(

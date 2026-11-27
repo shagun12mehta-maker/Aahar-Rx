@@ -1,4 +1,4 @@
-const CACHE_NAME = "aahar-rx-member3-v1";
+const CACHE_NAME = "aahar-rx-member3-v2";
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
@@ -14,10 +14,13 @@ const PRECACHE_ASSETS = [
   "./data/pk_profiles.json",
   "./data/rules_bundle.json",
   "./data/voice_scripts.json",
+  "./data/ux_voice_alerts.json",
   "./js/icons.js",
   "./js/clinicalEngine.js",
   "./js/components/AudioReminderPlayer.js",
   "./js/components/AbsorptionChart.js",
+  "./js/components/ConsultDoctorModal.js",
+  "./js/components/MedicineBoxScreen.js",
   "./js/components/Screens.js",
   "./js/App.js"
 ];

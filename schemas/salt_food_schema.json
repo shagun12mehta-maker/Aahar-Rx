@@ -195,7 +195,18 @@
         "intended_dose_time_hhmm": {
           "type": ["string", "null"],
           "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
-        }
+        },
+        "expiry_date": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+        },
+        "expiry_raw_text": { "type": ["string", "null"] },
+        "tablet_count": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "medicine_box_fallback_needed": { "type": "boolean" }
       }
     },
     "confirmedFoodItem": {

@@ -70,8 +70,11 @@ def test_member3_pwa_static_assets_and_local_scan_bridge() -> None:
         "/data/pk_profiles.json",
         "/data/rules_bundle.json",
         "/data/voice_scripts.json",
+        "/data/ux_voice_alerts.json",
         "/audio/hi/RULE-THY-001.mp3",
         "/audio/mr/RULE-THY-001.mp3",
+        "/audio/hi/ALERT-REFILL.mp3",
+        "/audio/mr/ALERT-HIGH-RISK.mp3",
         "/vendor/qrcode.min.js",
     ):
         status, _, body = _dispatch("GET", route)
@@ -91,6 +94,8 @@ def test_member3_pwa_static_assets_and_local_scan_bridge() -> None:
     strip_out = json.loads(strip_raw.decode("utf-8"))
     assert strip_out["retry_required"] is False
     assert strip_out["medications"][0]["brand_name"] == "Thyronorm"
+    assert strip_out["medications"][0]["expiry_date"] == "2027-08"
+    assert strip_out["medications"][0]["tablet_count"] == 30
 
     blur_strip = generate_strip_image_bytes("15_fail_severe_blur")
     status, _, blur_raw = _dispatch("POST", "/api/local-scan/strip", body=blur_strip, content_type="image/png")

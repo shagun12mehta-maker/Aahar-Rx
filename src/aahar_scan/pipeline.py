@@ -100,12 +100,16 @@ class AaharSmartScanPipeline:
         brand_id_or_name: str,
         strength_text: str | None = None,
         intended_dose_time_hhmm: str | None = None,
+        expiry_date: str | None = None,
+        tablet_count: int | None = None,
     ) -> ResolvedMedication:
         """Build a confirmed medication directly from manual brand/salt selection."""
         return self.salt_resolver.build_manual_medication(
             brand_id_or_name=brand_id_or_name,
             strength_text=strength_text,
             intended_dose_time_hhmm=intended_dose_time_hhmm,
+            expiry_date=expiry_date,
+            tablet_count=tablet_count,
         )
 
     def scan_meal_photo(

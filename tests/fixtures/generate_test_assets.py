@@ -59,6 +59,7 @@ def _render_base_strip(
     headline: str,
     subtitle: str,
     footer: str,
+    meta_line: str = "",
     bg_rgb: tuple[int, int, int] = (238, 240, 244),
     text_rgb: tuple[int, int, int] = (22, 26, 38),
     accent_rgb: tuple[int, int, int] = (28, 92, 168),
@@ -77,9 +78,12 @@ def _render_base_strip(
     f_med = _load_font(34)
     f_small = _load_font(24)
 
-    draw.text((65, 130), headline, fill=text_rgb, font=f_big)
-    draw.text((65, 220), subtitle, fill=text_rgb, font=f_med)
-    draw.text((65, 285), footer, fill=accent_rgb, font=f_small)
+    draw.text((65, 126), headline, fill=text_rgb, font=f_big)
+    draw.text((65, 204), subtitle, fill=text_rgb, font=f_med)
+    draw.text((65, 256), footer, fill=accent_rgb, font=f_small)
+    if meta_line:
+        f_meta = _load_font(22)
+        draw.text((65, 298), meta_line, fill=text_rgb, font=f_meta)
 
     rgb = np.array(img, dtype=np.uint8)
     return cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
@@ -113,42 +117,42 @@ def _apply_specular_glare(
 def generate_strip_image_bytes(case_id: str) -> bytes:
     """Render deterministic PNG bytes for a named benchmark medicine strip case."""
     if case_id == "01_thyronorm_clean":
-        bgr = _render_base_strip("THYRONORM 50", "Levothyroxine Sodium IP 50 mcg", "Rx Thyroid Hormone Tablets")
+        bgr = _render_base_strip("THYRONORM 50", "Levothyroxine Sodium IP 50 mcg", "Rx Thyroid Hormone Tablets", meta_line="EXP 08/2027  |  30 Tablets")
     elif case_id == "02_glycomet_curved_foil":
-        bgr = _render_base_strip("GLYCOMET 500 SR", "Metformin Hydrochloride IP 500 mg", "Sustained Release Foil Strip", bg_rgb=(205, 210, 218))
+        bgr = _render_base_strip("GLYCOMET 500 SR", "Metformin Hydrochloride IP 500 mg", "Sustained Release Foil Strip", meta_line="EXP 11/2027  |  1x15 Tabs", bg_rgb=(205, 210, 218))
         bgr = _apply_curved_foil_gradient(bgr, strength=0.52)
     elif case_id == "03_shelcal_glare":
-        bgr = _render_base_strip("SHELCAL 500", "Calcium Carbonate + Vitamin D3", "Film Coated Tablets", bg_rgb=(210, 216, 224))
+        bgr = _render_base_strip("SHELCAL 500", "Calcium Carbonate + Vitamin D3", "Film Coated Tablets", meta_line="EXP 05/2027  |  15 Tablets", bg_rgb=(210, 216, 224))
         bgr = _apply_curved_foil_gradient(bgr, strength=0.35)
         bgr = _apply_specular_glare(bgr, center_xy=(0.82, 0.45), radius_frac=0.11, intensity=230.0)
     elif case_id == "04_ciplox_low_contrast":
-        bgr = _render_base_strip("CIPLOX 500", "Ciprofloxacin IP 500 mg", "Antibiotic Tablets", bg_rgb=(178, 184, 192), text_rgb=(108, 114, 126), accent_rgb=(95, 108, 130))
+        bgr = _render_base_strip("CIPLOX 500", "Ciprofloxacin IP 500 mg", "Antibiotic Tablets", meta_line="EXP 09/2027  |  10 Tablets", bg_rgb=(178, 184, 192), text_rgb=(108, 114, 126), accent_rgb=(95, 108, 130))
         bgr = _apply_curved_foil_gradient(bgr, strength=0.30)
     elif case_id == "05_orofer_dark_foil":
-        bgr = _render_base_strip("OROFER XT", "Ferrous Ascorbate 100 mg + Folic Acid", "Iron Supplement Strip", bg_rgb=(96, 26, 36), text_rgb=(245, 240, 232), accent_rgb=(235, 190, 95))
+        bgr = _render_base_strip("OROFER XT", "Ferrous Ascorbate 100 mg + Folic Acid", "Iron Supplement Strip", meta_line="EXP 02/2027  |  10 Tablets", bg_rgb=(96, 26, 36), text_rgb=(245, 240, 232), accent_rgb=(235, 190, 95))
     elif case_id == "06_warf_rotated_90":
-        bgr = _render_base_strip("WARF 5", "Warfarin Sodium IP 5 mg", "Anticoagulant Tablets")
+        bgr = _render_base_strip("WARF 5", "Warfarin Sodium IP 5 mg", "Anticoagulant Tablets", meta_line="EXP 10/2027  |  30 Tablets")
         bgr = cv2.rotate(bgr, cv2.ROTATE_90_CLOCKWISE)
     elif case_id == "07_atorva_rotated_180":
-        bgr = _render_base_strip("ATORVA 20", "Atorvastatin Calcium IP 20 mg", "Lipid Lowering Strip")
+        bgr = _render_base_strip("ATORVA 20", "Atorvastatin Calcium IP 20 mg", "Lipid Lowering Strip", meta_line="EXP 07/2027  |  15 Tabs")
         bgr = cv2.rotate(bgr, cv2.ROTATE_180)
     elif case_id == "08_telma_clean":
-        bgr = _render_base_strip("TELMA 40", "Telmisartan IP 40 mg", "Antihypertensive Tablets")
+        bgr = _render_base_strip("TELMA 40", "Telmisartan IP 40 mg", "Antihypertensive Tablets", meta_line="EXP 12/2027  |  15 Tablets")
     elif case_id == "09_pan40_curved":
-        bgr = _render_base_strip("PAN 40", "Pantoprazole Sodium IP 40 mg", "Gastro-Resistant Strip", bg_rgb=(215, 220, 226))
+        bgr = _render_base_strip("PAN 40", "Pantoprazole Sodium IP 40 mg", "Gastro-Resistant Strip", meta_line="EXP 04/2027  |  15 Tabs", bg_rgb=(215, 220, 226))
         bgr = _apply_curved_foil_gradient(bgr, strength=0.48)
     elif case_id == "10_augmentin_clean":
-        bgr = _render_base_strip("AUGMENTIN 625 DUO", "Amoxicillin 500 mg + Clavulanic Acid 125 mg", "Antibiotic Tablets")
+        bgr = _render_base_strip("AUGMENTIN 625 DUO", "Amoxicillin 500 mg + Clavulanic Acid 125 mg", "Antibiotic Tablets", meta_line="EXP 06/2027  |  10 Tablets")
     elif case_id == "11_thyroup_regional":
         bgr = _render_base_strip("THYROUP 50", "Levothyroxine Sodium 50 mcg", "Regional Generic Strip", bg_rgb=(208, 215, 222))
         bgr = _apply_curved_foil_gradient(bgr, strength=0.40)
     elif case_id == "12_ferro_xt_regional_glare":
-        bgr = _render_base_strip("FERRO-XT", "Ferrous Ascorbate + Folic Acid", "Haematinic Tablets", bg_rgb=(200, 206, 214))
+        bgr = _render_base_strip("FERRO-XT", "Ferrous Ascorbate + Folic Acid", "Haematinic Tablets", meta_line="EXP 03/2027  |  10 Tabs", bg_rgb=(200, 206, 214))
         bgr = _apply_specular_glare(bgr, center_xy=(0.80, 0.55), radius_frac=0.10, intensity=210.0)
     elif case_id == "13_lasix_generic_salt":
         bgr = _render_base_strip("FUROSEMIDE 40 MG", "Each uncoated tablet contains Furosemide IP 40 mg", "Generic Composition Back")
     elif case_id == "14_amlong_low_light_recoverable":
-        bgr = _render_base_strip("AMLONG 5", "Amlodipine Besilate IP 5 mg", "Calcium Channel Blocker")
+        bgr = _render_base_strip("AMLONG 5", "Amlodipine Besilate IP 5 mg", "Calcium Channel Blocker", meta_line="EXP 01/2028  |  15 Tablets")
         bgr = np.clip(bgr.astype(np.float32) * 0.34, 0, 255).astype(np.uint8)
     elif case_id == "15_fail_severe_blur":
         bgr = _render_base_strip("THYRONORM 50", "Levothyroxine Sodium IP 50 mcg", "Blurred Strip")

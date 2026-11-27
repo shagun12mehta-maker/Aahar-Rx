@@ -73,6 +73,133 @@ def extract_strength(text: str) -> str | None:
     return f"{matches[0][0]} {matches[0][1].lower()}"
 
 
+_MONTH_MAP: dict[str, int] = {
+    "JAN": 1,
+    "FEB": 2,
+    "MAR": 3,
+    "APR": 4,
+    "MAY": 5,
+    "JUN": 6,
+    "JUL": 7,
+    "AUG": 8,
+    "SEP": 9,
+    "SEPT": 9,
+    "OCT": 10,
+    "NOV": 11,
+    "DEC": 12,
+}
+
+
+def _repair_ocr_digits(token: str) -> str:
+    return (
+        token.upper()
+        .replace("O", "0")
+        .replace("I", "1")
+        .replace("L", "1")
+        .replace("|", "1")
+        .replace("S", "5")
+    )
+
+
+def extract_expiry_date(text: str) -> tuple[str | None, str | None]:
+    """Extract expiry month/year (normalized YYYY-MM) and raw token from strip OCR text."""
+    if not text or not text.strip():
+        return None, None
+
+    upper = text.upper()
+
+    # 1. Explicit EXP / EXPIRY / USE BEFORE numeric MM/YYYY or MM/YY
+    exp_num = re.finditer(
+        r"\b(?:EXP(?:IRY)?(?:\s*DT\.?)?|USE\s+BEFORE|BEST\s+BEFORE)\s*[:.\-]?\s*"
+        r"([0-9OIlS]{1,2})\s*[/\-\.]\s*([0-9OIlS]{2,4})\b",
+        upper,
+    )
+    for m in exp_num:
+        mm_str = _repair_ocr_digits(m.group(1))
+        yy_str = _repair_ocr_digits(m.group(2))
+        if mm_str.isdigit() and yy_str.isdigit():
+            month = int(mm_str)
+            year = int(yy_str) + (2000 if len(yy_str) == 2 else 0)
+            if 1 <= month <= 12 and 2020 <= year <= 2099:
+                return f"{year:04d}-{month:02d}", m.group(0).strip()
+
+    # 2. Explicit EXP + Month Name + Year (e.g., EXP AUG 2027, EXP NOV-26)
+    exp_named = re.finditer(
+        r"\b(?:EXP(?:IRY)?(?:\s*DT\.?)?|USE\s+BEFORE)\s*[:.\-]?\s*"
+        r"(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|SEPT|OCT|NOV|DEC)\s*[/\-\.\s]+\s*([0-9OIlS]{2,4})\b",
+        upper,
+    )
+    for m in exp_named:
+        month = _MONTH_MAP[m.group(1)]
+        yy_str = _repair_ocr_digits(m.group(2))
+        if yy_str.isdigit():
+            year = int(yy_str) + (2000 if len(yy_str) == 2 else 0)
+            if 2020 <= year <= 2099:
+                return f"{year:04d}-{month:02d}", m.group(0).strip()
+
+    # 3. Explicit EXP YYYY-MM
+    exp_iso = re.search(
+        r"\b(?:EXP(?:IRY)?(?:\s*DT\.?)?)\s*[:.\-]?\s*(20[2-9]\d)\s*[/\-]\s*(0[1-9]|1[0-2])\b",
+        upper,
+    )
+    if exp_iso:
+        return f"{int(exp_iso.group(1)):04d}-{int(exp_iso.group(2)):02d}", exp_iso.group(0).strip()
+
+    # 4. Fallback bare MM/202X not preceded by MFG/PKD (take highest year if MFG + EXP appear)
+    bare_candidates: list[tuple[int, int, str]] = []
+    for m in re.finditer(r"(?<!MFG\s)(?<!PKD\s)\b(0[1-9]|1[0-2])\s*[/\-]\s*(202[4-9]|203\d)\b", upper):
+        prefix = upper[max(0, m.start() - 8) : m.start()]
+        if "MFG" in prefix or "PKD" in prefix:
+            continue
+        bare_candidates.append((int(m.group(2)), int(m.group(1)), m.group(0).strip()))
+    if bare_candidates:
+        year, month, raw = max(bare_candidates, key=lambda item: (item[0], item[1]))
+        return f"{year:04d}-{month:02d}", raw
+
+    return None, None
+
+
+def extract_tablet_count(text: str) -> int | None:
+    """Extract strip tablet/capsule pack count without confusing it with mg/mcg strength."""
+    if not text or not text.strip():
+        return None
+    upper = text.upper()
+
+    # 1. Blister matrix (1 x 15 Tabs, 1x10, 2x10)
+    blister = re.search(
+        r"\b(\d{1,2})\s*[X×]\s*([0-9OIl]{1,3})\s*(?:TABS?|TABLETS?|CAPS?|CAPSULES?|N)?\b",
+        upper,
+    )
+    if blister:
+        mult = int(blister.group(1))
+        per = int(_repair_ocr_digits(blister.group(2)))
+        total = mult * per if mult > 1 else per
+        if 1 <= total <= 200:
+            return total
+
+    # 2. Explicit count keyword ("30 Tablets", "15 Tabs", "10 Capsules", "10's", "Strip of 15")
+    explicit = re.search(
+        r"\b([0-9OIl]{1,3})\s*(?:TABLETS|TABLET|TABS|TAB|CAPSULES|CAPSULE|CAPS|\'S)\b",
+        upper,
+    )
+    if explicit:
+        digits = _repair_ocr_digits(explicit.group(1))
+        if digits.isdigit():
+            val = int(digits)
+            if 1 <= val <= 500:
+                return val
+
+    strip_of = re.search(r"\b(?:STRIP|PACK|BOX)\s+OF\s+([0-9OIl]{1,3})\b", upper)
+    if strip_of:
+        digits = _repair_ocr_digits(strip_of.group(1))
+        if digits.isdigit():
+            val = int(digits)
+            if 1 <= val <= 500:
+                return val
+
+    return None
+
+
 @lru_cache(maxsize=4)
 def load_brand_directory(path: Path | None = None) -> list[dict[str, Any]]:
     """Load the Indian brand-to-salt directory from disk."""
@@ -100,6 +227,9 @@ class SaltResolver:
         cleaned_raw = _clean_text(raw_text)
         normalized = _ocr_normalize(_BOILERPLATE_RE.sub(" ", cleaned_raw))
         strength = extract_strength(raw_text)
+        expiry_date, expiry_raw = extract_expiry_date(raw_text)
+        tablet_count = extract_tablet_count(raw_text)
+        box_fallback_needed = expiry_date is None or tablet_count is None
 
         candidates: dict[str, tuple[float, ResolvedMedication]] = {}
 
@@ -175,6 +305,10 @@ class SaltResolver:
                     ocr_engine_used=engine_name,
                     confidence=round(min(best_score, 0.99), 3),
                     confirmed_by_user=False,
+                    expiry_date=expiry_date,
+                    expiry_raw_text=expiry_raw,
+                    tablet_count=tablet_count,
+                    medicine_box_fallback_needed=box_fallback_needed,
                 )
                 prev = candidates.get(dedup_key)
                 if prev is None or med.confidence > prev[0]:
@@ -199,6 +333,8 @@ class SaltResolver:
         brand_id_or_name: str,
         strength_text: str | None = None,
         intended_dose_time_hhmm: str | None = None,
+        expiry_date: str | None = None,
+        tablet_count: int | None = None,
     ) -> ResolvedMedication:
         """Construct a user-selected manual fallback medication record."""
         query = brand_id_or_name.strip().lower()
@@ -218,6 +354,10 @@ class SaltResolver:
                     confidence=1.0,
                     confirmed_by_user=True,
                     intended_dose_time_hhmm=intended_dose_time_hhmm,
+                    expiry_date=expiry_date,
+                    expiry_raw_text=f"MANUAL {expiry_date}" if expiry_date else None,
+                    tablet_count=tablet_count,
+                    medicine_box_fallback_needed=(expiry_date is None or tablet_count is None),
                 )
         raise KeyError(f"Unknown brand_id or brand_name: {brand_id_or_name}")
 

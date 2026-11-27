@@ -85,6 +85,12 @@ class ResolvedMedication(BaseModel):
     intended_dose_time_hhmm: str | None = Field(
         default=None, pattern=r"^([01]\d|2[0-3]):[0-5]\d$"
     )
+    expiry_date: str | None = Field(
+        default=None, pattern=r"^\d{4}-(0[1-9]|1[0-2])$"
+    )
+    expiry_raw_text: str | None = None
+    tablet_count: int | None = Field(default=None, ge=1, le=1000)
+    medicine_box_fallback_needed: bool = False
 
 
 class ManualSearchHit(BaseModel):

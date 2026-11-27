@@ -3,12 +3,14 @@ import {
   ClockIcon,
   ConfirmIcon,
   LeafMarkIcon,
+  PackageIcon,
   QrIcon,
   ScanIcon,
   TypeSizeIcon,
 } from "./icons.js";
 import {
   PRESET_SCANS,
+  SEED_MEDICINE_BOX,
   findDefaultRuleForMedication,
   matchInteractionsForPatient,
   resolveFoodItems,
@@ -20,9 +22,50 @@ import {
   ScanScreen,
   TimetableScreen,
 } from "./components/Screens.js";
+import { MedicineBoxScreen } from "./components/MedicineBoxScreen.js";
+import { ConsultDoctorModal } from "./components/ConsultDoctorModal.js";
 
 const { useEffect, useMemo, useState } = window.React;
 const html = window.htm.bind(window.React.createElement);
+
+const BOX_STORAGE_KEY = "aahar_rx_medicine_box_v1";
+
+function loadInitialMedicineBox() {
+  try {
+    const raw = window.localStorage.getItem(BOX_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {
+    // Ignore storage issues in restricted browsers.
+  }
+  return SEED_MEDICINE_BOX;
+}
+
+function playGentleChime() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    [523.25, 659.25].forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      const start = ctx.currentTime + idx * 0.16;
+      gain.gain.setValueAtTime(0.001, start);
+      gain.gain.exponentialRampToValueAtTime(0.08, start + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(start);
+      osc.stop(start + 0.36);
+    });
+  } catch {
+    // Ignore Web Audio blocks.
+  }
+}
 
 function App() {
   const [bundleData, setBundleData] = useState(null);
@@ -34,24 +77,52 @@ function App() {
   const [bridgeOnline, setBridgeOnline] = useState(false);
 
   const [scanState, setScanState] = useState(null);
+  const [saveToBox, setSaveToBox] = useState(true);
   const [selectedSwaps, setSelectedSwaps] = useState({});
   const [selectedRuleId, setSelectedRuleId] = useState("RULE-THY-001");
   const [bundleId] = useState("AHR-2026-THY1");
 
+  const [medicineBox, setMedicineBox] = useState(loadInitialMedicineBox);
+  const [consultOpen, setConsultOpen] = useState(false);
+
+  const [mealsRoutine, setMealsRoutine] = useState({
+    breakfastHHMM: "08:30",
+    lunchHHMM: "13:30",
+    dinnerHHMM: "20:30",
+  });
+  const [lateShiftMinutes, setLateShiftMinutes] = useState(0);
+  const [alarmsEnabled, setAlarmsEnabled] = useState({
+    "alarm-dose": true,
+    "alarm-gap-clear": true,
+    "alarm-breakfast": true,
+    "alarm-lunch": true,
+    "alarm-dinner": true,
+  });
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(BOX_STORAGE_KEY, JSON.stringify(medicineBox));
+    } catch {
+      // Ignore quota errors.
+    }
+  }, [medicineBox]);
+
   useEffect(() => {
     async function loadAll() {
       try {
-        const [i18nRes, rulesRes, pkRes, voiceRes] = await Promise.all([
+        const [i18nRes, rulesRes, pkRes, voiceRes, alertsRes] = await Promise.all([
           fetch("./data/i18n.json"),
           fetch("./data/rules_bundle.json"),
           fetch("./data/pk_profiles.json"),
           fetch("./data/voice_scripts.json"),
+          fetch("./data/ux_voice_alerts.json"),
         ]);
-        const [i18n, rulesBundle, pkProfiles, voiceScripts] = await Promise.all([
+        const [i18n, rulesBundle, pkProfiles, voiceScripts, uxVoiceAlerts] = await Promise.all([
           i18nRes.json(),
           rulesRes.json(),
           pkRes.json(),
           voiceRes.json(),
+          alertsRes.json(),
         ]);
 
         const brandLookup = Object.fromEntries(
@@ -72,10 +143,16 @@ function App() {
           foodLookup,
           pkProfiles,
           voiceScripts,
+          uxVoiceAlerts,
         });
         setScanState({
           activePresetId: defaultPreset.id,
-          medication: { ...defaultMed, strength_text: defaultPreset.strengthText },
+          medication: {
+            ...defaultMed,
+            strength_text: defaultPreset.strengthText,
+            expiry_date: defaultPreset.expiryDate,
+            tablet_count: defaultPreset.tabletCount,
+          },
           foodIds: [...defaultPreset.detectedFoodIds],
           milkInChai: true,
           doseTimeHHMM: defaultPreset.doseTimeHHMM,
@@ -112,14 +189,25 @@ function App() {
   useEffect(() => {
     function onKeyDown(e) {
       if (e.target && ["INPUT", "SELECT", "TEXTAREA"].includes(e.target.tagName)) return;
-      const tabMap = { "1": "scan", "2": "confirm", "3": "timetable", "4": "curve", "5": "qr" };
+      if (e.key === "Escape" && consultOpen) {
+        setConsultOpen(false);
+        return;
+      }
+      const tabMap = {
+        "1": "scan",
+        "2": "confirm",
+        "3": "timetable",
+        "4": "curve",
+        "5": "qr",
+        "6": "box",
+      };
       if (tabMap[e.key]) {
         setActiveTab(tabMap[e.key]);
       }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [consultOpen]);
 
   const t = bundleData?.i18n?.[lang] || bundleData?.i18n?.en || null;
 
@@ -147,7 +235,12 @@ function App() {
     const med = bundleData.brandLookup[p.brandId] || bundleData.brands[0];
     setScanState({
       activePresetId: p.id,
-      medication: { ...med, strength_text: p.strengthText },
+      medication: {
+        ...med,
+        strength_text: p.strengthText,
+        expiry_date: p.expiryDate,
+        tablet_count: p.tabletCount,
+      },
       foodIds: [...p.detectedFoodIds],
       milkInChai: true,
       doseTimeHHMM: p.doseTimeHHMM,
@@ -165,7 +258,12 @@ function App() {
   function selectManualBrand(brandEntry) {
     setScanState((prev) => ({
       ...prev,
-      medication: { ...brandEntry, strength_text: brandEntry.common_strengths?.[0] || null },
+      medication: {
+        ...brandEntry,
+        strength_text: brandEntry.common_strengths?.[0] || null,
+        expiry_date: prev.medication?.expiry_date || "2027-08",
+        tablet_count: prev.medication?.tablet_count || 15,
+      },
       qualityOk: true,
       retryGuidance: "",
       confirmedByUser: false,
@@ -233,15 +331,61 @@ function App() {
     setActiveTab("confirm");
   }
 
+  function handleConfirmAndSave() {
+    setScanState((p) => ({ ...p, confirmedByUser: true }));
+    if (saveToBox && scanState.medication) {
+      const m = scanState.medication;
+      const packCount = Math.max(1, Number(m.tablet_count || 15));
+      setMedicineBox((prev) => {
+        const idx = prev.findIndex(
+          (item) => item.brand_name.toLowerCase() === (m.brand_name || "").toLowerCase()
+        );
+        const updatedItem = {
+          id: idx >= 0 ? prev[idx].id : `box-${Date.now()}`,
+          brand_name: m.brand_name,
+          strength_text: m.strength_text || "",
+          active_salts: m.active_salts || [],
+          expiry_date: m.expiry_date || "2027-08",
+          initial_count: packCount,
+          remaining_tablets: packCount,
+          doses_per_day: 1,
+        };
+        if (idx >= 0) {
+          const copy = [...prev];
+          copy[idx] = updatedItem;
+          return copy;
+        }
+        return [updatedItem, ...prev];
+      });
+    }
+    const highRiskMatch = interactions.find((i) => i.rule.severity === "HIGH");
+    setConsultOpen(Boolean(highRiskMatch));
+    setActiveTab("timetable");
+  }
+
+  function handleTakeDose(itemId) {
+    setMedicineBox((prev) =>
+      prev.map((item) =>
+        item.id === itemId
+          ? { ...item, remaining_tablets: Math.max(0, Number(item.remaining_tablets || 0) - 1) }
+          : item
+      )
+    );
+  }
+
   const navItems = [
     { id: "scan", label: t.nav.scan, icon: ScanIcon, key: "1" },
     { id: "confirm", label: t.nav.confirm, icon: ConfirmIcon, key: "2" },
     { id: "timetable", label: t.nav.timetable, icon: ClockIcon, key: "3" },
     { id: "curve", label: t.nav.curve, icon: ActivityIcon, key: "4" },
     { id: "qr", label: t.nav.qr_pass, icon: QrIcon, key: "5" },
+    { id: "box", label: t.nav.med_box, icon: PackageIcon, key: "6" },
   ];
 
-  const primaryRule = interactions[0]?.rule || findDefaultRuleForMedication(scanState.medication, bundleData.rules);
+  const primaryRule =
+    interactions[0]?.rule || findDefaultRuleForMedication(scanState.medication, bundleData.rules);
+  const highRiskInteraction =
+    interactions.find((i) => i.rule.severity === "HIGH") || null;
 
   return html`
     <div class="app-shell ${elderlyMode ? "elderly-mode" : ""}">
@@ -256,11 +400,12 @@ function App() {
           </div>
 
           <div class="nav-desktop">
-            <p class="rail-section-label">${t.nav.scan} / ${t.nav.qr_pass}</p>
+            <p class="rail-section-label">${t.nav.scan} / ${t.nav.med_box}</p>
             <nav class="nav-list">
               ${navItems.map((item) => {
                 const active = activeTab === item.id;
-                const locked = !scanState.confirmedByUser && (item.id === "timetable" || item.id === "qr");
+                const locked =
+                  !scanState.confirmedByUser && (item.id === "timetable" || item.id === "qr");
                 return html`
                   <button
                     key=${item.id}
@@ -365,6 +510,15 @@ function App() {
                   foods=${bundleData.foods}
                   scanState=${scanState}
                   resolvedFoods=${resolvedFoods}
+                  saveToBox=${saveToBox}
+                  onToggleSaveToBox=${setSaveToBox}
+                  onUpdateBoxFields=${(patch) =>
+                    setScanState((p) => ({
+                      ...p,
+                      medication: { ...p.medication, ...patch },
+                      confirmedByUser: false,
+                    }))
+                  }
                   onToggleMilk=${(flag) => setScanState((p) => ({ ...p, milkInChai: flag, confirmedByUser: false }))}
                   onRemoveFood=${(fid) =>
                     setScanState((p) => ({
@@ -380,10 +534,7 @@ function App() {
                       confirmedByUser: false,
                     }))
                   }
-                  onConfirmBundle=${() => {
-                    setScanState((p) => ({ ...p, confirmedByUser: true }));
-                    setActiveTab("timetable");
-                  }}
+                  onConfirmBundle=${handleConfirmAndSave}
                   onBackToScan=${() => setActiveTab("scan")}
                 />
               `
@@ -399,6 +550,14 @@ function App() {
                   selectedSwaps=${selectedSwaps}
                   onSelectSwap=${(rid, idx) => setSelectedSwaps((prev) => ({ ...prev, [rid]: idx }))}
                   voiceScripts=${bundleData.voiceScripts}
+                  mealsRoutine=${mealsRoutine}
+                  onChangeMealRoutine=${(key, val) => setMealsRoutine((p) => ({ ...p, [key]: val }))}
+                  lateShiftMinutes=${lateShiftMinutes}
+                  onToggleLateShift=${() => setLateShiftMinutes((m) => (m === 0 ? 45 : 0))}
+                  alarmsEnabled=${alarmsEnabled}
+                  onToggleAlarm=${(aid) => setAlarmsEnabled((p) => ({ ...p, [aid]: !p[aid] }))}
+                  onTestAlarmTone=${playGentleChime}
+                  onOpenConsult=${() => setConsultOpen(true)}
                   onOpenCurve=${(rid) => {
                     if (rid) setSelectedRuleId(rid);
                     setActiveTab("curve");
@@ -435,6 +594,18 @@ function App() {
                 />
               `
             : null}
+
+          ${activeTab === "box"
+            ? html`
+                <${MedicineBoxScreen}
+                  t=${t}
+                  lang=${lang}
+                  medicineBox=${medicineBox}
+                  onTakeDose=${handleTakeDose}
+                  uxVoiceAlerts=${bundleData.uxVoiceAlerts}
+                />
+              `
+            : null}
         </main>
 
         <footer class="disclaimer-footer">
@@ -443,10 +614,22 @@ function App() {
         </footer>
       </div>
 
+      <${ConsultDoctorModal}
+        isOpen=${consultOpen}
+        onClose=${() => setConsultOpen(false)}
+        t=${t}
+        lang=${lang}
+        medication=${scanState.medication}
+        resolvedFoods=${resolvedFoods}
+        primaryInteraction=${highRiskInteraction}
+        uxVoiceAlerts=${bundleData.uxVoiceAlerts}
+      />
+
       <nav class="mobile-nav" aria-label="Mobile Navigation">
         ${navItems.map((item) => {
           const active = activeTab === item.id;
-          const locked = !scanState.confirmedByUser && (item.id === "timetable" || item.id === "qr");
+          const locked =
+            !scanState.confirmedByUser && (item.id === "timetable" || item.id === "qr");
           return html`
             <button
               key=${item.id}

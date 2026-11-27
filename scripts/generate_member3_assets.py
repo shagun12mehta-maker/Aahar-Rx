@@ -17,6 +17,7 @@ if str(TESTS_DIR) not in sys.path:
 
 from aahar_ux import (  # noqa: E402
     build_all_pharmacokinetic_profiles,
+    build_ux_alert_voice_scripts,
     build_voice_scripts_for_rules,
     get_ui_translations,
     synthesize_voice_assets,
@@ -41,6 +42,7 @@ def generate_static_data_and_samples(frontend_dir: Path) -> dict[str, int]:
     pk_profiles = build_all_pharmacokinetic_profiles(rules)
     translations = get_ui_translations()
     voice_scripts = build_voice_scripts_for_rules(rules)
+    ux_alerts = build_ux_alert_voice_scripts()
 
     (data_dir / "i18n.json").write_text(
         json.dumps(translations, ensure_ascii=False, indent=2),
@@ -52,6 +54,10 @@ def generate_static_data_and_samples(frontend_dir: Path) -> dict[str, int]:
     )
     (data_dir / "voice_scripts.json").write_text(
         json.dumps(voice_scripts, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    (data_dir / "ux_voice_alerts.json").write_text(
+        json.dumps(ux_alerts, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     (data_dir / "rules_bundle.json").write_text(

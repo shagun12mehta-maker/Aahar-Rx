@@ -1,0 +1,60 @@
+{
+  "ALERT-HIGH-RISK": {
+    "rule_id": "ALERT-HIGH-RISK",
+    "languages": {
+      "en": {
+        "text": "Attention. A high priority food-drug interaction clash has been detected. Please tap Consult Doctor Now to share your report with explicit consent. Only your doctor can adjust a prescribed medicine dose.",
+        "voice_name": "en-IN-NeerjaNeural",
+        "locale": "en-IN",
+        "rate": "-12%",
+        "audio_rel_path": "audio/en/ALERT-HIGH-RISK.mp3",
+        "estimated_seconds": 14.8
+      },
+      "hi": {
+        "text": "कृपया ध्यान दें। दवा और भोजन के बीच उच्च सावधानी वाला टकराव मिला है। सुरक्षित सलाह के लिए डॉक्टर से अभी बात करें बटन चुनें। दवा की मात्रा केवल डॉक्टर ही बदल सकते हैं।",
+        "voice_name": "hi-IN-SwaraNeural",
+        "locale": "hi-IN",
+        "rate": "-12%",
+        "audio_rel_path": "audio/hi/ALERT-HIGH-RISK.mp3",
+        "estimated_seconds": 16.2
+      },
+      "mr": {
+        "text": "कृपया लक्ष द्या. औषध आणि अन्न यामध्ये उच्च दक्षतेचा अडथळा आढळला आहे. योग्य सल्ल्यासाठी डॉक्टरांशी आत्ताच बोला हा पर्याय निवडा. औषधाची मात्रा फक्त डॉक्टरच बदलू शकतात.",
+        "voice_name": "mr-IN-AarohiNeural",
+        "locale": "mr-IN",
+        "rate": "-12%",
+        "audio_rel_path": "audio/mr/ALERT-HIGH-RISK.mp3",
+        "estimated_seconds": 12.4
+      }
+    }
+  },
+  "ALERT-REFILL": {
+    "rule_id": "ALERT-REFILL",
+    "languages": {
+      "en": {
+        "text": "Medicine refill reminder. One of your daily medicines in the Medicine Box has 3 days or fewer remaining. Please reorder a fresh strip on time via 1mg or PharmEasy so your treatment continues smoothly.",
+        "voice_name": "en-IN-NeerjaNeural",
+        "locale": "en-IN",
+        "rate": "-12%",
+        "audio_rel_path": "audio/en/ALERT-REFILL.mp3",
+        "estimated_seconds": 16.2
+      },
+      "hi": {
+        "text": "दवा रिफ़िल सूचना। आपके दवा बॉक्स की एक नियमित दवा केवल 3 दिन या उससे कम बची है। समय पर नई पट्टी मंगवाने के लिए 1mg या PharmEasy का विकल्प उपयोग करें।",
+        "voice_name": "hi-IN-SwaraNeural",
+        "locale": "hi-IN",
+        "rate": "-12%",
+        "audio_rel_path": "audio/hi/ALERT-REFILL.mp3",
+        "estimated_seconds": 15.2
+      },
+      "mr": {
+        "text": "औषध साठा सूचना. तुमच्या औषध बॉक्समधील एक नियमित औषध 3 दिवस किंवा त्यापेक्षा कमी शिल्लक आहे. वेळेवर नवीन पाकीट मागवण्यासाठी 1mg किंवा PharmEasy पर्याय वापरा.",
+        "voice_name": "mr-IN-AarohiNeural",
+        "locale": "mr-IN",
+        "rate": "-12%",
+        "audio_rel_path": "audio/mr/ALERT-REFILL.mp3",
+        "estimated_seconds": 11.9
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import {
   ActivityIcon,
   AlertIcon,
+  BellIcon,
   ClockIcon,
   ConfirmIcon,
   DownloadIcon,
@@ -9,10 +10,12 @@ import {
   ScanIcon,
   SearchIcon,
   ShieldIcon,
+  VideoIcon,
 } from "../icons.js";
 import {
   PRESET_SCANS,
   buildQrPassPayload,
+  buildSmartDailySchedule,
   findDefaultRuleForMedication,
   formatTimeDelta,
   getFoodDisplayName,
@@ -308,6 +311,9 @@ export function ConfirmScreen({
   foods,
   scanState,
   resolvedFoods,
+  saveToBox,
+  onToggleSaveToBox,
+  onUpdateBoxFields,
   onToggleMilk,
   onRemoveFood,
   onAddFood,
@@ -316,6 +322,7 @@ export function ConfirmScreen({
 }) {
   const [selectedAddFood, setSelectedAddFood] = useState(foods?.[0]?.canonical_food_id || "chai_with_milk");
   const hasChai = scanState.foodIds.includes("chai_with_milk");
+  const missingBoxMeta = !scanState.medication.expiry_date || !scanState.medication.tablet_count;
 
   return html`
     <div style=${{ display: "flex", flexDirection: "column", gap: "var(--space-24)" }}>
@@ -461,10 +468,58 @@ export function ConfirmScreen({
             </div>
           </div>
 
+          ${missingBoxMeta
+            ? html`
+                <div class="stat-meta" style=${{ color: "var(--semantic-mod)" }}>
+                  ${t.confirm.fallback_hint}
+                </div>
+              `
+            : null}
+
+          <div class="equal-grid-2">
+            <div class="field">
+              <label class="field-label" for="confirm-expiry">${t.confirm.expiry_label}</label>
+              <input
+                id="confirm-expiry"
+                class="input mono"
+                type="text"
+                placeholder="2027-08"
+                value=${scanState.medication.expiry_date || ""}
+                onInput=${(e) => onUpdateBoxFields({ expiry_date: e.target.value })}
+              />
+            </div>
+            <div class="field">
+              <label class="field-label" for="confirm-count">${t.confirm.tablet_count_label}</label>
+              <input
+                id="confirm-count"
+                class="input mono"
+                type="number"
+                min="1"
+                max="1000"
+                placeholder="15"
+                value=${scanState.medication.tablet_count ?? ""}
+                onInput=${(e) =>
+                  onUpdateBoxFields({
+                    tablet_count: e.target.value ? Number(e.target.value) : null,
+                  })
+                }
+              />
+            </div>
+          </div>
+
+          <label class="check-row">
+            <input
+              type="checkbox"
+              checked=${saveToBox}
+              onChange=${(e) => onToggleSaveToBox(e.target.checked)}
+            />
+            <span style=${{ fontSize: "var(--text-sm)" }}>${t.confirm.save_to_box}</span>
+          </label>
+
           <button
             type="button"
             class="btn btn-primary"
-            style=${{ width: "100%", marginTop: "var(--space-8)" }}
+            style=${{ width: "100%", marginTop: "var(--space-4)" }}
             onClick=${onConfirmBundle}
           >
             <span class="icon-box" style=${{ color: "#ffffff" }}><${ConfirmIcon} /></span>
@@ -484,17 +539,36 @@ export function TimetableScreen({
   selectedSwaps,
   onSelectSwap,
   voiceScripts,
+  mealsRoutine,
+  onChangeMealRoutine,
+  lateShiftMinutes,
+  onToggleLateShift,
+  alarmsEnabled,
+  onToggleAlarm,
+  onTestAlarmTone,
+  onOpenConsult,
   onOpenCurve,
   onOpenQrPass,
 }) {
   const primary = interactions[0] || null;
   const primaryRule = primary?.rule || null;
+  const hasHighRisk = interactions.some((item) => item.rule.severity === "HIGH");
   const beforeH = primaryRule?.safe_time_gap_hours?.before_food_hours ?? 0;
   const afterH = primaryRule?.safe_time_gap_hours?.after_food_hours ?? 0;
   const dropPct = primaryRule?.absorption_impact?.bioavailability_drop_pct ?? 0;
   const doseHour = Number((scanState.doseTimeHHMM || "07:00").split(":")[0]);
   const blockedSpan = Math.max(1, Math.round(beforeH));
   const safeStartHHMM = formatTimeDelta(scanState.doseTimeHHMM, beforeH);
+  const dailySchedule = buildSmartDailySchedule({
+    medication: scanState.medication,
+    doseTimeHHMM: scanState.doseTimeHHMM,
+    breakfastHHMM: mealsRoutine?.breakfastHHMM || "08:30",
+    lunchHHMM: mealsRoutine?.lunchHHMM || "13:30",
+    dinnerHHMM: mealsRoutine?.dinnerHHMM || "20:30",
+    lateShiftMinutes: lateShiftMinutes || 0,
+    primaryRule,
+    t,
+  });
 
   return html`
     <div style=${{ display: "flex", flexDirection: "column", gap: "var(--space-24)" }}>
@@ -514,6 +588,28 @@ export function TimetableScreen({
           </button>
         </div>
       </div>
+
+      ${hasHighRisk
+        ? html`
+            <div class="alert-banner" role="region" aria-label=${t.consult.banner_title}>
+              <div style=${{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                <div>
+                  <div class="alert-banner-title">
+                    <span class="icon-box" style=${{ color: "var(--semantic-high)" }}><${AlertIcon} /></span>
+                    <span>${t.consult.banner_title}</span>
+                  </div>
+                  <p style=${{ margin: "4px 0 0", fontSize: "var(--text-sm)", color: "var(--text-primary)" }}>
+                    ${t.consult.banner_body}
+                  </p>
+                </div>
+                <button type="button" class="btn btn-primary" onClick=${onOpenConsult}>
+                  <span class="icon-box" style=${{ color: "#ffffff" }}><${VideoIcon} /></span>
+                  <span>${t.consult.cta}</span>
+                </button>
+              </div>
+            </div>
+          `
+        : null}
 
       <div class="stats-row">
         <div class="card card-compact">
@@ -571,6 +667,88 @@ export function TimetableScreen({
                 <span class="tag safe">${t.timetable.dose_at} (${scanState.doseTimeHHMM})</span>
                 <span class="tag high">${t.timetable.avoid_until} ${safeStartHHMM}</span>
                 <span class="tag">${t.timetable.safe_window} (${safeStartHHMM}+)</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div style=${{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                <div>
+                  <h2 class="card-title">
+                    <span class="icon-box"><${BellIcon} /></span>
+                    <span>${t.scheduler.title}</span>
+                  </h2>
+                  <div class="stat-meta">${t.scheduler.sub}</div>
+                </div>
+                <div class="btn-row">
+                  <button
+                    type="button"
+                    class="btn ${lateShiftMinutes > 0 ? "btn-primary" : ""}"
+                    onClick=${onToggleLateShift}
+                  >
+                    ${lateShiftMinutes > 0 ? t.scheduler.reset_shift_btn : t.scheduler.shift_late_btn}
+                  </button>
+                  <button type="button" class="btn" onClick=${onTestAlarmTone}>
+                    ${t.scheduler.test_tone_btn}
+                  </button>
+                </div>
+              </div>
+
+              <div class="stats-row">
+                <div class="field">
+                  <label class="field-label" for="routine-breakfast">${t.scheduler.breakfast_label}</label>
+                  <input
+                    id="routine-breakfast"
+                    class="input mono"
+                    type="time"
+                    value=${mealsRoutine?.breakfastHHMM || "08:30"}
+                    onChange=${(e) => onChangeMealRoutine("breakfastHHMM", e.target.value)}
+                  />
+                </div>
+                <div class="field">
+                  <label class="field-label" for="routine-lunch">${t.scheduler.lunch_label}</label>
+                  <input
+                    id="routine-lunch"
+                    class="input mono"
+                    type="time"
+                    value=${mealsRoutine?.lunchHHMM || "13:30"}
+                    onChange=${(e) => onChangeMealRoutine("lunchHHMM", e.target.value)}
+                  />
+                </div>
+                <div class="field">
+                  <label class="field-label" for="routine-dinner">${t.scheduler.dinner_label}</label>
+                  <input
+                    id="routine-dinner"
+                    class="input mono"
+                    type="time"
+                    value=${mealsRoutine?.dinnerHHMM || "20:30"}
+                    onChange=${(e) => onChangeMealRoutine("dinnerHHMM", e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div class="item-list">
+                ${dailySchedule.map((ev) => {
+                  const enabled = alarmsEnabled?.[ev.id] !== false;
+                  return html`
+                    <div key=${ev.id} class="list-row">
+                      <div style=${{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                        <span class="mono" style=${{ fontWeight: 600, minWidth: "56px" }}>${ev.time}</span>
+                        <span style=${{ fontWeight: 500 }}>${ev.label}</span>
+                        ${ev.shifted
+                          ? html`<span class="tag moderate mono">${t.scheduler.shifted_tag} (${ev.baseTime} -> ${ev.time})</span>`
+                          : null}
+                      </div>
+                      <button
+                        type="button"
+                        class="btn ${enabled ? "" : "disabled"}"
+                        style=${{ minHeight: "34px", padding: "4px 12px" }}
+                        onClick=${() => onToggleAlarm(ev.id)}
+                      >
+                        ${enabled ? t.scheduler.alarm_on : t.scheduler.alarm_off}
+                      </button>
+                    </div>
+                  `;
+                })}
               </div>
             </div>
 

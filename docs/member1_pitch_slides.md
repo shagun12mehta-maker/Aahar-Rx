@@ -13,8 +13,8 @@
 1. **DPDP Act 2023 Pre-Scan Consent Check**: Blocks image decoding until affirmative consent is attested; raw bytes stay strictly ephemeral in memory (`raw_images_retained: false`).
 2. **OpenCV Quality Gate & Retry UX**: Measures resolution-normalized Laplacian blur, HSV specular glare, exposure, and contrast. Rejects unreadable photos immediately with plain-language retake instructions.
 3. **Glare & Curved-Foil Recovery**: Specular glare inpainting + morphological curved illumination flattening + LAB CLAHE + unsharp masking + inverted-foil & 90°/180°/270° rotation recovery.
-4. **Fuzzy Brand-to-Salt Lookup + Manual Fallback**: Resolves commercial Indian brands and generic salt prints across all 8 Member 2 drug classes (11 classes total in directory), with instant manual search fallback when OCR confidence is low.
-5. **Gemini 2.5 Flash Meal Vision + Mandatory Confirmation**: Outputs structured JSON grounded in ICMR-NIN IFCT nutrient flags (`calcium`, `iron`, `oxalates`, `tannins_polyphenols`, `vitamin_k`) and locks downstream Member 2/4 export until the user explicitly confirms or edits items (e.g., toggling milk in *chai*).
+4. **Fuzzy Brand-to-Salt Lookup + Manual Fallback**: Resolves commercial Indian brands and generic salt prints across all 8 Member 2 drug classes (11 classes total in directory), plus same-pass **Expiry Date (`YYYY-MM`) & Tablet-Count extraction** with manual entry fallback when foil metadata is missing (`medicine_box_fallback_needed`).
+5. **Gemini 2.5 Flash Meal Vision + Mandatory Confirmation**: Outputs structured JSON grounded in ICMR-NIN IFCT nutrient flags (`calcium`, `iron`, `oxalates`, `tannins_polyphenols`, `vitamin_k`) and locks downstream Member 2/4 export until the user explicitly confirms or edits items (e.g., toggling milk in *chai*) and verifies strip expiry/tablet count for the Digital Medicine Box.
 
 ## Slide 3 — Before vs. After Benchmark & Visual Evidence
 

@@ -3,6 +3,8 @@ export const PRESET_SCANS = [
     id: "thyroid_chai",
     brandId: "thyronorm",
     strengthText: "50 mcg",
+    expiryDate: "2027-08",
+    tabletCount: 30,
     doseTimeHHMM: "07:00",
     mealSlot: "early_morning_empty_stomach",
     stripSample: "./samples/01_thyronorm_clean.png",
@@ -14,6 +16,8 @@ export const PRESET_SCANS = [
     id: "iron_palak",
     brandId: "orofer_xt",
     strengthText: "100 mg",
+    expiryDate: "2027-02",
+    tabletCount: 10,
     doseTimeHHMM: "13:00",
     mealSlot: "lunch",
     stripSample: "./samples/05_orofer_dark_foil.png",
@@ -25,6 +29,8 @@ export const PRESET_SCANS = [
     id: "antibiotic_chaas",
     brandId: "ciplox",
     strengthText: "500 mg",
+    expiryDate: "2027-09",
+    tabletCount: 10,
     doseTimeHHMM: "13:30",
     mealSlot: "lunch",
     stripSample: "./samples/04_ciplox_low_contrast.png",
@@ -36,6 +42,8 @@ export const PRESET_SCANS = [
     id: "warfarin_saag",
     brandId: "warf",
     strengthText: "5 mg",
+    expiryDate: "2027-10",
+    tabletCount: 30,
     doseTimeHHMM: "20:00",
     mealSlot: "dinner",
     stripSample: "./samples/06_warf_rotated_90.png",
@@ -47,6 +55,8 @@ export const PRESET_SCANS = [
     id: "amlodipine_mosambi",
     brandId: "amlong",
     strengthText: "5 mg",
+    expiryDate: "2028-01",
+    tabletCount: 15,
     doseTimeHHMM: "09:00",
     mealSlot: "breakfast",
     stripSample: "./samples/14_amlong_low_light_recoverable.png",
@@ -58,12 +68,47 @@ export const PRESET_SCANS = [
     id: "blur_retry",
     brandId: "thyronorm",
     strengthText: "50 mcg",
+    expiryDate: null,
+    tabletCount: null,
     doseTimeHHMM: "07:00",
     mealSlot: "early_morning_empty_stomach",
     stripSample: "./samples/15_fail_severe_blur.png",
     mealSample: "./samples/meal_severe_blur.png",
     qualityOk: false,
     detectedFoodIds: ["chai_with_milk"],
+  },
+];
+
+export const SEED_MEDICINE_BOX = [
+  {
+    id: "box-thyronorm-seed",
+    brand_name: "Thyronorm",
+    strength_text: "50 mcg",
+    active_salts: ["Levothyroxine Sodium"],
+    expiry_date: "2027-08",
+    initial_count: 30,
+    remaining_tablets: 18,
+    doses_per_day: 1,
+  },
+  {
+    id: "box-warf-low-stock",
+    brand_name: "Warf",
+    strength_text: "5 mg",
+    active_salts: ["Warfarin Sodium"],
+    expiry_date: "2027-10",
+    initial_count: 30,
+    remaining_tablets: 3,
+    doses_per_day: 1,
+  },
+  {
+    id: "box-orofer-exp-soon",
+    brand_name: "Orofer-XT",
+    strength_text: "100 mg",
+    active_salts: ["Ferrous Ascorbate", "Folic Acid"],
+    expiry_date: "2027-01",
+    initial_count: 10,
+    remaining_tablets: 6,
+    doses_per_day: 1,
   },
 ];
 
@@ -75,6 +120,10 @@ export function formatTimeDelta(hhmm, deltaHours) {
   const hh = String(Math.floor(total / 60)).padStart(2, "0");
   const mm = String(total % 60).padStart(2, "0");
   return `${hh}:${mm}`;
+}
+
+export function formatTimeMinutes(hhmm, deltaMinutes) {
+  return formatTimeDelta(hhmm, deltaMinutes / 60.0);
 }
 
 export function getFoodDisplayName(foodEntry, lang) {
@@ -139,10 +188,7 @@ export function matchInteractionsForPatient(medication, resolvedFoods, rules) {
     }
 
     if (hitFoods.length > 0) {
-      matched.push({
-        rule,
-        hitFoods,
-      });
+      matched.push({ rule, hitFoods });
     }
   }
   return matched;
@@ -160,6 +206,92 @@ export function findDefaultRuleForMedication(medication, rules) {
   );
 }
 
+export function buildSmartDailySchedule({
+  medication,
+  doseTimeHHMM,
+  breakfastHHMM,
+  lunchHHMM,
+  dinnerHHMM,
+  lateShiftMinutes,
+  primaryRule,
+  t,
+}) {
+  const beforeH = primaryRule?.safe_time_gap_hours?.before_food_hours ?? 1.0;
+  const shiftedBreakfast = formatTimeMinutes(breakfastHHMM || "08:30", lateShiftMinutes || 0);
+  const shiftedDose = lateShiftMinutes > 0 && Number((doseTimeHHMM || "07:00").split(":")[0]) < 11
+    ? formatTimeMinutes(doseTimeHHMM, lateShiftMinutes)
+    : doseTimeHHMM;
+  const safeGapEnd = formatTimeDelta(shiftedDose, beforeH);
+
+  return [
+    {
+      id: "alarm-dose",
+      time: shiftedDose,
+      baseTime: doseTimeHHMM,
+      shifted: lateShiftMinutes > 0 && shiftedDose !== doseTimeHHMM,
+      kind: "dose",
+      label: `${t.scheduler.pill_event}: ${medication.brand_name}`,
+    },
+    {
+      id: "alarm-gap-clear",
+      time: safeGapEnd,
+      baseTime: formatTimeDelta(doseTimeHHMM, beforeH),
+      shifted: lateShiftMinutes > 0 && shiftedDose !== doseTimeHHMM,
+      kind: "safe",
+      label: t.scheduler.gap_end_event,
+    },
+    {
+      id: "alarm-breakfast",
+      time: shiftedBreakfast,
+      baseTime: breakfastHHMM,
+      shifted: lateShiftMinutes > 0,
+      kind: "meal",
+      label: t.scheduler.breakfast_label,
+    },
+    {
+      id: "alarm-lunch",
+      time: lunchHHMM || "13:30",
+      baseTime: lunchHHMM || "13:30",
+      shifted: false,
+      kind: "meal",
+      label: t.scheduler.lunch_label,
+    },
+    {
+      id: "alarm-dinner",
+      time: dinnerHHMM || "20:30",
+      baseTime: dinnerHHMM || "20:30",
+      shifted: false,
+      kind: "meal",
+      label: t.scheduler.dinner_label,
+    },
+  ];
+}
+
+export function computeMedicineBoxMetrics(item, nowDate = new Date("2026-11-27T00:00:00Z")) {
+  const remaining = Math.max(0, Number(item.remaining_tablets || 0));
+  const perDay = Math.max(1, Number(item.doses_per_day || 1));
+  const daysRemaining = Math.floor(remaining / perDay);
+
+  let monthsToExpiry = 99;
+  if (item.expiry_date && /^\d{4}-\d{2}$/.test(item.expiry_date)) {
+    const [yr, mo] = item.expiry_date.split("-").map(Number);
+    monthsToExpiry = (yr - nowDate.getUTCFullYear()) * 12 + (mo - (nowDate.getUTCMonth() + 1));
+  }
+  const isLowStock = daysRemaining <= 3;
+  const isExpiringSoon = monthsToExpiry <= 3;
+  return { daysRemaining, monthsToExpiry, isLowStock, isExpiringSoon };
+}
+
+export function buildPharmacyReorderLinks(item) {
+  const q = encodeURIComponent(
+    `${item.brand_name || ""} ${item.strength_text || ""}`.trim()
+  );
+  return {
+    oneMgUrl: `https://www.1mg.com/search/all?name=${q}`,
+    pharmeasyUrl: `https://pharmeasy.in/search/all?name=${q}`,
+  };
+}
+
 export function buildQrPassPayload({
   bundleId,
   lang,
@@ -167,7 +299,6 @@ export function buildQrPassPayload({
   doseTimeHHMM,
   interactions,
   selectedSwaps,
-  disclaimer,
 }) {
   const safeRule = interactions[0]?.rule || null;
   const beforeH = safeRule?.safe_time_gap_hours?.before_food_hours ?? 1.0;
@@ -175,10 +306,16 @@ export function buildQrPassPayload({
   const earliestMeal = formatTimeDelta(doseTimeHHMM, beforeH);
   const nextSafeDoseAfterMeal = formatTimeDelta(doseTimeHHMM, afterH);
 
-  const swaps = interactions.map((item) => {
-    const chosen = selectedSwaps[item.rule.rule_id] || 0;
-    return item.rule.ghar_ki_rasoi_swaps?.[chosen]?.substitute || item.rule.ghar_ki_rasoi_swaps?.[0]?.substitute || "";
-  }).filter(Boolean);
+  const swaps = interactions
+    .map((item) => {
+      const chosen = selectedSwaps[item.rule.rule_id] || 0;
+      return (
+        item.rule.ghar_ki_rasoi_swaps?.[chosen]?.substitute ||
+        item.rule.ghar_ki_rasoi_swaps?.[0]?.substitute ||
+        ""
+      );
+    })
+    .filter(Boolean);
 
   return {
     schema: "aahar-rx.health-pass.v1",

@@ -170,6 +170,8 @@ def run_day4_full_strip_benchmark() -> dict:
                 "expected_salt": spec.expected_salt,
                 "resolved_brand": top_med.brand_name if top_med else None,
                 "resolved_salts": top_med.active_salts if top_med else [],
+                "expiry_date": top_med.expiry_date if top_med else None,
+                "tablet_count": top_med.tablet_count if top_med else None,
                 "resolution_source": top_med.resolution_source if top_med else None,
                 "confidence": top_med.confidence if top_med else 0.0,
                 "salt_matched": salt_matched,

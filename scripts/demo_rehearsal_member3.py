@@ -13,6 +13,7 @@ if str(SRC_DIR) not in sys.path:
 
 from aahar_ux import (  # noqa: E402
     build_all_pharmacokinetic_profiles,
+    build_ux_alert_voice_scripts,
     build_voice_scripts_for_rules,
     validate_translation_bundle,
 )
@@ -24,27 +25,42 @@ def main() -> None:
     i18n = json.loads((frontend / "data" / "i18n.json").read_text(encoding="utf-8"))
     profiles = build_all_pharmacokinetic_profiles(rules)
     scripts = build_voice_scripts_for_rules(rules)
+    alerts = build_ux_alert_voice_scripts()
 
-    print("=== [1/4] Trilingual Localization (EN / HI / MR) ===")
+    print("=== [1/5] Trilingual Localization (EN / HI / MR) ===")
     assert validate_translation_bundle(i18n) == []
     print("Languages verified:", ", ".join(i18n[k]["meta"]["native_label"] for k in ("en", "hi", "mr")))
 
-    print("\n=== [2/4] Pharmacokinetic Absorption Curve Metrics ===")
+    print("\n=== [2/5] Pharmacokinetic Absorption Curve Metrics ===")
     thy = profiles["RULE-THY-001"]
     amp = profiles["RULE-HTN-005"]
     print(f"Levothyroxine peak drop: {thy['interfered_peak_pct']}% (Tmax {thy['baseline_tmax_hours']}h -> {thy['interfered_tmax_hours']}h)")
     print(f"Amlodipine CYP3A4 elevation: {amp['interfered_peak_pct']}% (above {amp['safety_ceiling_pct']}% safety limit)")
 
-    print("\n=== [3/4] Elderly Voice Reminders (EN / HI / MR Audio) ===")
+    print("\n=== [3/5] Elderly Voice Reminders (EN / HI / MR Audio) ===")
     for lang in ("en", "hi", "mr"):
         clip = frontend / scripts["RULE-THY-001"]["languages"][lang]["audio_rel_path"]
         assert clip.exists()
-        print(f"{lang.upper()} audio ready: {clip.name} ({clip.stat().st_size} bytes)")
+        print(f"{lang.upper()} rule audio: {clip.name} ({clip.stat().st_size} bytes)")
 
-    print("\n=== [4/4] Offline PWA & 1-Click QR Pass Readiness ===")
-    for fname in ("index.html", "manifest.webmanifest", "sw.js", "vendor/qrcode.min.js", "vendor/chart.umd.min.js"):
+    print("\n=== [4/5] High-Risk Doctor Consult & Digital Medicine Box Refill Alerts ===")
+    for aid in ("ALERT-HIGH-RISK", "ALERT-REFILL"):
+        clip = frontend / alerts[aid]["languages"]["hi"]["audio_rel_path"]
+        assert clip.exists()
+        print(f"Alert audio ready: {aid} -> {clip.name} ({clip.stat().st_size} bytes)")
+
+    print("\n=== [5/5] Offline 6-Screen PWA & 1-Click QR Pass Readiness ===")
+    for fname in (
+        "index.html",
+        "manifest.webmanifest",
+        "sw.js",
+        "vendor/qrcode.min.js",
+        "vendor/chart.umd.min.js",
+        "js/components/ConsultDoctorModal.js",
+        "js/components/MedicineBoxScreen.js",
+    ):
         assert (frontend / fname).exists()
-    print("PWA static assets + ISO QR + Chart.js 4 ready at http://127.0.0.1:8030/")
+    print("6-Screen PWA + High-Risk Doctor Consult + Auto-Alarms + Medicine Box ready at http://127.0.0.1:8030/")
 
 
 if __name__ == "__main__":

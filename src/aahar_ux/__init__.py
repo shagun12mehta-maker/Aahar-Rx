@@ -12,6 +12,7 @@ from .pharmacokinetics import (
 )
 from .voice_generator import (
     VOICE_PROFILES,
+    build_ux_alert_voice_scripts,
     build_voice_scripts_for_rules,
     synthesize_voice_assets,
 )
@@ -22,6 +23,7 @@ __all__ = [
     "VOICE_PROFILES",
     "build_all_pharmacokinetic_profiles",
     "build_pharmacokinetic_profile",
+    "build_ux_alert_voice_scripts",
     "build_voice_scripts_for_rules",
     "get_ui_translations",
     "synthesize_voice_assets",
