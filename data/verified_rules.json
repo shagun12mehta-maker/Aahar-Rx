@@ -137,7 +137,8 @@
       "Whole pulses (Rajma/Chana)",
       "Bran Atta Roti",
       "Chai",
-      "Palak"
+      "Palak",
+      "Palak Spinach"
     ],
     "severity": "HIGH",
     "interaction_type": "Precipitation & Insoluble Complexation",
@@ -243,7 +244,8 @@
       "Doodh / Milk",
       "Lassi",
       "Curd",
-      "Milk"
+      "Milk",
+      "Buttermilk Chaas"
     ],
     "severity": "HIGH",
     "interaction_type": "Divalent & Trivalent Cation Chelation",
@@ -390,15 +392,16 @@
   },
   {
     "salt_name": "Amlodipine",
-    "conflicting_nutrient": "Furanocoumarins & Flavonoids (Naringin)",
+    "conflicting_nutrient": "Furanocoumarins & Flavonoids",
     "indian_foods": [
       "Mosambi (Sweet Lime) Juice in large volume",
-      "Chakotra (Grapefruit / Pomelo)"
+      "Chakotra (Grapefruit / Pomelo)",
+      "Mosambi Sweet Lime Juice"
     ],
     "bioavailability_drop_percent": -45.0,
     "safe_gap_hours": 12.0,
-    "ghar_ki_rasoi_swap": "Tender Coconut Water or Fresh Pomegranate / Apple slices",
-    "citation": "OpenFDA Drug Label (Amlodipine Besylate NDA 019787); Canadian Medical Association Journal (Bailey et al., CMAJ 2013. DOI: 10.1503/cmaj.120951)",
+    "ghar_ki_rasoi_swap": "Tender Coconut Water or Fresh Pomegranate / Apple slices instead of concentrated citrus juice.",
+    "citation": "OpenFDA Drug Label Amlodipine NDA 019787; CMAJ 2013",
     "doctor_verified": true,
     "rule_id": "RULE-HTN-005",
     "drug_class": "Calcium Channel Blockers (Dihydropyridines)",
@@ -413,7 +416,10 @@
     ],
     "culprit_indian_foods": [
       "Mosambi (Sweet Lime) Juice in large volume",
-      "Chakotra (Grapefruit / Pomelo)"
+      "Chakotra (Grapefruit / Pomelo)",
+      "Mosambi Sweet Lime Juice",
+      "Mosambi",
+      "Chakotra"
     ],
     "severity": "MODERATE",
     "interaction_type": "Intestinal Cytochrome P450 (CYP3A4) Inhibition",
@@ -472,7 +478,8 @@
       "Gulab Jamun / Jalebi",
       "Sweetened Chai / Sherbet",
       "Maida Naan / Bhatura",
-      "Taking tablet on empty stomach"
+      "Taking tablet on empty stomach",
+      "Gulab Jamun Sweets"
     ],
     "bioavailability_drop_percent": 12.0,
     "safe_gap_hours": 0.0,
@@ -496,7 +503,8 @@
       "Alcoholic beverages",
       "Taking tablet on empty stomach",
       "Sweets",
-      "High-Sugar meals"
+      "High-Sugar meals",
+      "Gulab Jamun Sweets"
     ],
     "severity": "MODERATE",
     "interaction_type": "GI Irritation & Metabolic Disruption",
@@ -548,12 +556,12 @@
       "Sendha Namak (Rock Salt / Low Sodium Salt)",
       "Tender Coconut Water (multiple glasses)",
       "Bananas",
-      "Jackfruit / Kathal"
+      "Tender Coconut Water"
     ],
     "bioavailability_drop_percent": 5.0,
     "safe_gap_hours": 2.0,
-    "ghar_ki_rasoi_swap": "Standard iodized salt in strict moderation (less than 5g/day) + Spiced Chaas (without added salt)",
-    "citation": "ICMR-NIN IFCT 2017 (Table G: Potassium Content in Indian Fruits and Beverages); Indian Heart Journal (IHJ-2021-Hypertension-Management-Consensus)",
+    "ghar_ki_rasoi_swap": "Standard iodized salt in strict moderation (<5g/day) + Spiced Chaas (without added salt) instead of Sendha namak / multiple coconuts.",
+    "citation": "ICMR-NIN IFCT 2017 Table G (Potassium Content); Indian Heart Journal 2021",
     "doctor_verified": true,
     "rule_id": "RULE-HYP-007",
     "drug_class": "ACE Inhibitors & ARBs (Antihypertensives)",
@@ -570,7 +578,8 @@
       "Sendha Namak (Rock Salt / Low Sodium Salt)",
       "Tender Coconut Water (multiple glasses)",
       "Bananas",
-      "Jackfruit / Kathal"
+      "Jackfruit / Kathal",
+      "Tender Coconut Water"
     ],
     "severity": "MODERATE",
     "interaction_type": "Pharmacodynamic Synergistic Hyperkalemia",
@@ -627,12 +636,13 @@
     "conflicting_nutrient": "Furanocoumarins & Saturated Fats",
     "indian_foods": [
       "Pomelo / Concentrated Citrus Juice",
-      "Deep-fried pakoras / Poori (High Re-heated Vanaspati)"
+      "Deep-fried pakoras / Poori (High Re-heated Vanaspati)",
+      "Samosa Fried"
     ],
     "bioavailability_drop_percent": -30.0,
     "safe_gap_hours": 4.0,
-    "ghar_ki_rasoi_swap": "Whole sweet orange / Apple slices + Roasted Makhana or Chana",
-    "citation": "OpenFDA Drug Label (Lipitor (Atorvastatin Calcium) NDA 020702); Circulation (Statin Safety and Drug Interactions, DOI: 10.1161/CIR.0000000000000618)",
+    "ghar_ki_rasoi_swap": "Whole sweet orange / Apple slices + Roasted Makhana or Chana instead of deep fried snacks.",
+    "citation": "OpenFDA Drug Label Lipitor NDA 020702; Circulation Statin Safety",
     "doctor_verified": true,
     "rule_id": "RULE-LIP-008",
     "drug_class": "HMG-CoA Reductase Inhibitors (Statins)",
@@ -647,7 +657,9 @@
     ],
     "culprit_indian_foods": [
       "Pomelo / Concentrated Citrus Juice",
-      "Deep-fried pakoras / Poori (High Re-heated Vanaspati)"
+      "Deep-fried pakoras / Poori (High Re-heated Vanaspati)",
+      "Samosa Fried",
+      "Samosa"
     ],
     "severity": "MODERATE",
     "interaction_type": "Metabolic CYP3A4 Competition & Lipid Overload",
