@@ -1,42 +1,32 @@
 [
   {
+    "salt_name": "Levothyroxine Sodium",
+    "conflicting_nutrient": "Calcium & Polyphenolic Tannins",
+    "indian_foods": [
+      "Morning Masala Chai with Milk",
+      "Cow/Buffalo Milk",
+      "Dahi / Curd",
+      "Soya Chunks / Soya Vadi"
+    ],
+    "bioavailability_drop_percent": 38.0,
+    "safe_gap_hours": 4.0,
+    "ghar_ki_rasoi_swap": "Lukewarm water with lemon on waking; postpone milky tea and breakfast by at least 60 minutes.",
+    "citation": "ICMR-NIN IFCT 2017 Table D (Milk Calcium 210mg/100g); OpenFDA NDA 021116",
+    "doctor_verified": true,
     "rule_id": "RULE-THY-001",
     "drug_class": "Thyroid Hormone Replacements",
-    "active_salts": ["Levothyroxine Sodium"],
+    "active_salts": ["Levothyroxine Sodium", "Levothyroxine"],
     "interfering_nutrients": ["Calcium", "Tannins", "Phytates", "Soy Isoflavones"],
     "culprit_indian_foods": [
       "Morning Masala Chai with Milk",
-      "Dahi / Curd",
       "Cow/Buffalo Milk",
-      "Soya Vadi / Soya Chunks",
-      "Walnuts"
+      "Dahi / Curd",
+      "Soya Chunks / Soya Vadi",
+      "Chai"
     ],
     "severity": "HIGH",
     "interaction_type": "Chelation & Mucosal Binding",
     "biochemical_mechanism": "Divalent calcium ions and polyphenolic tannins bind levothyroxine in the gut lumen into insoluble chelates, decreasing intestinal mucosal absorption and dropping bioavailability by 35-45%.",
-    "ifct_evidence": [
-      {
-        "food": "Buffalo Milk",
-        "ifct_code": "D002",
-        "primary_nutrient": "Calcium",
-        "value": "210 mg / 100g",
-        "clinical_note": "Extremely high calcium density binds levothyroxine in the duodenal lumen."
-      },
-      {
-        "food": "Cow Milk",
-        "ifct_code": "D001",
-        "primary_nutrient": "Calcium",
-        "value": "118 mg / 100g",
-        "clinical_note": "A standard 150ml tea contains ~100mg calcium, adequate to trigger significant chelation."
-      },
-      {
-        "food": "Masala Chai (Brewed)",
-        "ifct_code": "Sec 3 Beverages",
-        "primary_nutrient": "Total Polyphenols / Tannins",
-        "value": "105 mg GAE / 100ml",
-        "clinical_note": "Polyphenols adsorb thyroxine molecules, delaying mucosal contact."
-      }
-    ],
     "safe_time_gap_hours": {
       "before_food_hours": 1.0,
       "after_food_hours": 4.0
@@ -48,19 +38,29 @@
     "ghar_ki_rasoi_swaps": [
       {
         "culprit": "Morning Masala Chai / Milk",
-        "substitute": "Lukewarm water with lemon (defer chai by 60 minutes)",
+        "substitute": "Lukewarm water with lemon on waking; postpone milky tea by at least 60 minutes.",
         "dietary_rationale": "Leaves the acidic gastric environment uninhibited for proper dissolution and duodenal absorption."
+      }
+    ],
+    "ifct_evidence": [
+      {
+        "food": "Buffalo Milk",
+        "ifct_code": "D002",
+        "primary_nutrient": "Calcium",
+        "value": "210 mg / 100g",
+        "clinical_note": "High calcium density chelates levothyroxine in duodenal lumen."
       },
       {
-        "culprit": "Soya bean / Soya nuggets sabzi",
-        "substitute": "Besan chilla or Moong dal curry",
-        "dietary_rationale": "Soy isoflavones inhibit thyroid peroxidase and compete for intestinal absorption."
+        "food": "Masala Chai",
+        "ifct_code": "Sec 3 Beverages",
+        "primary_nutrient": "Tannins",
+        "value": "105 mg GAE / 100ml",
+        "clinical_note": "Polyphenols adsorb thyroxine molecules, delaying mucosal contact."
       }
     ],
     "citations": [
       { "source": "OpenFDA Drug Label", "reference_id": "Levothyroxine Sodium NDA 021116" },
-      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Table D: Milk and Milk Products (Calcium mg/100g)" },
-      { "source": "Thyroid Journal", "reference_id": "DOI: 10.1089/thy.2007.0308" }
+      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Table D: Milk and Milk Products (Calcium mg/100g)" }
     ],
     "clinical_sign_off": {
       "reviewed": true,
@@ -69,105 +69,36 @@
     }
   },
   {
-    "rule_id": "RULE-IRO-002",
-    "drug_class": "Iron Supplements (Hematinics)",
-    "active_salts": ["Ferrous Ascorbate", "Ferrous Sulphate", "Ferrous Fumarate", "Carbonyl Iron"],
-    "interfering_nutrients": ["Tannins", "Polyphenols", "Phytic Acid", "Calcium"],
-    "culprit_indian_foods": [
-      "Masala Chai",
-      "Filter Coffee",
-      "Palak Paneer",
-      "Bran-rich Atta Roti",
-      "Whole pulses (Rajma/Chana)"
+    "salt_name": "Ciprofloxacin",
+    "conflicting_nutrient": "Divalent Calcium & Magnesium Cations",
+    "indian_foods": [
+      "Curd / Dahi",
+      "Chaas / Buttermilk",
+      "Paneer",
+      "Doodh / Milk",
+      "Lassi"
     ],
-    "severity": "HIGH",
-    "interaction_type": "Precipitation & Insoluble Complexation",
-    "biochemical_mechanism": "Tannins in tea and coffee form insoluble iron-tannate complexes that cannot be transported across the duodenal mucosa via the DMT-1 transporter, dropping iron bioavailability by up to 60-70%.",
-    "ifct_evidence": [
-      {
-        "food": "Masala Chai (Brewed)",
-        "ifct_code": "Sec 3 Beverages",
-        "primary_nutrient": "Tannins / Polyphenols",
-        "value": "105 mg GAE / 100ml",
-        "clinical_note": "A single cup of tea reduces non-heme iron absorption by up to 60-70%."
-      },
-      {
-        "food": "Palak (Raw Spinach)",
-        "ifct_code": "Table A Greens",
-        "primary_nutrient": "Total Oxalates",
-        "value": "658 mg / 100g",
-        "clinical_note": "High oxalate concentration renders iron insoluble and unabsorbable."
-      },
-      {
-        "food": "Wheat Bran Atta",
-        "ifct_code": "Table B Cereals",
-        "primary_nutrient": "Phytic Acid",
-        "value": "840 mg / 100g",
-        "clinical_note": "Phytate hexaphosphate ring binds polyvalent iron cations tightly."
-      }
-    ],
-    "safe_time_gap_hours": {
-      "before_food_hours": 1.0,
-      "after_food_hours": 2.0
-    },
-    "absorption_impact": {
-      "bioavailability_drop_pct": 62.0,
-      "t_max_delay_hours": 2.0
-    },
-    "ghar_ki_rasoi_swaps": [
-      {
-        "culprit": "Post-meal Chai or Filter Coffee",
-        "substitute": "Freshly squeezed Nimbu Pani (Lemonade) or Amla Juice",
-        "dietary_rationale": "Ascorbic acid (Vitamin C: 39mg/100g in lemon, 600mg/100g in Amla) reduces Fe3+ to soluble Fe2+, boosting uptake up to 3-fold."
-      },
-      {
-        "culprit": "Palak Paneer (Calcium + Iron + Oxalates)",
-        "substitute": "Palak Corn / Palak Aloo seasoned with lemon",
-        "dietary_rationale": "Eliminating dairy paneer removes calcium competition while lemon juice breaks oxalate binding."
-      }
-    ],
-    "citations": [
-      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Section 3: Polyphenols and Tannins in Indian Beverages" },
-      { "source": "American Journal of Clinical Nutrition", "reference_id": "Hurrell et al., DOI: 10.1093/ajcn/69.5.950" },
-      { "source": "DrugBank", "reference_id": "DB01592 (Ferrous Sulfate food interactions)" }
-    ],
-    "clinical_sign_off": {
-      "reviewed": true,
-      "reviewer_role": "Consultant Physician & Hematologist",
-      "status": "APPROVED"
-    }
-  },
-  {
+    "bioavailability_drop_percent": 52.0,
+    "safe_gap_hours": 4.0,
+    "ghar_ki_rasoi_swap": "Jaljeera, fresh coconut water, or clear vegetable shorba instead of dairy chaas/lassi with lunch.",
+    "citation": "OpenFDA NDA 019537; Antimicrobial Agents and Chemotherapy 36(4):846",
+    "doctor_verified": true,
     "rule_id": "RULE-ANT-003",
     "drug_class": "Fluoroquinolone Antibiotics",
     "active_salts": ["Ciprofloxacin", "Levofloxacin", "Ofloxacin", "Norfloxacin"],
     "interfering_nutrients": ["Calcium", "Magnesium", "Aluminium cations"],
     "culprit_indian_foods": [
-      "Doodh (Milk)",
+      "Curd / Dahi",
       "Chaas / Buttermilk",
-      "Dahi (Curd)",
       "Paneer",
-      "Calcium-fortified Fruit Juices"
+      "Doodh / Milk",
+      "Lassi",
+      "Curd",
+      "Milk"
     ],
     "severity": "HIGH",
     "interaction_type": "Divalent & Trivalent Cation Chelation",
     "biochemical_mechanism": "The 4-keto and 3-carboxyl groups of fluoroquinolones chelate with polyvalent cations (Ca2+, Mg2+) in dairy products to create insoluble chelates, reducing antibiotic peak plasma levels by up to 50%.",
-    "ifct_evidence": [
-      {
-        "food": "Paneer",
-        "ifct_code": "D009",
-        "primary_nutrient": "Calcium",
-        "value": "480 mg / 100g",
-        "clinical_note": "Extremely dense calcium matrix forms immediate inert chelates with fluoroquinolone rings."
-      },
-      {
-        "food": "Chaas / Buttermilk",
-        "ifct_code": "D004",
-        "primary_nutrient": "Calcium & Magnesium",
-        "value": "95 mg Ca & 14 mg Mg / 100ml",
-        "clinical_note": "Even light dairy beverages cause clinically significant reduction in fluoroquinolone Cmax."
-      }
-    ],
     "safe_time_gap_hours": {
       "before_food_hours": 2.0,
       "after_food_hours": 4.0
@@ -183,6 +114,15 @@
         "dietary_rationale": "Maintains hydration and digestion without delivering high chelation-prone Ca2+ ions."
       }
     ],
+    "ifct_evidence": [
+      {
+        "food": "Paneer",
+        "ifct_code": "D009",
+        "primary_nutrient": "Calcium",
+        "value": "480 mg / 100g",
+        "clinical_note": "Dense calcium matrix forms immediate inert chelates with fluoroquinolone rings."
+      }
+    ],
     "citations": [
       { "source": "OpenFDA Drug Label", "reference_id": "Ciprofloxacin Oral Suspension NDA 019537" },
       { "source": "Antimicrobial Agents and Chemotherapy", "reference_id": "Nix et al., DOI: 10.1128/AAC.36.4.846" }
@@ -194,43 +134,35 @@
     }
   },
   {
+    "salt_name": "Warfarin Sodium",
+    "conflicting_nutrient": "Phylloquinone (Vitamin K1)",
+    "indian_foods": [
+      "Palak / Spinach",
+      "Sarson ka Saag",
+      "Methi Bhaji",
+      "Green Coriander & Mint Chutney"
+    ],
+    "bioavailability_drop_percent": 10.0,
+    "safe_gap_hours": 0.0,
+    "ghar_ki_rasoi_swap": "Lauki (Bottle Gourd), Torai (Ridge Gourd), or Bhindi sabzi (<5 mcg Vitamin K/100g) instead of high-Vitamin-K greens.",
+    "citation": "ICMR-NIN IFCT 2017 Table A (Palak 483 mcg Vit K/100g); AHA Guidelines Circulation 2018",
+    "doctor_verified": true,
     "rule_id": "RULE-BLD-004",
     "drug_class": "Vitamin K Antagonists (Anticoagulants)",
-    "active_salts": ["Warfarin Sodium", "Acenocoumarol"],
+    "active_salts": ["Warfarin Sodium", "Warfarin", "Acenocoumarol"],
     "interfering_nutrients": ["Phylloquinone (Vitamin K1)"],
     "culprit_indian_foods": [
+      "Palak / Spinach",
       "Sarson ka Saag",
-      "Palak Paneer",
-      "Methi Thepla / Methi Bhaji",
+      "Methi Bhaji",
       "Green Coriander & Mint Chutney",
-      "Broccoli"
+      "Palak",
+      "Sarson",
+      "Methi"
     ],
     "severity": "HIGH",
     "interaction_type": "Pharmacodynamic Antagonism",
     "biochemical_mechanism": "High dietary Vitamin K overcomes competitive inhibition of vitamin K epoxide reductase (VKORC1), driving synthesis of clotting factors II, VII, IX, and X, plummeting INR and increasing thrombotic risk.",
-    "ifct_evidence": [
-      {
-        "food": "Palak (Spinach)",
-        "ifct_code": "Table A Greens",
-        "primary_nutrient": "Phylloquinone (Vitamin K1)",
-        "value": "483.0 mcg / 100g",
-        "clinical_note": "One average bowl of cooked palak exceeds daily Vitamin K threshold by over 600%."
-      },
-      {
-        "food": "Sarson ka Saag (Mustard Greens)",
-        "ifct_code": "Table A Greens",
-        "primary_nutrient": "Phylloquinone (Vitamin K1)",
-        "value": "380.0 mcg / 100g",
-        "clinical_note": "Frequent winter consumption precipitously collapses INR into sub-therapeutic ranges."
-      },
-      {
-        "food": "Lauki (Safe Substitute)",
-        "ifct_code": "Table C Vegetables",
-        "primary_nutrient": "Phylloquinone (Vitamin K1)",
-        "value": "2.5 mcg / 100g",
-        "clinical_note": "Minimal Vitamin K content makes it an ideal INR-stable green vegetable."
-      }
-    ],
     "safe_time_gap_hours": {
       "before_food_hours": 0.0,
       "after_food_hours": 0.0
@@ -246,6 +178,15 @@
         "dietary_rationale": "Provides fiber and satiety with low Vitamin K content, maintaining a steady INR profile."
       }
     ],
+    "ifct_evidence": [
+      {
+        "food": "Palak (Spinach)",
+        "ifct_code": "Table A Greens",
+        "primary_nutrient": "Phylloquinone (Vitamin K1)",
+        "value": "483.0 mcg / 100g",
+        "clinical_note": "One average bowl of cooked palak exceeds daily Vitamin K threshold by over 600%."
+      }
+    ],
     "citations": [
       { "source": "ICMR-NIN IFCT 2017", "reference_id": "Table A: Green Leafy Vegetables (Phylloquinone mcg/100g)" },
       { "source": "American Heart Association Guidelines", "reference_id": "Circulation. 2018;138:e674–e744" }
@@ -257,81 +198,99 @@
     }
   },
   {
-    "rule_id": "RULE-HTN-005",
-    "drug_class": "Calcium Channel Blockers (Dihydropyridines)",
-    "active_salts": ["Amlodipine", "Nifedipine", "Felodipine"],
-    "interfering_nutrients": ["Furanocoumarins", "Flavonoids (Naringin)"],
+    "salt_name": "Ferrous Ascorbate",
+    "conflicting_nutrient": "Polyphenolic Tannins & Phytates",
+    "indian_foods": [
+      "Masala Chai",
+      "Filter Coffee",
+      "Palak Paneer",
+      "Bran Atta Roti",
+      "Whole pulses (Rajma/Chana)"
+    ],
+    "bioavailability_drop_percent": 62.0,
+    "safe_gap_hours": 2.0,
+    "ghar_ki_rasoi_swap": "Freshly squeezed Nimbu Pani or Amla juice (Vitamin C reduces Fe3+ to soluble Fe2+, boosting absorption 3x).",
+    "citation": "ICMR-NIN IFCT 2017 Sec 3 (Tea Tannins 105mg/100ml); AJCN Hurrell et al.",
+    "doctor_verified": true,
+    "rule_id": "RULE-IRO-002",
+    "drug_class": "Iron Supplements (Hematinics)",
+    "active_salts": ["Ferrous Ascorbate", "Ferrous Sulphate", "Ferrous Fumarate", "Carbonyl Iron", "Iron Supplements"],
+    "interfering_nutrients": ["Tannins", "Polyphenols", "Phytic Acid", "Calcium"],
     "culprit_indian_foods": [
-      "Mosambi (Sweet Lime) Juice in large volume",
-      "Chakotra (Grapefruit / Pomelo)"
+      "Masala Chai",
+      "Filter Coffee",
+      "Palak Paneer",
+      "Bran Atta Roti",
+      "Whole pulses (Rajma/Chana)",
+      "Chai",
+      "Palak"
     ],
-    "severity": "MODERATE",
-    "interaction_type": "Intestinal Cytochrome P450 (CYP3A4) Inhibition",
-    "biochemical_mechanism": "Furanocoumarins irreversibly inhibit intestinal epithelial CYP3A4, reducing first-pass drug clearance and leading to dangerously high serum concentrations, flushing, peripheral edema, and hypotension.",
-    "ifct_evidence": [
-      {
-        "food": "Chakotra / Pomelo",
-        "ifct_code": "Table F Fruits",
-        "primary_nutrient": "6',7'-dihydroxybergamottin",
-        "value": "35-45 mg / kg",
-        "clinical_note": "Suicide inhibition of intestinal enterocyte CYP3A4 lasting up to 72 hours."
-      },
-      {
-        "food": "Mosambi Juice",
-        "ifct_code": "Table F Citrus",
-        "primary_nutrient": "Naringin & Flavonoid glycosides",
-        "value": "15-25 mg / 100ml",
-        "clinical_note": "Can elevate Amlodipine AUC by 30-40% when consumed in volumes exceeding 250ml."
-      }
-    ],
+    "severity": "HIGH",
+    "interaction_type": "Precipitation & Insoluble Complexation",
+    "biochemical_mechanism": "Tannins in tea and coffee form insoluble iron-tannate complexes that cannot be transported across the duodenal mucosa via the DMT-1 transporter, dropping iron bioavailability by up to 60-70%.",
     "safe_time_gap_hours": {
-      "before_food_hours": 4.0,
-      "after_food_hours": 12.0
+      "before_food_hours": 1.0,
+      "after_food_hours": 2.0
     },
     "absorption_impact": {
-      "bioavailability_drop_pct": -45.0,
-      "t_max_delay_hours": 0.5
+      "bioavailability_drop_pct": 62.0,
+      "t_max_delay_hours": 2.0
     },
     "ghar_ki_rasoi_swaps": [
       {
-        "culprit": "Chakotra / Large glass of Mosambi Juice",
-        "substitute": "Tender Coconut Water or Fresh Pomegranate / Apple slices",
-        "dietary_rationale": "Avoids intestinal CYP3A4 enzyme inhibition, ensuring predictable anti-hypertensive control."
+        "culprit": "Post-meal Chai or Filter Coffee",
+        "substitute": "Freshly squeezed Nimbu Pani (Lemonade) or Amla Juice",
+        "dietary_rationale": "Ascorbic acid (Vitamin C: 39mg/100g in lemon, 600mg/100g in Amla) reduces Fe3+ to soluble Fe2+, boosting uptake up to 3-fold."
+      }
+    ],
+    "ifct_evidence": [
+      {
+        "food": "Masala Chai (Brewed)",
+        "ifct_code": "Sec 3 Beverages",
+        "primary_nutrient": "Tannins / Polyphenols",
+        "value": "105 mg GAE / 100ml",
+        "clinical_note": "A single cup of tea reduces non-heme iron absorption by up to 60-70%."
       }
     ],
     "citations": [
-      { "source": "OpenFDA Drug Label", "reference_id": "Amlodipine Besylate NDA 019787" },
-      { "source": "Canadian Medical Association Journal", "reference_id": "Bailey et al., CMAJ 2013. DOI: 10.1503/cmaj.120951" }
+      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Section 3: Polyphenols and Tannins in Indian Beverages" },
+      { "source": "American Journal of Clinical Nutrition", "reference_id": "Hurrell et al., DOI: 10.1093/ajcn/69.5.950" }
     ],
     "clinical_sign_off": {
       "reviewed": true,
-      "reviewer_role": "Consultant Physician & Cardiologist",
+      "reviewer_role": "Consultant Physician & Hematologist",
       "status": "APPROVED"
     }
   },
   {
+    "salt_name": "Metformin Hydrochloride",
+    "conflicting_nutrient": "Simple Sugars & High Glycemic Load",
+    "indian_foods": [
+      "Gulab Jamun / Jalebi",
+      "Sweetened Chai / Sherbet",
+      "Maida Naan / Bhatura",
+      "Taking tablet on empty stomach"
+    ],
+    "bioavailability_drop_percent": 12.0,
+    "safe_gap_hours": 0.0,
+    "ghar_ki_rasoi_swap": "Take tablet mid-meal between bites of a high-fiber Indian thali (Dal + Sabzi + Multigrain Roti) to buffer the GI tract.",
+    "citation": "ADA Standards of Medical Care in Diabetes 2024; OpenFDA NDA 020357",
+    "doctor_verified": true,
     "rule_id": "RULE-DIA-006",
     "drug_class": "Biguanides (Anti-Diabetic)",
-    "active_salts": ["Metformin Hydrochloride"],
+    "active_salts": ["Metformin Hydrochloride", "Metformin"],
     "interfering_nutrients": ["Simple Sugars / High Glycemic Load", "Ethanol / Alcohol"],
     "culprit_indian_foods": [
       "Gulab Jamun / Jalebi",
       "Sweetened Chai / Sherbet",
       "Maida Naan / Bhatura",
-      "Alcoholic beverages"
+      "Taking tablet on empty stomach",
+      "Sweets",
+      "High-Sugar meals"
     ],
     "severity": "MODERATE",
     "interaction_type": "GI Irritation & Metabolic Disruption",
     "biochemical_mechanism": "Taking Metformin on an empty stomach triggers severe nausea, cramping, and osmotic diarrhea. High ethanol concurrently increases hepatic NADH/NAD+ ratio, accentuating lactic acidosis risk.",
-    "ifct_evidence": [
-      {
-        "food": "Gulab Jamun / Jalebi",
-        "ifct_code": "Table I Sweets",
-        "primary_nutrient": "Simple Carbohydrates",
-        "value": "68.2 g / 100g (GI > 78)",
-        "clinical_note": "Overwhelms Metformin's hepatic gluconeogenesis suppression, creating sharp glucose spikes."
-      }
-    ],
     "safe_time_gap_hours": {
       "before_food_hours": 0.0,
       "after_food_hours": 0.1
@@ -347,6 +306,15 @@
         "dietary_rationale": "Food acts as a mechanical buffer reducing GI distress while low-glycemic fiber stabilizes postprandial glucose peaks."
       }
     ],
+    "ifct_evidence": [
+      {
+        "food": "Gulab Jamun / Jalebi",
+        "ifct_code": "Table I Sweets",
+        "primary_nutrient": "Simple Carbohydrates",
+        "value": "68.2 g / 100g (GI > 78)",
+        "clinical_note": "Overwhelms Metformin's hepatic gluconeogenesis suppression, creating sharp glucose spikes."
+      }
+    ],
     "citations": [
       { "source": "ADA Standards of Medical Care in Diabetes", "reference_id": "Diabetes Care 2024;47(Suppl. 1)" },
       { "source": "OpenFDA Drug Label", "reference_id": "Glucophage (Metformin HCl) NDA 020357" }
@@ -354,114 +322,6 @@
     "clinical_sign_off": {
       "reviewed": true,
       "reviewer_role": "Diabetologist & Clinical Nutritionist",
-      "status": "APPROVED"
-    }
-  },
-  {
-    "rule_id": "RULE-HYP-007",
-    "drug_class": "ACE Inhibitors & ARBs (Antihypertensives)",
-    "active_salts": ["Telmisartan", "Losartan", "Enalapril", "Ramipril"],
-    "interfering_nutrients": ["Potassium (K+)"],
-    "culprit_indian_foods": [
-      "Sendha Namak (Rock Salt / Low Sodium Salt)",
-      "Tender Coconut Water (multiple glasses)",
-      "Bananas",
-      "Jackfruit / Kathal"
-    ],
-    "severity": "MODERATE",
-    "interaction_type": "Pharmacodynamic Synergistic Hyperkalemia",
-    "biochemical_mechanism": "Inhibition of the renin-angiotensin-aldosterone axis reduces urinary potassium excretion. Co-consumption of potassium-rich salt substitutes or excessive coconut water can provoke life-threatening cardiac arrhythmias.",
-    "ifct_evidence": [
-      {
-        "food": "Sendha Namak (Low Sodium KCl substitutes)",
-        "ifct_code": "Salt Directory",
-        "primary_nutrient": "Potassium (K+)",
-        "value": "12,500 mg / 100g",
-        "clinical_note": "Potassium chloride salt replacements trigger rapid hyperkalemia in patients on RAAS blockers."
-      },
-      {
-        "food": "Tender Coconut Water",
-        "ifct_code": "Table G Beverages",
-        "primary_nutrient": "Potassium (K+)",
-        "value": "250 mg / 100ml",
-        "clinical_note": "Drinking two fresh coconuts provides ~1250 mg potassium, elevating cardiac arrhythmia risk."
-      }
-    ],
-    "safe_time_gap_hours": {
-      "before_food_hours": 2.0,
-      "after_food_hours": 2.0
-    },
-    "absorption_impact": {
-      "bioavailability_drop_pct": 5.0,
-      "t_max_delay_hours": 0.0
-    },
-    "ghar_ki_rasoi_swaps": [
-      {
-        "culprit": "Sendha Namak (Low-Sodium KCl substitutes) & Daily 2+ Coconut waters",
-        "substitute": "Standard iodized salt in strict moderation (less than 5g/day) + Spiced Chaas (without added salt)",
-        "dietary_rationale": "Prevents serum potassium spikes above 5.5 mEq/L while maintaining dietary compliance."
-      }
-    ],
-    "citations": [
-      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Table G: Potassium Content in Indian Fruits and Beverages" },
-      { "source": "Indian Heart Journal", "reference_id": "IHJ-2021-Hypertension-Management-Consensus" }
-    ],
-    "clinical_sign_off": {
-      "reviewed": true,
-      "reviewer_role": "Consultant Nephrologist & Cardiologist",
-      "status": "APPROVED"
-    }
-  },
-  {
-    "rule_id": "RULE-LIP-008",
-    "drug_class": "HMG-CoA Reductase Inhibitors (Statins)",
-    "active_salts": ["Atorvastatin", "Simvastatin", "Rosuvastatin"],
-    "interfering_nutrients": ["Furanocoumarins", "Saturated Fats"],
-    "culprit_indian_foods": [
-      "Pomelo / Concentrated Citrus Juice",
-      "Deep-fried pakoras / Poori (High Re-heated Vanaspati)"
-    ],
-    "severity": "MODERATE",
-    "interaction_type": "Metabolic CYP3A4 Competition & Lipid Overload",
-    "biochemical_mechanism": "Simvastatin and Atorvastatin undergo extensive CYP3A4 hepatic clearance. Furanocoumarins inhibit CYP3A4, causing 3-5x serum accumulation and escalating rhabdomyolysis and myopathy risk.",
-    "ifct_evidence": [
-      {
-        "food": "Pomelo / Concentrated Citrus Juice",
-        "ifct_code": "Table F Citrus",
-        "primary_nutrient": "Furanocoumarins",
-        "value": "Bergapten ~30 mg/kg",
-        "clinical_note": "Significant CYP3A4 inhibition raises statin plasma concentration."
-      },
-      {
-        "food": "Vanaspati / Reheated deep-fried snacks",
-        "ifct_code": "Table H Fats & Oils",
-        "primary_nutrient": "Trans & Saturated Fats",
-        "value": "> 35% of total lipid profile",
-        "clinical_note": "Acute saturated fat surges impair endothelial LDL receptor upregulation."
-      }
-    ],
-    "safe_time_gap_hours": {
-      "before_food_hours": 2.0,
-      "after_food_hours": 4.0
-    },
-    "absorption_impact": {
-      "bioavailability_drop_pct": -30.0,
-      "t_max_delay_hours": 1.0
-    },
-    "ghar_ki_rasoi_swaps": [
-      {
-        "culprit": "Concentrated citrus juice or deep-fried dinner snacks",
-        "substitute": "Whole sweet orange / Apple slices + Roasted Makhana or Chana",
-        "dietary_rationale": "Soluble dietary fiber binds excess dietary cholesterol without interfering with CYP3A4 hepatic pathways."
-      }
-    ],
-    "citations": [
-      { "source": "OpenFDA Drug Label", "reference_id": "Lipitor (Atorvastatin Calcium) NDA 020702" },
-      { "source": "Circulation", "reference_id": "Statin Safety and Drug Interactions, DOI: 10.1161/CIR.0000000000000618" }
-    ],
-    "clinical_sign_off": {
-      "reviewed": true,
-      "reviewer_role": "Consultant Cardiologist & Lipidologist",
       "status": "APPROVED"
     }
   }
