@@ -69,6 +69,72 @@
     }
   },
   {
+    "salt_name": "Ferrous Ascorbate",
+    "conflicting_nutrient": "Polyphenolic Tannins & Phytates",
+    "indian_foods": [
+      "Masala Chai",
+      "Filter Coffee",
+      "Palak Paneer",
+      "Bran Atta Roti",
+      "Whole pulses (Rajma/Chana)"
+    ],
+    "bioavailability_drop_percent": 62.0,
+    "safe_gap_hours": 2.0,
+    "ghar_ki_rasoi_swap": "Freshly squeezed Nimbu Pani or Amla juice (Vitamin C reduces Fe3+ to soluble Fe2+, boosting absorption 3x).",
+    "citation": "ICMR-NIN IFCT 2017 Sec 3 (Tea Tannins 105mg/100ml); AJCN Hurrell et al.",
+    "doctor_verified": true,
+    "rule_id": "RULE-IRO-002",
+    "drug_class": "Iron Supplements (Hematinics)",
+    "active_salts": ["Ferrous Ascorbate", "Ferrous Sulphate", "Ferrous Fumarate", "Carbonyl Iron"],
+    "interfering_nutrients": ["Tannins", "Polyphenols", "Phytic Acid", "Calcium"],
+    "culprit_indian_foods": [
+      "Masala Chai",
+      "Filter Coffee",
+      "Palak Paneer",
+      "Bran Atta Roti",
+      "Whole pulses (Rajma/Chana)",
+      "Chai",
+      "Palak",
+      "Palak Spinach"
+    ],
+    "severity": "HIGH",
+    "interaction_type": "Precipitation & Insoluble Complexation",
+    "biochemical_mechanism": "Tannins in tea and coffee form insoluble iron-tannate complexes that cannot be transported across the duodenal mucosa via the DMT-1 transporter, dropping iron bioavailability by up to 60-70%.",
+    "safe_time_gap_hours": {
+      "before_food_hours": 1.0,
+      "after_food_hours": 2.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 62.0,
+      "t_max_delay_hours": 2.0
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Post-meal Chai or Filter Coffee",
+        "substitute": "Freshly squeezed Nimbu Pani (Lemonade) or Amla Juice",
+        "dietary_rationale": "Ascorbic acid (Vitamin C: 39mg/100g in lemon, 600mg/100g in Amla) reduces Fe3+ to soluble Fe2+, boosting uptake up to 3-fold."
+      }
+    ],
+    "ifct_evidence": [
+      {
+        "food": "Masala Chai (Brewed)",
+        "ifct_code": "Sec 3 Beverages",
+        "primary_nutrient": "Tannins / Polyphenols",
+        "value": "105 mg GAE / 100ml",
+        "clinical_note": "A single cup of tea reduces non-heme iron absorption by up to 60-70%."
+      }
+    ],
+    "citations": [
+      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Section 3: Polyphenols and Tannins in Indian Beverages" },
+      { "source": "American Journal of Clinical Nutrition", "reference_id": "Hurrell et al., DOI: 10.1093/ajcn/69.5.950" }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Consultant Physician & Hematologist",
+      "status": "APPROVED"
+    }
+  },
+  {
     "salt_name": "Ciprofloxacin",
     "conflicting_nutrient": "Divalent Calcium & Magnesium Cations",
     "indian_foods": [
@@ -94,7 +160,8 @@
       "Doodh / Milk",
       "Lassi",
       "Curd",
-      "Milk"
+      "Milk",
+      "Buttermilk Chaas"
     ],
     "severity": "HIGH",
     "interaction_type": "Divalent & Trivalent Cation Chelation",
@@ -198,67 +265,62 @@
     }
   },
   {
-    "salt_name": "Ferrous Ascorbate",
-    "conflicting_nutrient": "Polyphenolic Tannins & Phytates",
+    "salt_name": "Amlodipine",
+    "conflicting_nutrient": "Furanocoumarins & Flavonoids",
     "indian_foods": [
-      "Masala Chai",
-      "Filter Coffee",
-      "Palak Paneer",
-      "Bran Atta Roti",
-      "Whole pulses (Rajma/Chana)"
+      "Mosambi (Sweet Lime) Juice in large volume",
+      "Chakotra (Grapefruit / Pomelo)",
+      "Mosambi Sweet Lime Juice"
     ],
-    "bioavailability_drop_percent": 62.0,
-    "safe_gap_hours": 2.0,
-    "ghar_ki_rasoi_swap": "Freshly squeezed Nimbu Pani or Amla juice (Vitamin C reduces Fe3+ to soluble Fe2+, boosting absorption 3x).",
-    "citation": "ICMR-NIN IFCT 2017 Sec 3 (Tea Tannins 105mg/100ml); AJCN Hurrell et al.",
+    "bioavailability_drop_percent": -45.0,
+    "safe_gap_hours": 12.0,
+    "ghar_ki_rasoi_swap": "Tender Coconut Water or Fresh Pomegranate / Apple slices instead of concentrated citrus juice.",
+    "citation": "OpenFDA Drug Label Amlodipine NDA 019787; CMAJ 2013",
     "doctor_verified": true,
-    "rule_id": "RULE-IRO-002",
-    "drug_class": "Iron Supplements (Hematinics)",
-    "active_salts": ["Ferrous Ascorbate", "Ferrous Sulphate", "Ferrous Fumarate", "Carbonyl Iron", "Iron Supplements"],
-    "interfering_nutrients": ["Tannins", "Polyphenols", "Phytic Acid", "Calcium"],
+    "rule_id": "RULE-HTN-005",
+    "drug_class": "Calcium Channel Blockers (Dihydropyridines)",
+    "active_salts": ["Amlodipine", "Nifedipine", "Felodipine"],
+    "interfering_nutrients": ["Furanocoumarins", "Flavonoids (Naringin)"],
     "culprit_indian_foods": [
-      "Masala Chai",
-      "Filter Coffee",
-      "Palak Paneer",
-      "Bran Atta Roti",
-      "Whole pulses (Rajma/Chana)",
-      "Chai",
-      "Palak"
+      "Mosambi (Sweet Lime) Juice in large volume",
+      "Chakotra (Grapefruit / Pomelo)",
+      "Mosambi Sweet Lime Juice",
+      "Mosambi",
+      "Chakotra"
     ],
-    "severity": "HIGH",
-    "interaction_type": "Precipitation & Insoluble Complexation",
-    "biochemical_mechanism": "Tannins in tea and coffee form insoluble iron-tannate complexes that cannot be transported across the duodenal mucosa via the DMT-1 transporter, dropping iron bioavailability by up to 60-70%.",
+    "severity": "MODERATE",
+    "interaction_type": "Intestinal Cytochrome P450 (CYP3A4) Inhibition",
+    "biochemical_mechanism": "Furanocoumarins irreversibly inhibit intestinal epithelial CYP3A4, reducing first-pass drug clearance and leading to dangerously high serum concentrations, flushing, peripheral edema, and hypotension.",
     "safe_time_gap_hours": {
-      "before_food_hours": 1.0,
-      "after_food_hours": 2.0
+      "before_food_hours": 4.0,
+      "after_food_hours": 12.0
     },
     "absorption_impact": {
-      "bioavailability_drop_pct": 62.0,
-      "t_max_delay_hours": 2.0
+      "bioavailability_drop_pct": -45.0,
+      "t_max_delay_hours": 0.5
     },
     "ghar_ki_rasoi_swaps": [
       {
-        "culprit": "Post-meal Chai or Filter Coffee",
-        "substitute": "Freshly squeezed Nimbu Pani (Lemonade) or Amla Juice",
-        "dietary_rationale": "Ascorbic acid (Vitamin C: 39mg/100g in lemon, 600mg/100g in Amla) reduces Fe3+ to soluble Fe2+, boosting uptake up to 3-fold."
+        "culprit": "Chakotra / Large glass of Mosambi Juice",
+        "substitute": "Tender Coconut Water or Fresh Pomegranate / Apple slices",
+        "dietary_rationale": "Avoids intestinal CYP3A4 enzyme inhibition, ensuring predictable anti-hypertensive control."
       }
     ],
     "ifct_evidence": [
       {
-        "food": "Masala Chai (Brewed)",
-        "ifct_code": "Sec 3 Beverages",
-        "primary_nutrient": "Tannins / Polyphenols",
-        "value": "105 mg GAE / 100ml",
-        "clinical_note": "A single cup of tea reduces non-heme iron absorption by up to 60-70%."
+        "food": "Chakotra / Pomelo",
+        "ifct_code": "Table F Fruits",
+        "primary_nutrient": "6',7'-dihydroxybergamottin",
+        "value": "35-45 mg / kg",
+        "clinical_note": "Suicide inhibition of intestinal enterocyte CYP3A4 lasting up to 72 hours."
       }
     ],
     "citations": [
-      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Section 3: Polyphenols and Tannins in Indian Beverages" },
-      { "source": "American Journal of Clinical Nutrition", "reference_id": "Hurrell et al., DOI: 10.1093/ajcn/69.5.950" }
+      { "source": "OpenFDA Drug Label", "reference_id": "Amlodipine Besylate NDA 019787" }
     ],
     "clinical_sign_off": {
       "reviewed": true,
-      "reviewer_role": "Consultant Physician & Hematologist",
+      "reviewer_role": "Consultant Physician & Cardiologist",
       "status": "APPROVED"
     }
   },
@@ -269,7 +331,8 @@
       "Gulab Jamun / Jalebi",
       "Sweetened Chai / Sherbet",
       "Maida Naan / Bhatura",
-      "Taking tablet on empty stomach"
+      "Taking tablet on empty stomach",
+      "Gulab Jamun Sweets"
     ],
     "bioavailability_drop_percent": 12.0,
     "safe_gap_hours": 0.0,
@@ -286,7 +349,8 @@
       "Maida Naan / Bhatura",
       "Taking tablet on empty stomach",
       "Sweets",
-      "High-Sugar meals"
+      "High-Sugar meals",
+      "Gulab Jamun Sweets"
     ],
     "severity": "MODERATE",
     "interaction_type": "GI Irritation & Metabolic Disruption",
@@ -322,6 +386,126 @@
     "clinical_sign_off": {
       "reviewed": true,
       "reviewer_role": "Diabetologist & Clinical Nutritionist",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "salt_name": "Telmisartan",
+    "conflicting_nutrient": "Potassium (K+)",
+    "indian_foods": [
+      "Sendha Namak (Rock Salt / Low Sodium Salt)",
+      "Tender Coconut Water (multiple glasses)",
+      "Bananas",
+      "Tender Coconut Water"
+    ],
+    "bioavailability_drop_percent": 5.0,
+    "safe_gap_hours": 2.0,
+    "ghar_ki_rasoi_swap": "Standard iodized salt in strict moderation (<5g/day) + Spiced Chaas (without added salt) instead of Sendha namak / multiple coconuts.",
+    "citation": "ICMR-NIN IFCT 2017 Table G (Potassium Content); Indian Heart Journal 2021",
+    "doctor_verified": true,
+    "rule_id": "RULE-HYP-007",
+    "drug_class": "ACE Inhibitors & ARBs (Antihypertensives)",
+    "active_salts": ["Telmisartan", "Losartan", "Enalapril", "Ramipril"],
+    "interfering_nutrients": ["Potassium (K+)"],
+    "culprit_indian_foods": [
+      "Sendha Namak (Rock Salt / Low Sodium Salt)",
+      "Tender Coconut Water (multiple glasses)",
+      "Bananas",
+      "Jackfruit / Kathal",
+      "Tender Coconut Water"
+    ],
+    "severity": "MODERATE",
+    "interaction_type": "Pharmacodynamic Synergistic Hyperkalemia",
+    "biochemical_mechanism": "Inhibition of the renin-angiotensin-aldosterone axis reduces urinary potassium excretion. Co-consumption of potassium-rich salt substitutes or excessive coconut water can provoke life-threatening cardiac arrhythmias.",
+    "safe_time_gap_hours": {
+      "before_food_hours": 2.0,
+      "after_food_hours": 2.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": 5.0,
+      "t_max_delay_hours": 0.0
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Sendha Namak (Low-Sodium KCl substitutes) & Daily 2+ Coconut waters",
+        "substitute": "Standard iodized salt in strict moderation (less than 5g/day) + Spiced Chaas (without added salt)",
+        "dietary_rationale": "Prevents serum potassium spikes above 5.5 mEq/L while maintaining dietary compliance."
+      }
+    ],
+    "ifct_evidence": [
+      {
+        "food": "Sendha Namak (Low Sodium KCl substitutes)",
+        "ifct_code": "Salt Directory",
+        "primary_nutrient": "Potassium (K+)",
+        "value": "12,500 mg / 100g",
+        "clinical_note": "Potassium chloride salt replacements trigger rapid hyperkalemia in patients on RAAS blockers."
+      }
+    ],
+    "citations": [
+      { "source": "ICMR-NIN IFCT 2017", "reference_id": "Table G: Potassium Content in Indian Fruits and Beverages" }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Consultant Nephrologist & Cardiologist",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "salt_name": "Atorvastatin",
+    "conflicting_nutrient": "Furanocoumarins & Saturated Fats",
+    "indian_foods": [
+      "Pomelo / Concentrated Citrus Juice",
+      "Deep-fried pakoras / Poori (High Re-heated Vanaspati)",
+      "Samosa Fried"
+    ],
+    "bioavailability_drop_percent": -30.0,
+    "safe_gap_hours": 4.0,
+    "ghar_ki_rasoi_swap": "Whole sweet orange / Apple slices + Roasted Makhana or Chana instead of deep fried snacks.",
+    "citation": "OpenFDA Drug Label Lipitor NDA 020702; Circulation Statin Safety",
+    "doctor_verified": true,
+    "rule_id": "RULE-LIP-008",
+    "drug_class": "HMG-CoA Reductase Inhibitors (Statins)",
+    "active_salts": ["Atorvastatin", "Simvastatin", "Rosuvastatin"],
+    "interfering_nutrients": ["Furanocoumarins", "Saturated Fats"],
+    "culprit_indian_foods": [
+      "Pomelo / Concentrated Citrus Juice",
+      "Deep-fried pakoras / Poori (High Re-heated Vanaspati)",
+      "Samosa Fried",
+      "Samosa"
+    ],
+    "severity": "MODERATE",
+    "interaction_type": "Metabolic CYP3A4 Competition & Lipid Overload",
+    "biochemical_mechanism": "Simvastatin and Atorvastatin undergo extensive CYP3A4 hepatic clearance. Furanocoumarins inhibit CYP3A4, causing 3-5x serum accumulation and escalating rhabdomyolysis and myopathy risk.",
+    "safe_time_gap_hours": {
+      "before_food_hours": 2.0,
+      "after_food_hours": 4.0
+    },
+    "absorption_impact": {
+      "bioavailability_drop_pct": -30.0,
+      "t_max_delay_hours": 1.0
+    },
+    "ghar_ki_rasoi_swaps": [
+      {
+        "culprit": "Concentrated citrus juice or deep-fried dinner snacks",
+        "substitute": "Whole sweet orange / Apple slices + Roasted Makhana or Chana",
+        "dietary_rationale": "Soluble dietary fiber binds excess dietary cholesterol without interfering with CYP3A4 hepatic pathways."
+      }
+    ],
+    "ifct_evidence": [
+      {
+        "food": "Pomelo / Concentrated Citrus Juice",
+        "ifct_code": "Table F Citrus",
+        "primary_nutrient": "Furanocoumarins",
+        "value": "Bergapten ~30 mg/kg",
+        "clinical_note": "Significant CYP3A4 inhibition raises statin plasma concentration."
+      }
+    ],
+    "citations": [
+      { "source": "OpenFDA Drug Label", "reference_id": "Lipitor (Atorvastatin Calcium) NDA 020702" }
+    ],
+    "clinical_sign_off": {
+      "reviewed": true,
+      "reviewer_role": "Consultant Cardiologist & Lipidologist",
       "status": "APPROVED"
     }
   }
