@@ -3,7 +3,8 @@
     "rule_id": "RULE-THY-001",
     "drug_class": "Thyroid Hormone Replacements",
     "active_salts": [
-      "Levothyroxine Sodium"
+      "Levothyroxine Sodium",
+      "Levothyroxine"
     ],
     "languages": {
       "en": {
@@ -109,7 +110,8 @@
     "drug_class": "Vitamin K Antagonists (Anticoagulants)",
     "active_salts": [
       "Warfarin Sodium",
-      "Acenocoumarol"
+      "Acenocoumarol",
+      "Warfarin"
     ],
     "languages": {
       "en": {
@@ -177,7 +179,8 @@
     "rule_id": "RULE-DIA-006",
     "drug_class": "Biguanides (Anti-Diabetic)",
     "active_salts": [
-      "Metformin Hydrochloride"
+      "Metformin Hydrochloride",
+      "Metformin"
     ],
     "languages": {
       "en": {

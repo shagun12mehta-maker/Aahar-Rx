@@ -3,7 +3,8 @@
     "rule_id": "RULE-THY-001",
     "drug_class": "Thyroid Hormone Replacements",
     "active_salts": [
-      "Levothyroxine Sodium"
+      "Levothyroxine Sodium",
+      "Levothyroxine"
     ],
     "severity": "HIGH",
     "interaction_type": "Chelation & Mucosal Binding",
@@ -526,7 +527,8 @@
     "drug_class": "Vitamin K Antagonists (Anticoagulants)",
     "active_salts": [
       "Warfarin Sodium",
-      "Acenocoumarol"
+      "Acenocoumarol",
+      "Warfarin"
     ],
     "severity": "HIGH",
     "interaction_type": "Pharmacodynamic Antagonism",
@@ -872,7 +874,8 @@
     "rule_id": "RULE-DIA-006",
     "drug_class": "Biguanides (Anti-Diabetic)",
     "active_salts": [
-      "Metformin Hydrochloride"
+      "Metformin Hydrochloride",
+      "Metformin"
     ],
     "severity": "MODERATE",
     "interaction_type": "GI Irritation & Metabolic Disruption",
