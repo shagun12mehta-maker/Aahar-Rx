@@ -3,6 +3,7 @@
 -- Database Schema for Supabase / PostgreSQL
 -- Target: ANVESHAN 2026 (Medical & Health Sciences Track)
 -- Compliance: DPDP Act 2023 & Strict Anonymity (ANVESHAN Rule 3)
+-- Updated: Added Medicine Box, Routine Alarms, and Clash Reports / Doctor Consults
 -- ==============================================================================
 
 -- Enable UUID extension for cryptographically secure, anonymous identifiers
@@ -19,18 +20,18 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Index for anonymous identifier lookups
 CREATE INDEX IF NOT EXISTS idx_users_anon_id ON users(anonymous_identifier);
 
 -- ------------------------------------------------------------------------------
 -- 2. CONSENTS TABLE
 -- DPDP Act 2023 Digital Consent Governance
--- Hard gate: Scan and conflict engines require active, valid consent
+-- Hard gate: Scan, conflict, and doctor-share operations require active consent
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS consents (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(), -- Used directly as consent_id
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     purpose VARCHAR(255) NOT NULL DEFAULT 'CLINICAL_FOOD_DRUG_INTERACTION_ANALYSIS',
+    consent_type VARCHAR(100) NOT NULL DEFAULT 'PATIENT_PROCESSING', -- 'PATIENT_PROCESSING' or 'DOCTOR_SHARE'
     status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'REVOKED', 'EXPIRED')),
     dpdp_version VARCHAR(50) NOT NULL DEFAULT 'DPDP_ACT_2023',
     granted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -40,9 +41,9 @@ CREATE TABLE IF NOT EXISTS consents (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Index for rapid consent resolution
 CREATE INDEX IF NOT EXISTS idx_consents_lookup ON consents(id, status, valid_until);
 CREATE INDEX IF NOT EXISTS idx_consents_user ON consents(user_id);
+CREATE INDEX IF NOT EXISTS idx_consents_type ON consents(consent_type);
 
 -- ------------------------------------------------------------------------------
 -- 3. SALTS TABLE
@@ -51,7 +52,7 @@ CREATE INDEX IF NOT EXISTS idx_consents_user ON consents(user_id);
 CREATE TABLE IF NOT EXISTS salts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) UNIQUE NOT NULL, -- e.g., 'Levothyroxine Sodium', 'Ferrous Ascorbate'
-    drug_class VARCHAR(255) NOT NULL, -- e.g., 'Thyroid Hormone Replacements'
+    drug_class VARCHAR(255) NOT NULL,  -- e.g., 'Thyroid Hormone Replacements'
     therapeutic_category VARCHAR(255),
     notes TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -137,9 +138,7 @@ CREATE TABLE IF NOT EXISTS schedules (
     calculated_safe_time TIME NOT NULL,
     
     status VARCHAR(50) NOT NULL DEFAULT 'SCHEDULED' CHECK (status IN ('SCHEDULED', 'TAKEN', 'DEFERRED', 'SKIPPED')),
-    
-    -- Mandatory Clinical Disclaimer: strictly timing/dietary guidance only
-    clinical_disclaimer TEXT NOT NULL DEFAULT 'Aahar-Rx provides timing and dietary guidance only and never alters prescribed dosages. Always consult your prescribing physician for dosage or prescription changes.',
+    clinical_disclaimer TEXT NOT NULL DEFAULT 'Aahar-Rx provides timing and dietary guidance only. The app never advises skipping, altering, or replacing prescribed medication dosages. Any dose or medicine change is made only by a licensed doctor, through the Doctor Video Consult.',
     
     notes TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -150,7 +149,85 @@ CREATE INDEX IF NOT EXISTS idx_schedules_user_date ON schedules(user_id, calcula
 CREATE INDEX IF NOT EXISTS idx_schedules_consent ON schedules(consent_id);
 
 -- ------------------------------------------------------------------------------
--- 7. AUTOMATED UPDATED_AT TIMESTAMP TRIGGER
+-- 7. MEDICINE BOX TABLE (NEW MODULE)
+-- Stock and Expiry Tracking with 3-Day Low Stock Alerts & Deep-link Reorder
+-- ------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS medicine_box (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    brand VARCHAR(255) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
+    expiry_date DATE NOT NULL,
+    initial_count INT NOT NULL CHECK (initial_count >= 0),
+    remaining_count INT NOT NULL CHECK (remaining_count >= 0),
+    daily_dosage_count INT NOT NULL DEFAULT 1 CHECK (daily_dosage_count > 0),
+    low_stock_alert BOOLEAN NOT NULL DEFAULT FALSE,
+    reorder_url TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_medicine_box_user ON medicine_box(user_id);
+CREATE INDEX IF NOT EXISTS idx_medicine_box_low_stock ON medicine_box(user_id, low_stock_alert);
+
+-- ------------------------------------------------------------------------------
+-- 8. ALARMS TABLE (NEW MODULE)
+-- Routine Shift Engine: Dynamic alarm shift based on meal anchors & delays
+-- ------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS alarms (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    medicine_name VARCHAR(255) NOT NULL,
+    active_salt VARCHAR(255) NOT NULL,
+    scheduled_time TIME NOT NULL,
+    meal_anchor VARCHAR(100) NOT NULL, -- e.g., 'Breakfast', 'Lunch', 'Morning Chai'
+    shifted_time TIME,
+    shift_reason TEXT,
+    fcm_payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_alarms_user ON alarms(user_id);
+CREATE INDEX IF NOT EXISTS idx_alarms_scheduled ON alarms(user_id, scheduled_time);
+
+-- ------------------------------------------------------------------------------
+-- 9. CLASH REPORTS & DOCTOR CONSULT SESSIONS (NEW MODULE)
+-- Generates shareable report tokens & Jitsi Meet WebRTC URLs for High-Risk clashes
+-- ------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS clash_reports (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    report_token VARCHAR(64) UNIQUE NOT NULL,
+    doctor_consent_id UUID NOT NULL REFERENCES consents(id) ON DELETE RESTRICT,
+    active_salt VARCHAR(255) NOT NULL,
+    conflicted_food VARCHAR(255) NOT NULL,
+    severity VARCHAR(50) NOT NULL CHECK (severity IN ('HIGH', 'MODERATE', 'LOW')),
+    biochemical_mechanism TEXT NOT NULL,
+    bioavailability_drop_pct NUMERIC(5, 2),
+    ghar_ki_rasoi_swap JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_clash_reports_token ON clash_reports(report_token);
+CREATE INDEX IF NOT EXISTS idx_clash_reports_consent ON clash_reports(doctor_consent_id);
+
+CREATE TABLE IF NOT EXISTS consult_sessions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    report_id UUID NOT NULL REFERENCES clash_reports(id) ON DELETE CASCADE,
+    anonymized_doctor_id VARCHAR(64) NOT NULL, -- Anonymized doctor identifier
+    jitsi_room_url TEXT NOT NULL,
+    session_status VARCHAR(50) NOT NULL DEFAULT 'REQUESTED' CHECK (session_status IN ('REQUESTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_consult_sessions_report ON consult_sessions(report_id);
+CREATE INDEX IF NOT EXISTS idx_consult_sessions_doctor ON consult_sessions(anonymized_doctor_id);
+
+-- ------------------------------------------------------------------------------
+-- 10. AUTOMATED UPDATED_AT TIMESTAMP TRIGGER
 -- ------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION update_timestamp_column()
 RETURNS TRIGGER AS $$
@@ -168,7 +245,7 @@ BEGIN
         SELECT table_name 
         FROM information_schema.tables 
         WHERE table_schema = 'public' 
-          AND table_name IN ('users', 'consents', 'salts', 'foods', 'rules', 'schedules')
+          AND table_name IN ('users', 'consents', 'salts', 'foods', 'rules', 'schedules', 'medicine_box', 'alarms', 'consult_sessions')
     LOOP
         EXECUTE format('
             DROP TRIGGER IF EXISTS trg_update_timestamp_%I ON %I;

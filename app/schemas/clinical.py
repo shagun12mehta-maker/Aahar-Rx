@@ -1,15 +1,18 @@
 """
 Aahar-Rx Clinical Schemas
-Aligned 100% with data/verified_rules.json and DPDP Act 2023 requirements.
+Aligned 100% with data/verified_rules.json, DPDP Act 2023, and ANVESHAN Rule 3.
+Updated with Medicine Box, Routine Alarms, and Doctor Video Consult Clash Reports.
 """
 
 from typing import List, Optional, Dict, Any
 from enum import Enum
 from pydantic import BaseModel, Field
 
+# Updated Clinical Disclaimer required by Blueprint
 MANDATORY_CLINICAL_DISCLAIMER: str = (
-    "Aahar-Rx provides timing and dietary guidance only and never alters prescribed dosages. "
-    "Always consult your prescribing physician for dosage or prescription changes."
+    "Aahar-Rx provides timing and dietary guidance only. "
+    "The app never advises skipping, altering, or replacing prescribed medication dosages. "
+    "Any dose or medicine change is made only by a licensed doctor, through the Doctor Video Consult."
 )
 
 class SeverityLevel(str, Enum):
@@ -79,6 +82,10 @@ class ConsentRequest(BaseModel):
         default="CLINICAL_FOOD_DRUG_INTERACTION_ANALYSIS",
         description="Specified purpose of processing under DPDP Act 2023"
     )
+    consent_type: str = Field(
+        default="PATIENT_PROCESSING",
+        description="'PATIENT_PROCESSING' or 'DOCTOR_SHARE'"
+    )
     data_elements: List[str] = Field(
         default_factory=lambda: ["PRESCRIPTION_SALTS", "MEAL_ITEMS"],
         description="Categories of clinical data to process"
@@ -86,6 +93,7 @@ class ConsentRequest(BaseModel):
 
 class ConsentResponse(BaseModel):
     consent_id: str = Field(..., description="Unique cryptographically secure DPDP consent identifier")
+    consent_type: str = Field("PATIENT_PROCESSING", description="Type of consent granted")
     status: str = Field("ACTIVE", description="Status of consent (ACTIVE, REVOKED, EXPIRED)")
     valid_until: str = Field(..., description="ISO 8601 validity timestamp")
     clinical_disclaimer: str = Field(default=MANDATORY_CLINICAL_DISCLAIMER)
@@ -179,4 +187,82 @@ class TimetableResponse(BaseModel):
     total_medications: int
     timetable: List[TimetableEntry]
     summary_notes: List[str] = Field(default_factory=list)
+    clinical_disclaimer: str = Field(default=MANDATORY_CLINICAL_DISCLAIMER)
+
+# -----------------------------------------------------------------------------
+# NEW MODULE 1: Clash Report & Doctor Video Consult (WebRTC Jitsi)
+# -----------------------------------------------------------------------------
+
+class ClashReportRequest(BaseModel):
+    active_salt: str = Field(..., description="High-risk salt triggering conflict")
+    conflicted_food: str = Field(..., description="Indian food conflicting with drug")
+    doctor_share_consent_id: Optional[str] = Field(
+        None,
+        description="Explicit DPDP consent authorizing health data sharing with consulting doctor"
+    )
+
+class ClashReportResponse(BaseModel):
+    report_token: str = Field(..., description="Unique shareable token for doctor review")
+    active_salt: str
+    conflicted_food: str
+    severity: str = "HIGH"
+    biochemical_mechanism: str
+    bioavailability_drop_pct: float
+    recommended_swap: str
+    jitsi_room_url: str = Field(..., description="Embeddable Jitsi Meet WebRTC room URL")
+    anonymized_doctor_id: str = Field(..., description="Assigned anonymous physician identifier")
+    created_at: str
+    clinical_disclaimer: str = Field(default=MANDATORY_CLINICAL_DISCLAIMER)
+
+# -----------------------------------------------------------------------------
+# NEW MODULE 2: Routine Shift Engine (Delayed Meal Alarm Adjustment)
+# -----------------------------------------------------------------------------
+
+class ShiftAlarmRequest(BaseModel):
+    consent_id: Optional[str] = Field(None, description="DPDP consent identifier")
+    medicine_name: str
+    active_salt: str
+    scheduled_time: str = Field(..., description="Original scheduled medicine time in HH:MM")
+    meal_anchor: str = Field(..., description="Anchor meal, e.g. 'Breakfast', 'Morning Chai', 'Lunch'")
+    delayed_meal_time: str = Field(..., description="Actual delayed meal time in HH:MM")
+
+class ShiftAlarmResponse(BaseModel):
+    medicine_name: str
+    original_scheduled_time: str
+    meal_anchor: str
+    delayed_meal_time: str
+    shifted_alarm_time: str = Field(..., description="New recalculated alarm time in HH:MM")
+    shift_minutes: int = Field(..., description="Minutes shifted (+ for delay, - for advance)")
+    shift_rationale: str
+    fcm_payload: Dict[str, Any] = Field(default_factory=dict, description="Push notification payload")
+    clinical_disclaimer: str = Field(default=MANDATORY_CLINICAL_DISCLAIMER)
+
+# -----------------------------------------------------------------------------
+# NEW MODULE 3: Medicine Box (Stock & Expiry Tracking with 3-Day Alert)
+# -----------------------------------------------------------------------------
+
+class MedicineBoxItemCreate(BaseModel):
+    brand: str = Field(..., description="Brand name on medicine box")
+    salt: str = Field(..., description="Active pharmaceutical salt")
+    expiry_date: str = Field(..., description="Expiry date in YYYY-MM-DD")
+    initial_count: int = Field(..., ge=1, description="Initial total tablets/capsules")
+    remaining_count: Optional[int] = Field(None, ge=0, description="Current remaining tablets")
+    daily_dosage_count: int = Field(default=1, ge=1, description="Tablets consumed per day")
+
+class ConsumeDoseRequest(BaseModel):
+    doses_consumed: int = Field(default=1, ge=1, description="Number of tablets consumed")
+
+class MedicineBoxItemResponse(BaseModel):
+    item_id: str
+    brand: str
+    salt: str
+    expiry_date: str
+    initial_count: int
+    remaining_count: int
+    daily_dosage_count: int
+    days_of_stock_left: int
+    low_stock_alert: bool = Field(..., description="True if stock <= 3 days remaining")
+    alert_message: Optional[str] = None
+    reorder_url: Optional[str] = Field(None, description="1mg / PharmEasy search deep-link")
+    is_expired: bool = False
     clinical_disclaimer: str = Field(default=MANDATORY_CLINICAL_DISCLAIMER)
