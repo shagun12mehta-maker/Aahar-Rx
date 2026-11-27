@@ -74,6 +74,7 @@ export function ScanScreen({
   onToggleConsent,
   brands,
   scanState,
+  resolvedFoods = [],
   onSelectPreset,
   onSelectManualBrand,
   onChangeDoseTime,
@@ -128,6 +129,25 @@ export function ScanScreen({
         </span>
       </div>
 
+      <section class="hero-selection-bar" aria-label=${t.scan.hero_selected}>
+        <div style=${{ minWidth: 0 }}>
+          <div class="stat-label">${t.scan.hero_selected}</div>
+          <div style=${{ fontWeight: 600, fontSize: "var(--text-base)" }}>
+            ${scanState.medication?.brand_name || "Thyronorm"} (${scanState.doseTimeHHMM}) + ${resolvedFoods.map((f) => getFoodDisplayName(f, lang)).join(", ") || "Morning meal"}
+          </div>
+          <div class="stat-meta">${(scanState.medication?.active_salts || []).join(" + ")}</div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          disabled=${!consented || uploadBusy}
+          onClick=${onProceedToConfirm}
+        >
+          <span class="icon-box" style=${{ color: "#ffffff" }}><${ConfirmIcon} /></span>
+          <span>${t.scan.run_scan}</span>
+        </button>
+      </section>
+
       <section class="consent-box ${consented ? "" : "pending"}" aria-label=${t.consent.title}>
         <div style=${{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
           <div class="card-title" style=${{ fontSize: "var(--text-base)" }}>
@@ -169,7 +189,7 @@ export function ScanScreen({
               >
                 <span class="preset-title">${label}</span>
                 <span class="preset-meta mono">
-                  ${preset.doseTimeHHMM} | ${preset.qualityOk ? "PASS" : "RETRY"}
+                  ${preset.doseTimeHHMM} | ${preset.qualityOk ? t.scan.example_ready : t.scan.blur_test_btn}
                 </span>
               </button>
             `;
@@ -359,7 +379,7 @@ export function ConfirmScreen({
                 <span class="status-dot" />
                 <span style=${{ fontWeight: 500, fontSize: "var(--text-sm)" }}>${t.confirm.quality_pass}</span>
               </div>
-              <span class="tag safe mono">DPDP: raw_images_retained = false</span>
+              <span class="tag safe">${t.brand.dpdp_badge}</span>
             </div>
           `}
 
@@ -391,7 +411,7 @@ export function ConfirmScreen({
                             style=${{ minHeight: "32px", padding: "4px 10px" }}
                             onClick=${() => onRemoveFood(item.canonical_food_id)}
                           >
-                            Remove
+                            ${t.confirm.remove_btn}
                           </button>
                         `
                       : null}
@@ -416,7 +436,7 @@ export function ConfirmScreen({
                       class="btn ${scanState.milkInChai ? "btn-primary" : ""}"
                       onClick=${() => onToggleMilk(!scanState.milkInChai)}
                     >
-                      ${scanState.milkInChai ? "Milk: ON" : "Milk: OFF"}
+                      ${scanState.milkInChai ? t.confirm.milk_btn_on : t.confirm.milk_btn_off}
                     </button>
                   </div>
                 </div>
@@ -543,6 +563,7 @@ export function TimetableScreen({
   onChangeMealRoutine,
   lateShiftMinutes,
   onToggleLateShift,
+  shiftApiNotice = "",
   alarmsEnabled,
   onToggleAlarm,
   onTestAlarmTone,
@@ -550,9 +571,12 @@ export function TimetableScreen({
   onOpenCurve,
   onOpenQrPass,
 }) {
+  const [showScience, setShowScience] = useState(false);
   const primary = interactions[0] || null;
   const primaryRule = primary?.rule || null;
-  const hasHighRisk = interactions.some((item) => item.rule.severity === "HIGH");
+  const hasHighRisk = interactions.some(
+    (item) => item.rule.high_risk_clash ?? item.rule.severity === "HIGH"
+  );
   const beforeH = primaryRule?.safe_time_gap_hours?.before_food_hours ?? 0;
   const afterH = primaryRule?.safe_time_gap_hours?.after_food_hours ?? 0;
   const dropPct = primaryRule?.absorption_impact?.bioavailability_drop_pct ?? 0;
@@ -633,6 +657,37 @@ export function TimetableScreen({
 
       ${primaryRule
         ? html`
+            <section class="answer-card" aria-label=${t.timetable.answer_title}>
+              <div style=${{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                <h2 class="card-title">${t.timetable.answer_title}</h2>
+                <span class="tag ${primaryRule.severity === "HIGH" ? "high" : "moderate"}">
+                  ${t.severity[primaryRule.severity] || primaryRule.severity}
+                </span>
+              </div>
+              <div class="equal-grid-2">
+                <div class="list-row">
+                  <span class="stat-meta">${t.timetable.answer_take_pill}</span>
+                  <span class="mono" style=${{ fontWeight: 600 }}>${scanState.doseTimeHHMM} (${scanState.medication.brand_name})</span>
+                </div>
+                <div class="list-row">
+                  <span class="stat-meta">${t.timetable.answer_avoid_now}</span>
+                  <span style=${{ fontWeight: 500, textAlign: "right" }}>${(primary.hitFoods || []).map((f) => getFoodDisplayName(f, lang)).join(", ")}</span>
+                </div>
+                <div class="list-row">
+                  <span class="stat-meta">${t.timetable.answer_safe_food}</span>
+                  <span class="mono" style=${{ fontWeight: 600, color: "var(--accent)" }}>
+                    ${beforeH > 0 ? `${safeStartHHMM}+` : t.timetable.answer_with_food}
+                  </span>
+                </div>
+                <div class="list-row">
+                  <span class="stat-meta">${t.timetable.answer_swap_now}</span>
+                  <span style=${{ fontWeight: 500, color: "var(--accent)", textAlign: "right" }}>
+                    ${primaryRule.ghar_ki_rasoi_swaps?.[selectedSwaps[primaryRule.rule_id] || 0]?.substitute || primaryRule.ghar_ki_rasoi_swaps?.[0]?.substitute || ""}
+                  </span>
+                </div>
+              </div>
+            </section>
+
             <div class="card">
               <div style=${{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
                 <div>
@@ -690,6 +745,9 @@ export function TimetableScreen({
                   <button type="button" class="btn" onClick=${onTestAlarmTone}>
                     ${t.scheduler.test_tone_btn}
                   </button>
+                  ${shiftApiNotice
+                    ? html`<span class="tag safe mono">${shiftApiNotice}</span>`
+                    : null}
                 </div>
               </div>
 
@@ -771,13 +829,6 @@ export function TimetableScreen({
                       </div>
 
                       <div>
-                        <div class="field-label">${t.timetable.mechanism_label}</div>
-                        <p style=${{ margin: "4px 0 0", fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>
-                          ${rule.biochemical_mechanism}
-                        </p>
-                      </div>
-
-                      <div>
                         <div class="field-label" style=${{ marginBottom: "8px" }}>${t.timetable.swaps_label}</div>
                         <div class="item-list">
                           ${(rule.ghar_ki_rasoi_swaps || []).map((swap, idx) => html`
@@ -800,26 +851,45 @@ export function TimetableScreen({
                       </div>
 
                       <div>
-                        <div class="field-label" style=${{ marginBottom: "4px" }}>${t.timetable.ifct_label}</div>
-                        <table class="evidence-table">
-                          <thead>
-                            <tr>
-                              <th>Food</th>
-                              <th>Nutrient</th>
-                              <th style=${{ textAlign: "right" }}>IFCT value</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            ${(rule.ifct_evidence || []).map((ev, eIdx) => html`
-                              <tr key=${eIdx}>
-                                <td>${ev.food}</td>
-                                <td class="stat-meta">${ev.primary_nutrient}</td>
-                                <td class="num">${ev.value}</td>
-                              </tr>
-                            `)}
-                          </tbody>
-                        </table>
+                        <button
+                          type="button"
+                          class="btn"
+                          aria-expanded=${showScience}
+                          onClick=${() => setShowScience((s) => !s)}
+                        >
+                          <span>${t.timetable.science_toggle}</span>
+                        </button>
                       </div>
+
+                      ${showScience
+                        ? html`
+                            <div>
+                              <div class="field-label">${t.timetable.mechanism_label}</div>
+                              <p style=${{ margin: "4px 0 12px", fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>
+                                ${rule.biochemical_mechanism}
+                              </p>
+                              <div class="field-label" style=${{ marginBottom: "4px" }}>${t.timetable.ifct_label}</div>
+                              <table class="evidence-table">
+                                <thead>
+                                  <tr>
+                                    <th>Food</th>
+                                    <th>Nutrient</th>
+                                    <th style=${{ textAlign: "right" }}>IFCT value</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  ${(rule.ifct_evidence || []).map((ev, eIdx) => html`
+                                    <tr key=${eIdx}>
+                                      <td>${ev.food}</td>
+                                      <td class="stat-meta">${ev.primary_nutrient}</td>
+                                      <td class="num">${ev.value}</td>
+                                    </tr>
+                                  `)}
+                                </tbody>
+                              </table>
+                            </div>
+                          `
+                        : null}
                     </article>
                   `;
                 })}
@@ -900,6 +970,10 @@ export function AbsorptionCurveScreen({
             </span>
           </div>
 
+          <p style=${{ margin: 0, fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>
+            ${t.curve.plain_summary}
+          </p>
+
           <${AbsorptionChart} profile=${profile} t=${t} />
 
           <p style=${{ margin: 0, fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>
@@ -927,7 +1001,7 @@ export function AbsorptionCurveScreen({
                 </span>
               </div>
               <div class="list-row">
-                <span class="stat-meta">12h AUC shift</span>
+                <span class="stat-meta">${t.curve.metric_auc}</span>
                 <span class="mono" style=${{ fontWeight: 500 }}>
                   ${profile.auc_change_pct > 0 ? `+${profile.auc_change_pct}%` : `${profile.auc_change_pct}%`}
                 </span>
@@ -1083,7 +1157,7 @@ export function QrHealthPassScreen({
           <div style=${{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span class="card-title" style=${{ fontSize: "var(--text-base)" }}>${t.qr.toggle_json}</span>
             <button type="button" class="btn" onClick=${() => setShowJson((v) => !v)}>
-              ${showJson ? "Hide JSON" : "Show JSON"}
+              ${showJson ? t.qr.hide_btn : t.qr.show_btn}
             </button>
           </div>
           ${showJson

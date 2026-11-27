@@ -333,3 +333,129 @@ export function buildQrPassPayload({
     note: "Timing guidance only; do not alter dose without doctor advice.",
   };
 }
+
+async function apiJsonRequest(path, { method = "GET", headers = {}, body = null } = {}) {
+  try {
+    const res = await fetch(path, {
+      method,
+      headers: {
+        ...(body ? { "Content-Type": "application/json" } : {}),
+        ...headers,
+      },
+      ...(body ? { body: JSON.stringify(body) } : {}),
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function checkApiBackendHealth() {
+  const data = await apiJsonRequest("./health");
+  return Boolean(data && data.status === "HEALTHY");
+}
+
+export async function registerApiConsent(consentType = "PATIENT_PROCESSING") {
+  return apiJsonRequest("./api/v1/consent", {
+    method: "POST",
+    body: {
+      purpose: "CLINICAL_FOOD_DRUG_INTERACTION_ANALYSIS",
+      consent_type: consentType,
+    },
+  });
+}
+
+export async function syncScanAndBoxToApi({
+  consentId,
+  medication,
+  resolvedFoods,
+  doseTimeHHMM,
+  saveToBox,
+}) {
+  if (!consentId || !medication) return null;
+  const headers = { "X-Consent-ID": consentId };
+  const scanRes = await apiJsonRequest("./api/v1/scans", {
+    method: "POST",
+    headers,
+    body: {
+      consent_id: consentId,
+      strip_ocr: {
+        medicine_name: medication.brand_name,
+        detected_salts: medication.active_salts || [medication.brand_name],
+        dosage_text_detected: medication.strength_text || null,
+      },
+      meal_detection: {
+        meal_name: "Planned Indian meal",
+        detected_food_items: resolvedFoods.map((f) => f.display_name),
+      },
+    },
+  });
+
+  let boxItem = null;
+  if (saveToBox) {
+    const expStr = medication.expiry_date && /^\d{4}-\d{2}$/.test(medication.expiry_date)
+      ? `${medication.expiry_date}-28`
+      : "2027-08-28";
+    const count = Math.max(1, Number(medication.tablet_count || 15));
+    boxItem = await apiJsonRequest("./api/v1/medicine-box", {
+      method: "POST",
+      headers,
+      body: {
+        brand: `${medication.brand_name}${medication.strength_text ? " " + medication.strength_text : ""}`,
+        salt: (medication.active_salts && medication.active_salts[0]) || medication.brand_name,
+        expiry_date: expStr,
+        initial_count: count,
+        remaining_count: count,
+        daily_dosage_count: 1,
+      },
+    });
+  }
+  return { scanRes, boxItem, doseTimeHHMM };
+}
+
+export async function shiftAlarmWithApi({
+  consentId,
+  medicineName,
+  activeSalt,
+  scheduledTime,
+  mealAnchor,
+  delayedMealTime,
+}) {
+  if (!consentId) return null;
+  return apiJsonRequest("./api/v1/shift-alarm", {
+    method: "POST",
+    headers: { "X-Consent-ID": consentId },
+    body: {
+      consent_id: consentId,
+      medicine_name: medicineName,
+      active_salt: activeSalt,
+      scheduled_time: scheduledTime,
+      meal_anchor: mealAnchor,
+      delayed_meal_time: delayedMealTime,
+    },
+  });
+}
+
+export async function createDoctorClashReportWithApi({ activeSalt, conflictedFood }) {
+  const docConsent = await registerApiConsent("DOCTOR_SHARE");
+  if (!docConsent || !docConsent.consent_id) return null;
+  return apiJsonRequest("./api/v1/clash-report", {
+    method: "POST",
+    headers: { "X-Doctor-Consent-ID": docConsent.consent_id },
+    body: {
+      doctor_share_consent_id: docConsent.consent_id,
+      active_salt: activeSalt,
+      conflicted_food: conflictedFood,
+    },
+  });
+}
+
+export async function consumeMedicineBoxDoseApi({ consentId, itemId }) {
+  if (!consentId || !itemId) return null;
+  return apiJsonRequest(`./api/v1/medicine-box/${encodeURIComponent(itemId)}/consume`, {
+    method: "POST",
+    headers: { "X-Consent-ID": consentId },
+    body: { doses_consumed: 1 },
+  });
+}

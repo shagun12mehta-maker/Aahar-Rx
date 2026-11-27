@@ -53,6 +53,8 @@ def test_trilingual_translations_complete_clean_and_no_emojis() -> None:
 def test_pharmacokinetic_curves_match_all_8_member2_rules() -> None:
     profiles = build_all_pharmacokinetic_profiles(RULES)
     assert len(profiles) == len(RULES) == 8
+    for rule in RULES:
+        assert rule.get("high_risk_clash") is (rule.get("severity") == "HIGH")
 
     for rule in RULES:
         rid = rule["rule_id"]
@@ -138,6 +140,9 @@ def test_member3_offline_vendor_and_pwa_assets_present() -> None:
         FRONTEND / "index.html",
         FRONTEND / "manifest.webmanifest",
         FRONTEND / "sw.js",
+        FRONTEND / "assets" / "aahar-rx-mark.svg",
+        FRONTEND / "assets" / "aahar-rx-icon.jpg",
+        FRONTEND / "assets" / "aahar-rx-logo.jpg",
         FRONTEND / "vendor" / "react.production.min.js",
         FRONTEND / "vendor" / "react-dom.production.min.js",
         FRONTEND / "vendor" / "htm.umd.js",

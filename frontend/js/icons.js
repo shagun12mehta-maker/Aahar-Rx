@@ -18,11 +18,13 @@ function SvgIcon({ size = 18, children }) {
   `;
 }
 
-export function LeafMarkIcon() {
+export function LeafMarkIcon({ size = 18 } = {}) {
   return html`
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M5 19c0-9 6-14 14-14 0 9-6 14-14 14Z" />
-      <path d="M5 19l9-9" />
+    <svg width=${size} height=${size} viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <path d="M18 44c0-15 11-26 26-26 0 15-11 26-26 26Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" />
+      <rect x="26" y="21" width="11" height="20" rx="5.5" fill="none" stroke="currentColor" stroke-width="3.5" />
+      <path d="M13 33A19 19 0 0 1 28 13.4" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+      <circle cx="32" cy="12" r="2.5" fill="currentColor" />
     </svg>
   `;
 }

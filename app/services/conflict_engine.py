@@ -8,6 +8,7 @@ import os
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 
+from app.core.config import settings
 from app.schemas.clinical import (
     ClinicalRule,
     ConflictDetail,
@@ -24,9 +25,7 @@ from app.schemas.clinical import (
 class ConflictEngine:
     def __init__(self, rules_file_path: Optional[str] = None):
         if rules_file_path is None:
-            # Resolve relative to project root
-            base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-            rules_file_path = os.path.join(base_dir, "data", "verified_rules.json")
+            rules_file_path = settings.verified_rules_path
         
         self.rules_file_path = rules_file_path
         self.rules: List[Dict[str, Any]] = self._load_rules()
@@ -77,6 +76,8 @@ class ConflictEngine:
                     rule_id=rule["rule_id"],
                     drug_class=rule["drug_class"],
                     severity=SeverityLevel(rule["severity"]),
+                    high_risk_clash=bool(rule.get("high_risk_clash", rule["severity"] == "HIGH")),
+                    high_risk_reason=rule.get("high_risk_reason"),
                     matched_salt=salt_match,
                     conflicted_foods=unique_conflicted,
                     interaction_type=rule["interaction_type"],

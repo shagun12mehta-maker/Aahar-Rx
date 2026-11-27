@@ -54,6 +54,10 @@ class MedicineBoxService:
         return cls._format_item_response(item)
 
     @classmethod
+    def list_items(cls) -> list[Dict[str, Any]]:
+        return [cls._format_item_response(item) for item in cls._inventory.values()]
+
+    @classmethod
     def _format_item_response(cls, item: dict) -> Dict[str, Any]:
         remaining = item["remaining_count"]
         daily_dosage = item["daily_dosage_count"]

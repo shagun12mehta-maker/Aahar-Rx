@@ -32,6 +32,7 @@ from app.schemas.clinical import (
     MedicineBoxItemCreate,
     ConsumeDoseRequest,
     MedicineBoxItemResponse,
+    MedicineBoxListResponse,
     MANDATORY_CLINICAL_DISCLAIMER
 )
 from app.core.consent_guard import (
@@ -193,6 +194,42 @@ async def generate_high_risk_clash_report(
         clinical_disclaimer=MANDATORY_CLINICAL_DISCLAIMER
     )
 
+
+@router.get(
+    "/clash-report/{report_token}",
+    response_model=ClashReportResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Fetch pre-loaded Food-Medicine Clash Report for doctor view"
+)
+async def fetch_clash_report(
+    report_token: str,
+    doctor_consent_id: str = Depends(verify_doctor_share_consent)
+) -> ClashReportResponse:
+    report = clash_consult_service.get_report(report_token)
+    if not report:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Clash Report '{report_token}' not found."
+        )
+    if report.get("doctor_consent_id") != doctor_consent_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Doctor consent token mismatch for requested Clash Report."
+        )
+    return ClashReportResponse(
+        report_token=report["report_token"],
+        active_salt=report["active_salt"],
+        conflicted_food=report["conflicted_food"],
+        severity=report["severity"],
+        biochemical_mechanism=report["biochemical_mechanism"],
+        bioavailability_drop_pct=report["bioavailability_drop_pct"],
+        recommended_swap=report["recommended_swap"],
+        jitsi_room_url=report["jitsi_room_url"],
+        anonymized_doctor_id=report["anonymized_doctor_id"],
+        created_at=report["created_at"],
+        clinical_disclaimer=MANDATORY_CLINICAL_DISCLAIMER
+    )
+
 # -----------------------------------------------------------------------------
 # 6. NEW MODULE: Routine Shift Engine (Delayed Meal Alarm Recalculation)
 # -----------------------------------------------------------------------------
@@ -256,6 +293,26 @@ async def add_medicine_to_box(
         **item,
         clinical_disclaimer=MANDATORY_CLINICAL_DISCLAIMER
     )
+
+@router.get(
+    "/medicine-box",
+    response_model=MedicineBoxListResponse,
+    status_code=status.HTTP_200_OK,
+    summary="List all tracked medications in the digital Medicine Box"
+)
+async def list_medicine_box_items(
+    consent_id: str = Depends(verify_consent)
+) -> MedicineBoxListResponse:
+    items = [
+        MedicineBoxItemResponse(**item, clinical_disclaimer=MANDATORY_CLINICAL_DISCLAIMER)
+        for item in medicine_box_service.list_items()
+    ]
+    return MedicineBoxListResponse(
+        total_items=len(items),
+        items=items,
+        clinical_disclaimer=MANDATORY_CLINICAL_DISCLAIMER
+    )
+
 
 @router.post(
     "/medicine-box/{item_id}/consume",

@@ -10,16 +10,17 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.api.v1.endpoints import router as api_v1_router
+from app.core.config import settings
 from app.schemas.clinical import MANDATORY_CLINICAL_DISCLAIMER
 
 # Strict Anonymity (ANVESHAN Rule 3): No personal, university, or mentor names
 app = FastAPI(
-    title="Aahar-Rx Clinical Guidance Engine API",
+    title=settings.app_title,
     description=(
         "Food-Drug Interaction & Safe Time-Gap Guidance System for Indian Polypharmacy. "
         "Enforces DPDP Act 2023 consent protocols and evidence-backed ICMR-NIN IFCT dietary swaps."
     ),
-    version="1.0.0",
+    version=settings.app_version,
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -27,7 +28,7 @@ app = FastAPI(
 # CORS Configuration for Cross-Origin Frontend Integration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=list(settings.allowed_cors_origins),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

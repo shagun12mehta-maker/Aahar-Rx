@@ -1,4 +1,5 @@
 import { AlertIcon, CloseIcon, ExternalLinkIcon, ShieldIcon, VideoIcon } from "../icons.js";
+import { createDoctorClashReportWithApi } from "../clinicalEngine.js";
 import { AudioReminderPlayer } from "./AudioReminderPlayer.js";
 
 const { useEffect, useState } = window.React;
@@ -17,12 +18,16 @@ export function ConsultDoctorModal({
   const [doctorShareConsent, setDoctorShareConsent] = useState(false);
   const [inCallView, setInCallView] = useState(false);
   const [callSeconds, setCallSeconds] = useState(0);
+  const [liveReport, setLiveReport] = useState(null);
+  const [creatingReport, setCreatingReport] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
       setDoctorShareConsent(false);
       setInCallView(false);
       setCallSeconds(0);
+      setLiveReport(null);
+      setCreatingReport(false);
     }
   }, [isOpen]);
 
@@ -38,6 +43,24 @@ export function ConsultDoctorModal({
   const durationLabel = `${String(Math.floor(callSeconds / 60)).padStart(2, "0")}:${String(
     callSeconds % 60
   ).padStart(2, "0")}`;
+
+  async function handleStartVideoConsult() {
+    setCreatingReport(true);
+    try {
+      const salt = (medication.active_salts || [])[0] || medication.brand_name;
+      const food = resolvedFoods[0]?.display_name || "Morning Masala Chai with Milk";
+      const created = await createDoctorClashReportWithApi({
+        activeSalt: salt,
+        conflictedFood: food,
+      });
+      if (created) {
+        setLiveReport(created);
+      }
+    } finally {
+      setCreatingReport(false);
+      setInCallView(true);
+    }
+  }
 
   return html`
     <div
@@ -115,8 +138,8 @@ export function ConsultDoctorModal({
                 <button
                   type="button"
                   class="btn btn-primary"
-                  disabled=${!doctorShareConsent}
-                  onClick=${() => setInCallView(true)}
+                  disabled=${!doctorShareConsent || creatingReport}
+                  onClick=${handleStartVideoConsult}
                 >
                   <span class="icon-box" style=${{ color: "#ffffff" }}><${VideoIcon} /></span>
                   <span>${t.consult.open_call}</span>
@@ -134,11 +157,27 @@ export function ConsultDoctorModal({
                     <div class="icon-box" style=${{ width: "36px", height: "36px", color: "var(--accent)" }}>
                       <${VideoIcon} />
                     </div>
-                    <div style=${{ fontWeight: 500 }}>${t.consult.doctor_account}</div>
+                    <div style=${{ fontWeight: 500 }}>
+                      ${liveReport ? `${liveReport.anonymized_doctor_id} | ${liveReport.report_token}` : t.consult.doctor_account}
+                    </div>
                     <div class="stat-meta">${t.consult.dose_safety_rule}</div>
+                    ${liveReport?.jitsi_room_url
+                      ? html`
+                          <a
+                            class="btn"
+                            style=${{ textDecoration: "none", marginTop: "6px" }}
+                            href=${liveReport.jitsi_room_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span class="icon-box"><${ExternalLinkIcon} /></span>
+                            <span>Open Jitsi Room</span>
+                          </a>
+                        `
+                      : null}
                   </div>
                   <div class="stat-meta mono">
-                    WebRTC / Jitsi demo channel ready (anonymous test clinician ID)
+                    ${liveReport ? liveReport.jitsi_room_url : "WebRTC / Jitsi demo channel ready (anonymous test clinician ID)"}
                   </div>
                 </div>
 

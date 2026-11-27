@@ -66,6 +66,8 @@ def test_member3_pwa_static_assets_and_local_scan_bridge() -> None:
         "/",
         "/css/tokens.css",
         "/css/app.css",
+        "/assets/aahar-rx-mark.svg",
+        "/assets/aahar-rx-icon.jpg",
         "/data/i18n.json",
         "/data/pk_profiles.json",
         "/data/rules_bundle.json",

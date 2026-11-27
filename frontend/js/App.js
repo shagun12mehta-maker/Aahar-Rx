@@ -11,9 +11,15 @@ import {
 import {
   PRESET_SCANS,
   SEED_MEDICINE_BOX,
+  checkApiBackendHealth,
+  consumeMedicineBoxDoseApi,
   findDefaultRuleForMedication,
+  formatTimeMinutes,
   matchInteractionsForPatient,
+  registerApiConsent,
   resolveFoodItems,
+  shiftAlarmWithApi,
+  syncScanAndBoxToApi,
 } from "./clinicalEngine.js";
 import {
   AbsorptionCurveScreen,
@@ -75,6 +81,9 @@ function App() {
   const [activeTab, setActiveTab] = useState("scan");
   const [consented, setConsented] = useState(true);
   const [bridgeOnline, setBridgeOnline] = useState(false);
+  const [apiBackendOnline, setApiBackendOnline] = useState(false);
+  const [patientConsentId, setPatientConsentId] = useState("");
+  const [shiftApiNotice, setShiftApiNotice] = useState("");
 
   const [scanState, setScanState] = useState(null);
   const [saveToBox, setSaveToBox] = useState(true);
@@ -165,11 +174,21 @@ function App() {
         });
 
         try {
-          const h = await fetch("./api/health");
-          if (h.ok) {
-            const payload = await h.json();
+          const [hRes, apiOk] = await Promise.all([
+            fetch("./api/health").catch(() => null),
+            checkApiBackendHealth(),
+          ]);
+          if (hRes && hRes.ok) {
+            const payload = await hRes.json();
             if (payload && payload.bridge === "member1_smart_scan") {
               setBridgeOnline(true);
+            }
+          }
+          if (apiOk) {
+            setApiBackendOnline(true);
+            const rec = await registerApiConsent("PATIENT_PROCESSING");
+            if (rec && rec.consent_id) {
+              setPatientConsentId(rec.consent_id);
             }
           }
         } catch {
@@ -333,6 +352,7 @@ function App() {
 
   function handleConfirmAndSave() {
     setScanState((p) => ({ ...p, confirmedByUser: true }));
+    const localBoxId = `box-${Date.now()}`;
     if (saveToBox && scanState.medication) {
       const m = scanState.medication;
       const packCount = Math.max(1, Number(m.tablet_count || 15));
@@ -341,7 +361,7 @@ function App() {
           (item) => item.brand_name.toLowerCase() === (m.brand_name || "").toLowerCase()
         );
         const updatedItem = {
-          id: idx >= 0 ? prev[idx].id : `box-${Date.now()}`,
+          id: idx >= 0 ? prev[idx].id : localBoxId,
           brand_name: m.brand_name,
           strength_text: m.strength_text || "",
           active_salts: m.active_salts || [],
@@ -349,6 +369,7 @@ function App() {
           initial_count: packCount,
           remaining_tablets: packCount,
           doses_per_day: 1,
+          apiItemId: idx >= 0 ? prev[idx].apiItemId : null,
         };
         if (idx >= 0) {
           const copy = [...prev];
@@ -358,12 +379,32 @@ function App() {
         return [updatedItem, ...prev];
       });
     }
-    const highRiskMatch = interactions.find((i) => i.rule.severity === "HIGH");
+    if (patientConsentId && scanState.medication) {
+      syncScanAndBoxToApi({
+        consentId: patientConsentId,
+        medication: scanState.medication,
+        resolvedFoods,
+        doseTimeHHMM: scanState.doseTimeHHMM,
+        saveToBox,
+      }).then((syncRes) => {
+        const serverId = syncRes?.boxItem?.item_id;
+        if (!serverId) return;
+        setMedicineBox((prev) =>
+          prev.map((item) =>
+            item.brand_name.toLowerCase() === (scanState.medication.brand_name || "").toLowerCase()
+              ? { ...item, apiItemId: serverId }
+              : item
+          )
+        );
+      });
+    }
+    const highRiskMatch = interactions.find((i) => i.rule.high_risk_clash ?? i.rule.severity === "HIGH");
     setConsultOpen(Boolean(highRiskMatch));
     setActiveTab("timetable");
   }
 
   function handleTakeDose(itemId) {
+    const targetItem = medicineBox.find((it) => it.id === itemId);
     setMedicineBox((prev) =>
       prev.map((item) =>
         item.id === itemId
@@ -371,6 +412,45 @@ function App() {
           : item
       )
     );
+    if (targetItem?.apiItemId && patientConsentId) {
+      consumeMedicineBoxDoseApi({ consentId: patientConsentId, itemId: targetItem.apiItemId });
+    }
+  }
+
+  async function handleToggleConsent(nextChecked) {
+    setConsented(nextChecked);
+    if (!nextChecked) {
+      setPatientConsentId("");
+      return;
+    }
+    if (apiBackendOnline && !patientConsentId) {
+      const rec = await registerApiConsent("PATIENT_PROCESSING");
+      if (rec && rec.consent_id) setPatientConsentId(rec.consent_id);
+    }
+  }
+
+  function handleToggleLateShift() {
+    const nextShift = lateShiftMinutes === 0 ? 45 : 0;
+    setLateShiftMinutes(nextShift);
+    if (nextShift === 0) {
+      setShiftApiNotice("");
+      return;
+    }
+    if (patientConsentId && scanState?.medication) {
+      const delayedHHMM = formatTimeMinutes(mealsRoutine.breakfastHHMM || "08:30", nextShift);
+      shiftAlarmWithApi({
+        consentId: patientConsentId,
+        medicineName: scanState.medication.brand_name,
+        activeSalt: (scanState.medication.active_salts || [])[0] || scanState.medication.brand_name,
+        scheduledTime: scanState.doseTimeHHMM || "07:00",
+        mealAnchor: "Breakfast",
+        delayedMealTime: delayedHHMM,
+      }).then((res) => {
+        if (res && res.shifted_alarm_time) {
+          setShiftApiNotice(`API FCM Synced: ${res.shifted_alarm_time}`);
+        }
+      });
+    }
   }
 
   const navItems = [
@@ -385,7 +465,7 @@ function App() {
   const primaryRule =
     interactions[0]?.rule || findDefaultRuleForMedication(scanState.medication, bundleData.rules);
   const highRiskInteraction =
-    interactions.find((i) => i.rule.severity === "HIGH") || null;
+    interactions.find((i) => i.rule.high_risk_clash ?? i.rule.severity === "HIGH") || null;
 
   return html`
     <div class="app-shell ${elderlyMode ? "elderly-mode" : ""}">
@@ -482,15 +562,49 @@ function App() {
         </header>
 
         <main class="main-content">
+          <section class="flow-strip no-print" aria-label=${t.flow.banner_title}>
+            <div style=${{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+              <span class="field-label">${t.flow.banner_title}</span>
+              ${apiBackendOnline
+                ? html`<span class="tag safe mono">FastAPI + DPDP Synced</span>`
+                : null}
+            </div>
+            <div class="flow-steps">
+              ${[
+                { id: "scan", label: t.flow.step1_title, disabled: false },
+                { id: "confirm", label: t.flow.step2_title, disabled: !consented },
+                { id: "timetable", label: t.flow.step3_title, disabled: !scanState.confirmedByUser },
+              ].map((step) => {
+                const isCurrent = activeTab === step.id;
+                const isDone =
+                  (step.id === "scan" && (activeTab === "confirm" || scanState.confirmedByUser)) ||
+                  (step.id === "confirm" && scanState.confirmedByUser) ||
+                  (step.id === "timetable" && (activeTab === "curve" || activeTab === "qr"));
+                return html`
+                  <button
+                    key=${step.id}
+                    type="button"
+                    class="flow-step ${isCurrent ? "active" : isDone ? "done" : ""}"
+                    disabled=${step.disabled}
+                    onClick=${() => setActiveTab(step.id)}
+                  >
+                    <span>${step.label}</span>
+                  </button>
+                `;
+              })}
+            </div>
+          </section>
+
           ${activeTab === "scan"
             ? html`
                 <${ScanScreen}
                   t=${t}
                   lang=${lang}
                   consented=${consented}
-                  onToggleConsent=${setConsented}
+                  onToggleConsent=${handleToggleConsent}
                   brands=${bundleData.brands}
                   scanState=${scanState}
+                  resolvedFoods=${resolvedFoods}
                   onSelectPreset=${applyPreset}
                   onSelectManualBrand=${selectManualBrand}
                   onChangeDoseTime=${(val) => setScanState((p) => ({ ...p, doseTimeHHMM: val }))}
@@ -553,7 +667,8 @@ function App() {
                   mealsRoutine=${mealsRoutine}
                   onChangeMealRoutine=${(key, val) => setMealsRoutine((p) => ({ ...p, [key]: val }))}
                   lateShiftMinutes=${lateShiftMinutes}
-                  onToggleLateShift=${() => setLateShiftMinutes((m) => (m === 0 ? 45 : 0))}
+                  onToggleLateShift=${handleToggleLateShift}
+                  shiftApiNotice=${shiftApiNotice}
                   alarmsEnabled=${alarmsEnabled}
                   onToggleAlarm=${(aid) => setAlarmsEnabled((p) => ({ ...p, [aid]: !p[aid] }))}
                   onTestAlarmTone=${playGentleChime}
@@ -610,7 +725,7 @@ function App() {
 
         <footer class="disclaimer-footer">
           <span>${t.brand.blind_notice}</span>
-          <span class="mono">EN / HI / MR | Member 3 UI</span>
+          <span class="mono">EN / HI / MR | ${t.brand.dpdp_badge}</span>
         </footer>
       </div>
 

@@ -1,8 +1,9 @@
-const CACHE_NAME = "aahar-rx-member3-v2";
+const CACHE_NAME = "aahar-rx-member3-v3";
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
+  "./assets/aahar-rx-mark.svg",
   "./css/tokens.css",
   "./css/app.css",
   "./vendor/react.production.min.js",

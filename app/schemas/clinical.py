@@ -64,6 +64,8 @@ class ClinicalRule(BaseModel):
     interfering_nutrients: List[str] = Field(..., description="Interfering macro/micro nutrients")
     culprit_indian_foods: List[str] = Field(..., description="Common Indian food culprits")
     severity: SeverityLevel = Field(..., description="Interaction severity rating")
+    high_risk_clash: bool = Field(default=False, description="True if rule triggers mandatory doctor video consult pop-up")
+    high_risk_reason: Optional[str] = Field(None, description="Doctor-verified explanation when high_risk_clash is true")
     interaction_type: str = Field(..., description="Pharmacokinetic or pharmacodynamic interaction type")
     biochemical_mechanism: str = Field(..., description="Detailed biochemical interaction pathway")
     ifct_evidence: List[IFCTEvidence] = Field(default_factory=list, description="Nutritional evidence from ICMR-NIN IFCT")
@@ -139,6 +141,8 @@ class ConflictDetail(BaseModel):
     rule_id: str
     drug_class: str
     severity: SeverityLevel
+    high_risk_clash: bool = False
+    high_risk_reason: Optional[str] = None
     matched_salt: str
     conflicted_foods: List[str]
     interaction_type: str
@@ -265,4 +269,10 @@ class MedicineBoxItemResponse(BaseModel):
     alert_message: Optional[str] = None
     reorder_url: Optional[str] = Field(None, description="1mg / PharmEasy search deep-link")
     is_expired: bool = False
+    clinical_disclaimer: str = Field(default=MANDATORY_CLINICAL_DISCLAIMER)
+
+
+class MedicineBoxListResponse(BaseModel):
+    total_items: int
+    items: List[MedicineBoxItemResponse] = Field(default_factory=list)
     clinical_disclaimer: str = Field(default=MANDATORY_CLINICAL_DISCLAIMER)

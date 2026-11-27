@@ -8,11 +8,14 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 import sys
+import urllib.error
+import urllib.request
 from urllib.parse import parse_qs, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = ROOT / "frontend"
 SRC_DIR = ROOT / "src"
+API_BACKEND_ORIGIN = "http://127.0.0.1:8000"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
@@ -41,6 +44,8 @@ class Member3PwaHandler(SimpleHTTPRequestHandler):
         ".mp3": "audio/mpeg",
         ".svg": "image/svg+xml",
         ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
     }
 
     def log_message(self, format: str, *args: object) -> None:  # noqa: A002
@@ -54,14 +59,52 @@ class Member3PwaHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(raw)
 
+    def _proxy_to_api_backend(self, method: str, body: bytes | None = None) -> None:
+        target_url = f"{API_BACKEND_ORIGIN}{self.path}"
+        headers = {}
+        for header_name in ("Content-Type", "X-Consent-ID", "X-Doctor-Consent-ID", "Accept"):
+            val = self.headers.get(header_name)
+            if val:
+                headers[header_name] = val
+        req = urllib.request.Request(target_url, data=body, headers=headers, method=method)
+        try:
+            with urllib.request.urlopen(req, timeout=5) as resp:
+                resp_body = resp.read()
+                self.send_response(resp.status)
+                self.send_header("Content-Type", resp.headers.get("Content-Type", "application/json"))
+                self.send_header("Content-Length", str(len(resp_body)))
+                self.end_headers()
+                self.wfile.write(resp_body)
+        except urllib.error.HTTPError as exc:
+            err_body = exc.read()
+            self.send_response(exc.code)
+            self.send_header("Content-Type", exc.headers.get("Content-Type", "application/json"))
+            self.send_header("Content-Length", str(len(err_body)))
+            self.end_headers()
+            self.wfile.write(err_body)
+        except Exception:
+            self._send_json(
+                {"error": "FastAPI backend unavailable", "offline_fallback": True},
+                status=503,
+            )
+
     def do_GET(self) -> None:  # noqa: N802
-        if self.path.split("?")[0] == "/api/health":
+        route = self.path.split("?")[0]
+        if route == "/api/health":
             self._send_json({"ok": True, "bridge": "member1_smart_scan", "raw_images_retained": False})
+            return
+        if route.startswith("/api/v1/") or route == "/health":
+            self._proxy_to_api_backend("GET")
             return
         super().do_GET()
 
     def do_POST(self) -> None:  # noqa: N802
         route = self.path.split("?")[0]
+        if route.startswith("/api/v1/"):
+            length = int(self.headers.get("Content-Length", "0"))
+            body = self.rfile.read(length) if length > 0 else b""
+            self._proxy_to_api_backend("POST", body=body)
+            return
         if route not in ("/api/local-scan/strip", "/api/local-scan/meal"):
             self._send_json({"error": "Not found"}, status=404)
             return

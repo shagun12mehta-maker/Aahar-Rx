@@ -27,24 +27,24 @@ export function MedicineBoxScreen({
           <h1 class="screen-title">${t.med_box.heading}</h1>
           <p class="screen-sub">${t.med_box.subheading}</p>
         </div>
-        <span class="tag mono">${enriched.length} strips</span>
+        <span class="tag mono">${enriched.length} ${t.med_box.total_strips}</span>
       </div>
 
       <div class="stats-row">
         <div class="card card-compact">
           <span class="stat-label">${t.med_box.total_strips}</span>
           <span class="stat-value">${enriched.length}</span>
-          <span class="stat-meta">Home inventory</span>
+          <span class="stat-meta">${t.brand.dpdp_badge}</span>
         </div>
         <div class="card card-compact">
           <span class="stat-label">${t.med_box.low_stock_count}</span>
           <span class="stat-value ${lowStockCount > 0 ? "danger" : "accent"}">${lowStockCount}</span>
-          <span class="stat-meta">Trigger at 3 days left</span>
+          <span class="stat-meta">${t.med_box.low_stock_badge}</span>
         </div>
         <div class="card card-compact">
           <span class="stat-label">${t.med_box.expiring_count}</span>
           <span class="stat-value ${expiringCount > 0 ? "danger" : ""}">${expiringCount}</span>
-          <span class="stat-meta">Expiry monitor</span>
+          <span class="stat-meta">${t.med_box.expiry_soon_badge}</span>
         </div>
       </div>
 

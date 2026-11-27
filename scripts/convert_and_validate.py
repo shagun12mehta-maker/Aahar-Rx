@@ -79,13 +79,20 @@ def validate_and_convert(csv_path: str, json_out_path: str):
                 ref_id = parts[1] if len(parts) > 1 else c
                 citations_list.append({"source": source_name, "reference_id": ref_id})
 
+            severity = row.get("severity", "MODERATE").strip().upper()
+            high_risk_raw = row.get("high_risk_clash", "").strip().upper()
+            high_risk_clash = high_risk_raw in {"TRUE", "1", "YES"} if high_risk_raw else (severity == "HIGH")
+            high_risk_reason = row.get("high_risk_reason", "").strip()
+
             record = {
                 "rule_id": rule_id,
                 "drug_class": row.get("drug_class", "").strip(),
                 "active_salts": salts,
                 "interfering_nutrients": nutrients,
                 "culprit_indian_foods": foods,
-                "severity": row.get("severity", "MODERATE").strip().upper(),
+                "severity": severity,
+                "high_risk_clash": high_risk_clash,
+                "high_risk_reason": high_risk_reason,
                 "interaction_type": row.get("interaction_type", "").strip(),
                 "safe_time_gap_hours": {
                     "before_food_hours": before_gap,

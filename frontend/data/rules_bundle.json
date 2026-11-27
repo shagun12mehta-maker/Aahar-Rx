@@ -99,7 +99,9 @@
         "reviewed": true,
         "reviewer_role": "Clinical Endocrinologist & Dietitian",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": true,
+      "high_risk_reason": "Persistent TSH elevation or >35% thyroxine loss requires physician TSH review before dose adjustments."
     },
     {
       "salt_name": "Ferrous Ascorbate",
@@ -205,7 +207,9 @@
         "reviewed": true,
         "reviewer_role": "Consultant Physician & Hematologist",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": true,
+      "high_risk_reason": "Up to 62% non-heme iron loss in antenatal or chronic anemia risks worsening hemoglobin unless timing/salt changes."
     },
     {
       "salt_name": "Ciprofloxacin",
@@ -296,7 +300,9 @@
         "reviewed": true,
         "reviewer_role": "Consultant Microbiologist & MD Pharmacology",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": true,
+      "high_risk_reason": "Dairy chelation halves peak antibiotic plasma levels and risks bacterial treatment failure."
     },
     {
       "salt_name": "Warfarin Sodium",
@@ -389,7 +395,9 @@
         "reviewed": true,
         "reviewer_role": "Consultant Cardiologist",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": true,
+      "high_risk_reason": "Sudden Vitamin K surges can collapse INR into sub-therapeutic range requiring clinician anticoagulation review."
     },
     {
       "salt_name": "Amlodipine",
@@ -470,7 +478,9 @@
         "reviewed": true,
         "reviewer_role": "Consultant Physician & Cardiologist",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": false,
+      "high_risk_reason": "Spacing citrus juices by 4h-12h prevents CYP3A4 overload; escalate only if symptomatic hypotension occurs."
     },
     {
       "salt_name": "Metformin Hydrochloride",
@@ -548,7 +558,9 @@
         "reviewed": true,
         "reviewer_role": "Diabetologist & Clinical Nutritionist",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": false,
+      "high_risk_reason": "Standard dietary sugar moderation and mid-meal dosing buffer GI distress without urgent regimen change."
     },
     {
       "salt_name": "Telmisartan",
@@ -630,7 +642,9 @@
         "reviewed": true,
         "reviewer_role": "Consultant Nephrologist & Cardiologist",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": false,
+      "high_risk_reason": "Moderate dietary K+ restriction controls serum potassium unless patient has chronic kidney disease."
     },
     {
       "salt_name": "Atorvastatin",
@@ -710,7 +724,9 @@
         "reviewed": true,
         "reviewer_role": "Consultant Cardiologist & Lipidologist",
         "status": "APPROVED"
-      }
+      },
+      "high_risk_clash": false,
+      "high_risk_reason": "Avoiding concentrated pomelo juice and deep-fried snacks maintains safe hepatic lipid clearance."
     }
   ],
   "brands": [

@@ -82,6 +82,7 @@ def test_conflict_detection_levothyroxine_and_chai():
     conflict = data["conflicts"][0]
     assert conflict["rule_id"] == "RULE-THY-001"
     assert conflict["severity"] == "HIGH"
+    assert conflict["high_risk_clash"] is True
     assert conflict["absorption_impact"]["bioavailability_drop_pct"] == 38.0
     assert conflict["safe_time_gap_hours"]["before_food_hours"] == 1.0
     assert conflict["safe_time_gap_hours"]["after_food_hours"] == 4.0
@@ -167,6 +168,15 @@ def test_clash_report_success_with_doctor_consent():
     assert data["bioavailability_drop_pct"] == 38.0
     assert data["clinical_disclaimer"] == MANDATORY_CLINICAL_DISCLAIMER
 
+    # Fetch shareable Clash Report link for clinician review
+    fetch_res = client.get(
+        f"/api/v1/clash-report/{data['report_token']}",
+        headers={"X-Doctor-Consent-ID": TEST_DOCTOR_SHARE_CONSENT_ID},
+    )
+    assert fetch_res.status_code == 200
+    assert fetch_res.json()["report_token"] == data["report_token"]
+    assert fetch_res.json()["jitsi_room_url"] == data["jitsi_room_url"]
+
 
 # =============================================================================
 # 5. NEW FLOW 2: Routine Shift Engine (Delayed Meal Alarm Recalculation)
@@ -237,6 +247,11 @@ def test_medicine_box_stock_tracking_and_low_stock_alert():
     assert "LOW STOCK ALERT" in updated_item["alert_message"]
     assert "Thyronorm" in updated_item["reorder_url"]
     assert updated_item["clinical_disclaimer"] == MANDATORY_CLINICAL_DISCLAIMER
+
+    list_res = client.get("/api/v1/medicine-box", headers={"X-Consent-ID": TEST_PATIENT_CONSENT_ID})
+    assert list_res.status_code == 200
+    assert list_res.json()["total_items"] >= 1
+    assert any(entry["item_id"] == item_id for entry in list_res.json()["items"])
 
 
 # =============================================================================
